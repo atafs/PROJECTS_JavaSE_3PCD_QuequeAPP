@@ -1,0 +1,38 @@
+package gui.listener.button;
+
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+public class TextToSend implements ActionListener, KeyListener{
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		 int key = e.getKeyCode();
+	     if (key == KeyEvent.VK_ENTER) {
+	        Toolkit.getDefaultToolkit().beep(); 
+	        System.out.println("ENTER pressed");
+	     }			
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

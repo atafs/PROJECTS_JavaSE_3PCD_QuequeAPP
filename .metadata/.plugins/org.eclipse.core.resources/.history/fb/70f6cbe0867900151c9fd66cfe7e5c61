@@ -1,0 +1,13 @@
+package db.DBServices;
+
+public class CRUD {
+	
+	//CREATE
+	
+	//RETRIEVE
+	
+	//UPDATE
+	
+	//DELETE
+
+}

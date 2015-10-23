@@ -1,18 +1,25 @@
 package gui.client;
 
+import gui.listener.button.Send;
+
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Image;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
+import javax.imageio.ImageIO;
+import javax.swing.BoundedRangeModel;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
@@ -23,7 +30,7 @@ public class Client extends JFrame {
 	//ATTRIBUTES
 	private static final long serialVersionUID = 1L;
 	
-	private String nome;
+	private String nomeClient;
 	private JTextField textoParaEnviar;
 	private Socket socket;
 	private PrintWriter escritor;
@@ -31,9 +38,9 @@ public class Client extends JFrame {
 	private Scanner leitor;
 	
 	//CONSTRUCTOR
-	public Client(String nome) {
-		super("Chat: " + nome);
-		this.nome = nome;
+	public Client(String nomeClient) {
+		super("Chat: " + nomeClient);
+		this.nomeClient = nomeClient;
 		
     	//TABS
         setTitle("QuequeAPP");
@@ -49,25 +56,55 @@ public class Client extends JFrame {
         //PANEL2
         JPanel jp2 = new JPanel();
         
-        //fonte e botoes/texto
-		Font fonte = new Font("Serif", Font.BOLD, 20);
+        //TEXTFIELD COMPONENT
+		Font fonteTextfield = new Font("Serif", Font.LAYOUT_LEFT_TO_RIGHT, 20);
 		textoParaEnviar = new JTextField();
+		textoParaEnviar.setBackground(Color.BLUE);
+		textoParaEnviar.setForeground(Color.WHITE);
 		textoParaEnviar.setSize(200, 200);
-		textoParaEnviar.setFont(fonte);
-		JButton botao = new JButton("Enviar");
-		botao.setFont(fonte);
-		botao.addActionListener(new EnviarListener());
+		textoParaEnviar.setFont(fonteTextfield);
 		
-		//area de recepcao de mensagens
+        //BUTTON COMPONENT
+		JButton send = new JButton("Send");
+		Font fonteButton = new Font("Serif", Font.BOLD, 30);
+		send.setBackground(Color.WHITE);
+		send.setForeground(Color.GREEN);
+		send.setFont(fonteButton);
+		  try {
+		    Image img = ImageIO.read(getClass().getResource("/gui/listener/img/send.jpg"));
+		    send.setIcon(new ImageIcon(img));
+		  } catch (IOException ex) {
+		  }
+		
+		//TEXTAREA COMPONENT
 		textoRecebido = new JTextArea();
-		textoRecebido.setFont(fonte);
+		textoRecebido.setFont(fonteTextfield);
 		JScrollPane scroll = new JScrollPane(textoRecebido);
+		
+  		//DISTRIBUITON
+  		try {
+			configurarRede();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+  		
+  		//LISTENER
+		Send sendListener = new Send(send, textoParaEnviar, escritor, nomeClient);
+		send.addActionListener(sendListener);
+		textoParaEnviar.addKeyListener(sendListener);
 		
 		//PANEL3
 		JPanel jp3 = new JPanel();
-		jp3.setLayout(new GridLayout(0,2));
-		jp3.add(textoParaEnviar);
-		jp3.add(botao);
+		JScrollBar scrollBar = new JScrollBar(JScrollBar.VERTICAL);
+		jp3.setLayout(new BoxLayout(jp3, BoxLayout.X_AXIS));
+
+	    BoundedRangeModel brm = textoParaEnviar.getHorizontalVisibility();
+	    scrollBar.setModel(brm);
+	    jp3.add(textoParaEnviar);
+	    jp3.add(send);
+	    jp3.add(scrollBar);
+		
+		
 		
 		jp2.setLayout(new BorderLayout());
 		jp2.add(BorderLayout.SOUTH, jp3);
@@ -77,37 +114,45 @@ public class Client extends JFrame {
 		jtp.addTab("CHAT", jp2);
         jtp.addTab("CONTACTS", envio);
       
-  		//configuracao de rede
-  		try {
-			configurarRede();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-  		
-    	setSize(700, 500);
-    	setLocation(200, 200);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
-         
+        //LANCH GUI
+        init();
+        start();   
     }
 	
-	//MAIN
+	//GETTERS
+    public String getNomeClient() {
+		return nomeClient;
+	}
+	
+	/** MAIN */
     public static void main(String[] args) {   	
     	//INITIALIZE
     	new Client("Americo");
     	new Client("Tomas");
     }
+	/** INIT: */
+    private void init() {
+     	setSize(700, 500);
+    	setLocation(200, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
     
-	//listener
-	private class EnviarListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			escritor.println(nome + " -> " + textoParaEnviar.getText());
-			escritor.flush();//garantir que foi enviado
-			textoParaEnviar.setText("");//limpar campo de texto
-			textoParaEnviar.requestFocus();//colocar cursor dentro do campo
-		}
-	}
+    /** START: */
+    private void start() {
+    	setVisible(true);
+    }
+    
+    
+//	//listener
+//	private class EnviarListener implements ActionListener {
+//		@Override
+//		public void actionPerformed(ActionEvent arg0) {
+//			escritor.println(nomeClient + " -> " + textoParaEnviar.getText());
+//			escritor.flush();//garantir que foi enviado
+//			textoParaEnviar.setText("");//limpar campo de texto
+//			textoParaEnviar.requestFocus();//colocar cursor dentro do campo
+//		}
+//	}
 
 	//ligacao com o servidor
 	private void configurarRede() throws Exception {
