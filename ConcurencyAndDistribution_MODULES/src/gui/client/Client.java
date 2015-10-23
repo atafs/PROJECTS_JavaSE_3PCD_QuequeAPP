@@ -1,7 +1,7 @@
 package gui.client;
 
+import enums.state.data.Message;
 import gui.listener.Send;
-import gui.swing.icon_and_text.ImgNText;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -25,7 +25,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
  
 public class Client extends JFrame {
@@ -34,17 +33,22 @@ public class Client extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	private String nomeClient;
+	private ImageIcon image;
 	private JTextField textoParaEnviar;
 	private Socket socket;
 	private PrintWriter escritor;
-	private JTextArea textoRecebido;
 	private Scanner leitor;
+	
+	private DefaultListModel<Object> listModel;
 	private JList<Object> countryList;
+	private JScrollPane scroll;
 	
 	//CONSTRUCTOR
-	public Client(String nomeClient) {
+	public Client(String nomeClient, ImageIcon image) {
 		super("Chat: " + nomeClient);
 		this.nomeClient = nomeClient;
+		this.image = image;
+
 		
     	//TABS
         setTitle("QuequeAPP");
@@ -84,18 +88,13 @@ public class Client extends JFrame {
 //		textoRecebido = new JTextArea();
         
 		//DefaultListModel
-        DefaultListModel<Object> listModel = new DefaultListModel<>();
+        listModel = new DefaultListModel<>();
         listModel.clear();
-        ImgNText myUser = new ImgNText("Americo", new ImageIcon("D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES\\src\\gui\\swing\\icon_and_text\\img\\Americo.jpg"));
-        ImageIcon image = new ImageIcon("D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES\\src\\gui\\swing\\icon_and_text\\img\\Americo.jpg");
-        listModel.addElement(image);
-        listModel.addElement("Americo");
-        listModel.addElement(myUser.getFotoUser());
-
+        
         //JLIST
         countryList = new JList<>(listModel);
         countryList.setFont(fonteTextfield);
-		JScrollPane scroll = new JScrollPane(countryList);
+		scroll = new JScrollPane(countryList);
 		
   		//DISTRIBUITON
   		try {
@@ -141,8 +140,8 @@ public class Client extends JFrame {
 	/** MAIN */
     public static void main(String[] args) {   	
     	//INITIALIZE
-    	new Client("Americo");
-    	new Client("Tomas");
+    	new Client("Americo", new ImageIcon("D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES\\src\\gui\\swing\\icon_and_text\\img\\dragao1.jpg"));
+    	new Client("Tomas", new ImageIcon("D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES\\src\\gui\\swing\\icon_and_text\\img\\dragao2.jpg"));
     }
 	
     /** INIT: */
@@ -177,8 +176,16 @@ public class Client extends JFrame {
 			try {
 				String texto;
 				while((texto = leitor.nextLine()) != null) {
-					//adiciona no final de todo o texto o novo texto
-					textoRecebido.append(texto + "\n");
+					//ADD NEW TEXT AND IMAGE
+			        listModel.addElement(image);
+			        listModel.addElement(texto + "\n");
+			        listModel.addElement("[status = " + Message.SENT.toString() + "]"); 
+			        
+//			        ImgNText myUser = new ImgNText("Americo", new ImageIcon("D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES\\src\\gui\\swing\\icon_and_text\\img\\Americo.jpg"));
+//			        ImageIcon image = new ImageIcon("D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES\\src\\gui\\swing\\icon_and_text\\img\\Americo.jpg");
+//			        listModel.addElement(image);
+//			        listModel.addElement("Americo");
+//			        listModel.addElement(myUser.getFotoUser());
 				}
 			} catch(Exception x) {}
 		}
