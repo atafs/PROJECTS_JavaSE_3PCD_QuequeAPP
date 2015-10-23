@@ -1,0 +1,7 @@
+[
+	{"banner": "BDM", "country": }, "nameIssue": }, "docx": }, "func_xlsx": }, "valid_xlsx": }	{"banner": "General", "country": }, "nameIssue": }, "docx": }, "func_xlsx": }, "valid_xlsx": },
+	{"banner": "General - Solution Centers", "country": AUSTRALIA}, "nameIssue": TEST789}, "docx": }, "func_xlsx": TEST789_func.xlsx}, "valid_xlsx": TEST789_valid.xlsx},
+	{"banner": "General - Solution Centers", "country": Texas}, "nameIssue": TEST357}, "docx": TEST357 Help-Brazil.docx}, "func_xlsx": TC_TEST357_func.xlsx}, "valid_xlsx": TC_TEST357_valid.xlsx},
+	{"banner": "HR", "country": }, "nameIssue": HR - Solution Center}, "docx": }, "func_xlsx": }, "valid_xlsx": },
+
+]
