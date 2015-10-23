@@ -44,6 +44,11 @@ public class Client extends JFrame {
 		
     	//TABS
         setTitle("QuequeAPP");
+        try {
+		    Image img = ImageIO.read(getClass().getResource("/gui/listener/img/send.jpg"));
+		    setIcon(new ImageIcon(img));
+		  } catch (IOException ex) {
+		  }
         JTabbedPane jtp = new JTabbedPane();
         getContentPane().add(jtp);
         
@@ -103,7 +108,9 @@ public class Client extends JFrame {
 	    jp3.add(textoParaEnviar);
 	    jp3.add(send);
 	    jp3.add(scrollBar);
-
+		
+		
+		
 		jp2.setLayout(new BorderLayout());
 		jp2.add(BorderLayout.SOUTH, jp3);
 		jp2.add(BorderLayout.CENTER, scroll);
@@ -140,6 +147,18 @@ public class Client extends JFrame {
     	setVisible(true);
     }
     
+    
+//	//listener
+//	private class EnviarListener implements ActionListener {
+//		@Override
+//		public void actionPerformed(ActionEvent arg0) {
+//			escritor.println(nomeClient + " -> " + textoParaEnviar.getText());
+//			escritor.flush();//garantir que foi enviado
+//			textoParaEnviar.setText("");//limpar campo de texto
+//			textoParaEnviar.requestFocus();//colocar cursor dentro do campo
+//		}
+//	}
+
 	//ligacao com o servidor
 	private void configurarRede() throws Exception {
 	
