@@ -1,0 +1,32 @@
+package gui.swing.icon_and_text;
+
+
+import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
+
+public class ListGUI_v5 extends JFrame{
+	
+	//ATTRIBUTES
+	private static final long serialVersionUID = 1L;
+	//MODEL
+	DefaultListModel<Object> model = new DefaultListModel<Object>();
+
+	//CONSTRUCTOR
+	public ListGUI_v5()  {
+		initComponents();
+		
+	}
+	
+	/** Add to List */
+	private void populate() {
+		model.clear();
+		
+	}
+
+	/** */
+	private void initComponents() {
+		// TODO Auto-generated method stub
+		
+	}
+ 
+}

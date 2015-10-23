@@ -5,3 +5,12 @@
 1445612507458	Move compilation unit
 1445612513710	Delete element
 1445612518853	Delete element
+1445614500864	Rename type 'JListGUI'
+1445614934928	Rename type 'jlISTgui_V3'
+1445615496715	Delete element
+1445615813509	Rename package 'icon_and_text'
+1445615831020	Rename package 'swing.icon_and_text'
+1445615836864	Move compilation unit
+1445615851733	Rename type 'JListGUI_v5'
+1445616515387	Delete element
+1445618261211	Rename type 'JListHGUI_v6'

@@ -128,8 +128,10 @@ public class Client extends JFrame {
     	new Client("Americo");
     	new Client("Tomas");
     }
-	/** INIT: */
+	
+    /** INIT: */
     private void init() {
+    	//setDefaultLookAndFeelDecorated(true);
      	setSize(700, 500);
     	setLocation(200, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

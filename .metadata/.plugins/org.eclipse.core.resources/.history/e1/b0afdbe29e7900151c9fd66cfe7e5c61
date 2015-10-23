@@ -1,0 +1,5 @@
+package gui.swing.icon_and_text;
+
+public class Renderer {
+
+}
