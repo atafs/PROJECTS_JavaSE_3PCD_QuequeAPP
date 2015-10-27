@@ -42,4 +42,6 @@
 <fullyQualifiedTypeName name="gui.swing.icon_and_text.ImgNText"/>
 <fullyQualifiedTypeName name="java.lang.Object"/>
 <fullyQualifiedTypeName name="enums.state.data.Message"/>
+<fullyQualifiedTypeName name="pt.progJava.americoLib.control107.service.ClienteService"/>
+<fullyQualifiedTypeName name="pt.progJava.americoLib.control107.frame.ClienteFrame"/>
 </qualifiedTypeNameHistroy>

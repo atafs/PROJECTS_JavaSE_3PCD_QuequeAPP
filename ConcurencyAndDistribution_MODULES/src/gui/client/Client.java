@@ -1,5 +1,6 @@
 package gui.client;
 
+import distribution.serializable.ChatMessage;
 import enums.state.data.Message;
 import gui.listener.Send;
 
@@ -25,12 +26,18 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import log.LogMessage;
+import pt.progJava.americoLib.control107.service.ClienteService;
  
 public class Client extends JFrame {
      
 	//ATTRIBUTES
 	private static final long serialVersionUID = 1L;
+	//LOG4J LOGGER
+	private static LogMessage logger = new LogMessage();
 	
 	private String nomeClient;
 	private ImageIcon image;
@@ -43,14 +50,99 @@ public class Client extends JFrame {
 	private JList<Object> countryList;
 	private JScrollPane scroll;
 	
+	//TODO INTEGRATE NEW FEATURES
+	private ChatMessage message;
+	private JButton btnConectar;
+	private JButton btnEnviar;
+	private JButton btnLimpar;
+	private JButton btnSair;
+	private JPanel jPanel1;
+	private JPanel jPanel2;
+	private JPanel jPanel3;
+	private JScrollPane jScrollPane1;
+	private JScrollPane jScrollPane2;
+	private JScrollPane jScrollPane3;
+	private javax.swing.JList listOnlines;
+	private JTextArea txtAreaReceive;
+	private JTextArea txtAreaSend;
+	private javax.swing.JTextField txtName;
+	private ClienteService service;
+	
 	//CONSTRUCTOR
 	public Client(String nomeClient, ImageIcon image) {
 		super("Chat: " + nomeClient);
 		this.nomeClient = nomeClient;
 		this.image = image;
-
 		
-    	//TABS
+        //LANCH GUI
+		gui_initComponents();
+        gui_lastInstructions();
+        gui_start();  
+    }
+	
+	//GETTERS
+    public String getNomeClient() {
+		return nomeClient;
+	}
+	
+	/** MAIN */
+    public static void main(String[] args) {   	
+    	//INITIALIZE
+    	new Client("Americo", new ImageIcon("D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES\\src\\gui\\swing\\icon_and_text\\img\\dragao1.jpg"));
+    	new Client("Tomas", new ImageIcon("D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES\\src\\gui\\swing\\icon_and_text\\img\\dragao2.jpg"));
+    }
+	
+    /** INIT: */
+    private void gui_lastInstructions() {
+    	//setDefaultLookAndFeelDecorated(true);
+     	setSize(700, 500);
+    	setLocation(200, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    
+    /** START: */
+    private void gui_start() {
+    	setVisible(true);
+    }
+    
+	//ligacao com o servidor
+	private void configurarRede() throws Exception {
+	
+		try {
+			socket = new Socket("127.0.0.2", 6002);
+			escritor = new PrintWriter(socket.getOutputStream());
+			leitor = new Scanner(socket.getInputStream());
+			new Thread(new EscutaServidor()).start();
+		} catch (Exception e) {}
+	}
+		
+	//class de escuta do servidor
+	private class EscutaServidor implements Runnable {
+
+		@Override
+		public void run() {
+			try {
+				String texto;
+				while((texto = leitor.nextLine()) != null) {
+					//ADD NEW TEXT AND IMAGE
+			        listModel.addElement(image);
+			        listModel.addElement(texto + "\n");
+			        listModel.addElement("[status = " + Message.SENT.toString() + "]"); 
+			        
+//			        ImgNText myUser = new ImgNText("Americo", new ImageIcon("D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES\\src\\gui\\swing\\icon_and_text\\img\\Americo.jpg"));
+//			        ImageIcon image = new ImageIcon("D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES\\src\\gui\\swing\\icon_and_text\\img\\Americo.jpg");
+//			        listModel.addElement(image);
+//			        listModel.addElement("Americo");
+//			        listModel.addElement(myUser.getFotoUser());
+				}
+			} catch(Exception x) {}
+		}
+		
+	}
+	
+	/** */
+	private void gui_initComponents() {
+		//TABS
         setTitle("QuequeAPP");
         JTabbedPane jtp = new JTabbedPane();
         getContentPane().add(jtp);
@@ -126,69 +218,69 @@ public class Client extends JFrame {
         //ADD PANELS TO TABS
 		jtp.addTab("CHAT", jp2);
         jtp.addTab("CONTACTS", envio);
-      
-        //LANCH GUI
-        init();
-        start();   
-    }
-	
-	//GETTERS
-    public String getNomeClient() {
-		return nomeClient;
+   
 	}
 	
-	/** MAIN */
-    public static void main(String[] args) {   	
-    	//INITIALIZE
-    	new Client("Americo", new ImageIcon("D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES\\src\\gui\\swing\\icon_and_text\\img\\dragao1.jpg"));
-    	new Client("Tomas", new ImageIcon("D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES\\src\\gui\\swing\\icon_and_text\\img\\dragao2.jpg"));
-    }
-	
-    /** INIT: */
-    private void init() {
-    	//setDefaultLookAndFeelDecorated(true);
-     	setSize(700, 500);
-    	setLocation(200, 200);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-    
-    /** START: */
-    private void start() {
-    	setVisible(true);
-    }
-    
-	//ligacao com o servidor
-	private void configurarRede() throws Exception {
-	
-		try {
-			socket = new Socket("127.0.0.2", 6002);
-			escritor = new PrintWriter(socket.getOutputStream());
-			leitor = new Scanner(socket.getInputStream());
-			new Thread(new EscutaServidor()).start();
-		} catch (Exception e) {}
-	}
+	/** */
+	public void in_connect(ChatMessage message) {
 		
-	//class de escuta do servidor
-	private class EscutaServidor implements Runnable {
-
-		@Override
-		public void run() {
-			try {
-				String texto;
-				while((texto = leitor.nextLine()) != null) {
-					//ADD NEW TEXT AND IMAGE
-			        listModel.addElement(image);
-			        listModel.addElement(texto + "\n");
-			        listModel.addElement("[status = " + Message.SENT.toString() + "]"); 
-			        
-//			        ImgNText myUser = new ImgNText("Americo", new ImageIcon("D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES\\src\\gui\\swing\\icon_and_text\\img\\Americo.jpg"));
-//			        ImageIcon image = new ImageIcon("D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES\\src\\gui\\swing\\icon_and_text\\img\\Americo.jpg");
-//			        listModel.addElement(image);
-//			        listModel.addElement("Americo");
-//			        listModel.addElement(myUser.getFotoUser());
-				}
-			} catch(Exception x) {}
+		if (message.getText().equals("NO")) {
+			this.txtName.setText("");
+			logger.getLog().info("CONNECTION FAILERD.\n TRY AGAIN WITH A DIFERENT NAME");
+			return;
 		}
-		
-	}	
+
+		this.message = message;
+		this.btnConectar.setEnabled(false);
+		this.txtName.setEditable(false);
+		this.btnSair.setEnabled(true);
+		this.txtAreaSend.setEnabled(true);
+		this.txtAreaReceive.setEnabled(true);
+		this.btnEnviar.setEnabled(true);
+		this.btnLimpar.setEnabled(true);
+
+		logger.getLog().info("CONNECTION SUCCEDED.\n YOU ARE CONNECTED IN CHATROOM");
+	}
+
+	/** */
+	public void in_disconnected() {
+		this.btnConectar.setEnabled(true);
+		this.txtName.setEnabled(true);
+
+		this.btnSair.setEnabled(false);
+		this.txtAreaSend.setEnabled(false);
+		this.txtAreaReceive.setEnabled(false);
+		this.btnEnviar.setEnabled(false);
+		this.btnLimpar.setEnabled(false);
+
+		this.txtAreaReceive.setText("");
+		this.txtAreaSend.setText("");
+
+		logger.getLog().info("YOU HAVE LEFT THE CHATROOM");
+	}
+
+	/** */
+	public void in_receive(ChatMessage message) {
+		this.txtAreaReceive.append(message.getName() + " SAID: "
+				+ message.getText() + "\n");
+	}
+
+	/** */
+	public void in_refreshOnlines(ChatMessage message) {
+		System.out.println(message.getSetOnlines().toString());
+		java.util.Set<String> names = message.getSetOnlines();
+
+		names.remove(message.getName());
+
+		String[] array = (String[]) names.toArray(new String[names.size()]);
+
+		this.listOnlines.setListData(array);
+		this.listOnlines.setSelectionMode(0);
+		this.listOnlines.setLayoutOrientation(0);
+	}
+
+	/** */
+	public Socket getSocket() {
+		return socket;
+	}
 }

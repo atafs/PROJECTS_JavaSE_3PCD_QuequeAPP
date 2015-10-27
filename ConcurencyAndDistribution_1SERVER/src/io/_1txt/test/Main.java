@@ -29,7 +29,6 @@ public class Main {
 		// treat as a small file
 		List<String> lines = reader.readSmallTextFile(FILE_NAME);
 		logger.getLog().debug(lines);
-		lines.add("This is a line added in code.");
 		writer.writeSmallTextFile(lines, FILE_NAME);
 
 		// treat as a large file - use some buffering

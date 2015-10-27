@@ -1,0 +1,52 @@
+package concurrency.threads;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.net.Socket;
+
+import log.LogMessage;
+import gui.client.ClienteFrame;
+import pt.progJava.americoLib.control108.bean.ChatMessage;
+
+public class In implements Runnable {
+
+	//ObjectInputStream
+	private ObjectInputStream input;
+	//LOG4J LOGGER
+	private static LogMessage logger = new LogMessage();
+
+	public In(Socket socket) {
+		try {
+			this.input = new java.io.ObjectInputStream(socket.getInputStream());
+		} catch (IOException ex) {
+			logger.getLog().info("IOException="+ex);
+		}
+	}
+
+	public void run() {
+		ChatMessage message = null;
+		try {
+			while ((message = (ChatMessage) this.input.readObject()) != null) {
+				ChatMessage.Action action = message.getAction();
+
+				if (action.equals(ChatMessage.Action.CONNECT)) {
+					ClienteFrame.this.connect(message);
+				} else if (action.equals(ChatMessage.Action.DISCONNECT)) {
+					ClienteFrame.this.disconnected();
+					ClienteFrame.this.socket.close();
+				} else if (action.equals(ChatMessage.Action.SEND_ONE)) {
+					ClienteFrame.this.receive(message);
+				} else if (action.equals(ChatMessage.Action.USERS_ONLINE)) {
+					ClienteFrame.this.refreshOnlines(message);
+				}
+			}
+		} catch (java.io.IOException ex) {
+			java.util.logging.Logger.getLogger(ClienteFrame.class.getName())
+					.log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (ClassNotFoundException ex) {
+			java.util.logging.Logger.getLogger(ClienteFrame.class.getName())
+					.log(java.util.logging.Level.SEVERE, null, ex);
+		}
+	}
+
+}

@@ -1,0 +1,5 @@
+package distribution.serializable;
+
+public class Data {
+
+}

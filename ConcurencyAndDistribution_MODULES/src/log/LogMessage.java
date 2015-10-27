@@ -9,7 +9,7 @@ public class LogMessage {
 
 	//CONSTRUCTOR
 	public LogMessage() {
-		log = (Logger) org.apache.log4j.Logger.getLogger(LogMessage.class);
+		log = (Logger) Logger.getLogger(LogMessage.class);
 	}
 
 	//GETTER

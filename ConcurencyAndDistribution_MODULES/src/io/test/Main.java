@@ -14,8 +14,8 @@ import log.LogMessage;
 public class Main {
 	
 	//PATHS (absolute for windows)
-	final static String FILE_NAME = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD\\ConcurencyAndDistribution_1QuequeApp_swing\\message\\txt\\contactTEST.txt";
-	final static String OUTPUT_FILE_NAME = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD\\ConcurencyAndDistribution_1QuequeApp_swing\\message\\txt\\contactTEST.txt";
+	final static String READ_FROM_FILE = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES\\message\\txt\\readFromFile.txt";
+	final static String WRITE_TO_FILE = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES\\message\\txt\\writeToFile.txt";
 	final static Charset ENCODING = StandardCharsets.UTF_8;
 	
 	//LOG4J LOGGER
@@ -27,14 +27,13 @@ public class Main {
 		Writer writer = new Writer();
 
 		// treat as a small file
-		List<String> lines = reader.readSmallTextFile(FILE_NAME);
+		List<String> lines = reader.readSmallTextFile(READ_FROM_FILE);
 		logger.getLog().debug(lines);
-		lines.add("This is a line added in code.");
-		writer.writeSmallTextFile(lines, FILE_NAME);
+		writer.writeSmallTextFile(lines, READ_FROM_FILE);
 
 		// treat as a large file - use some buffering
-		reader.readLargerTextFile(FILE_NAME);
-		lines = Arrays.asList("Down to the Waterline", "Water of Love");
-		writer.writeLargerTextFile(OUTPUT_FILE_NAME, lines);
+		reader.readLargerTextFile(READ_FROM_FILE);
+		lines = Arrays.asList("Agora estou a Escrever", "Para o Ficheiro");
+		writer.writeLargerTextFile(WRITE_TO_FILE, lines);
 	}
 }
