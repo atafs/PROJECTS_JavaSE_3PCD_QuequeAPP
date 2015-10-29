@@ -1,0 +1,34 @@
+package gui.listener;
+
+import gui.client.Client;
+import gui.client.ClienteFrame;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+
+public class Clean implements ActionListener {
+
+	//ATTRIBUTE
+	private JButton btnClean;
+	private Client client;
+
+	//CONSTRUCTOR
+	public Clean(JButton btnClean, Client client) {
+		this.btnClean = btnClean;
+		this.client = client;
+	}
+	
+	//GETTER
+	public JButton getBtnClean() {
+		return btnClean;
+	}
+
+	//ACTION LISTENER
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		client.btnEnviarActionPerformed();
+
+	}
+}

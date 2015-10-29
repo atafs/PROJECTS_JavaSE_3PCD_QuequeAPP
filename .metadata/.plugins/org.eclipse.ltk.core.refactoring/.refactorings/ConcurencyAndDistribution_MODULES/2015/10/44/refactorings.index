@@ -31,3 +31,34 @@
 1445987648300	Rename method 'disconnected'
 1445987673755	Rename method 'receive'
 1445987681905	Rename method 'refreshOnlines'
+1446067368651	Copy compilation unit
+1446067489267	Copy compilation unit
+1446067506949	Rename field 'connect'
+1446068970124	Rename field 'jPanel2'
+1446068978476	Rename field 'jPanel3'
+1446069928729	Copy compilation unit
+1446071355332	Copy compilation unit
+1446071583285	Copy compilation unit
+1446074838335	Rename type 'Client'
+1446074842109	Copy compilation unit
+1446074940572	Delete element
+1446075043357	Copy compilation unit
+1446075092500	Delete element
+1446075097773	Move compilation unit
+1446075131589	Rename type 'Client'
+1446075144041	Rename type 'GUI_tabs_v1_'
+1446075165804	Copy compilation unit
+1446075330903	Rename type 'GUI_tabs_v1_3'
+1446075914241	Move compilation unit
+1446075917403	Move compilation unit
+1446075936602	Rename package 'concurrency.threads.backup'
+1446148938124	Move compilation unit
+1446148941621	Move compilation unit
+1446148952558	Copy files
+1446148965273	Rename package 'gui.client.backup'
+1446148973815	Delete elements
+1446149004379	Move compilation unit
+1446149118538	Copy compilation units
+1446150209236	Copy compilation unit
+1446150949047	Copy compilation unit
+1446160516905	Copy file

@@ -6,7 +6,6 @@
 <fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="java.awt.Image"/>
 <fullyQualifiedTypeName name="javax.imageio.ImageIO"/>
-<fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="javax.swing.JScrollBar"/>
 <fullyQualifiedTypeName name="javax.swing.BoxLayout"/>
 <fullyQualifiedTypeName name="javax.swing.BoundedRangeModel"/>
@@ -36,7 +35,6 @@
 <fullyQualifiedTypeName name="javax.swing.Icon"/>
 <fullyQualifiedTypeName name="javax.swing.DefaultListCellRenderer"/>
 <fullyQualifiedTypeName name="javax.swing.ListCellRenderer"/>
-<fullyQualifiedTypeName name="javax.swing.JFrame"/>
 <fullyQualifiedTypeName name="javax.swing.DefaultListModel"/>
 <fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
 <fullyQualifiedTypeName name="gui.swing.icon_and_text.ImgNText"/>
@@ -44,4 +42,12 @@
 <fullyQualifiedTypeName name="enums.state.data.Message"/>
 <fullyQualifiedTypeName name="pt.progJava.americoLib.control107.service.ClienteService"/>
 <fullyQualifiedTypeName name="pt.progJava.americoLib.control107.frame.ClienteFrame"/>
+<fullyQualifiedTypeName name="javax.swing.JFrame"/>
+<fullyQualifiedTypeName name="java.net.Socket"/>
+<fullyQualifiedTypeName name="log.LogMessage"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="dao.phonebook.test.Main"/>
+<fullyQualifiedTypeName name="java.io.ObjectInputStream"/>
+<fullyQualifiedTypeName name="gui.client.Client"/>
+<fullyQualifiedTypeName name="distribution.serializable.ChatMessage"/>
 </qualifiedTypeNameHistroy>

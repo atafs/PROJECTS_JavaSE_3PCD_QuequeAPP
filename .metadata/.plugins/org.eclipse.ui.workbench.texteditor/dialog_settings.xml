@@ -2,12 +2,14 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="jp2" key="selection"/>
+		<item value="ListenerSocket" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="ListenerSocket"/>
+			<item value="&#x09;&#x09;ChatMessage message = (ChatMessage) &#x09;&#x09;ChatMessage message = (ChatMessage) this.input.readObject();();"/>
 			<item value="jp2"/>
 			<item value="DefaultListModel&lt;Object&gt; listModel"/>
 			<item value="textoRecebido"/>

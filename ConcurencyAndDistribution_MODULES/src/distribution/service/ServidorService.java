@@ -14,8 +14,8 @@
 /*     */ import java.util.Set;
 /*     */ import java.util.logging.Level;
 /*     */ import java.util.logging.Logger;
-/*     */ import pt.progJava.americoLib.control108.bean.ChatMessage;
-/*     */ import pt.progJava.americoLib.control108.bean.ChatMessage.Action;
+
+import distribution.serializable.ChatMessage;
 /*     */ 
 /*     */ 
 /*     */ 

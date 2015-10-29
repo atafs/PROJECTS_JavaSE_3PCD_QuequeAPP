@@ -1,0 +1,33 @@
+package gui.listener;
+
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.PrintWriter;
+
+import javax.swing.JButton;
+import javax.swing.JTextField;
+
+public class Connect implements ActionListener {
+
+	//ATTRIBUTE
+	private JButton connect;
+
+	//CONSTRUCTOR
+	public Connect(JButton connect) {
+		this.connect = connect;
+	}
+	
+	//GETTER
+	public JButton getConnect() {
+		return connect;
+	}
+
+	//ACTION LISTENER
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		
+	}
+}

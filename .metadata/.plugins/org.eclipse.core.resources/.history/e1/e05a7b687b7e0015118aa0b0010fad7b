@@ -1,0 +1,44 @@
+ package pt.progJava.americoLib.control107;
+ 
+ import java.awt.EventQueue;
+ import java.util.logging.Level;
+ import java.util.logging.Logger;
+
+ import javax.swing.UIManager;
+ import javax.swing.UIManager.LookAndFeelInfo;
+ import javax.swing.UnsupportedLookAndFeelException;
+
+ 
+ 
+ public class Start_SERVER_CLIENTE_10_CLIENT_ChatROOM_control108
+ {
+   public static void main(String[] args)
+   {
+	
+			new ClientFrame().setVisible(true);
+	
+     try
+     {
+       for (UIManager.LookAndFeelInfo info = null; ; ) {
+         if ("Nimbus".equals(info.getName())) {
+           UIManager.setLookAndFeel(info.getClassName());
+           break;
+         }
+       }
+     } catch (ClassNotFoundException ex) {
+       Logger.getLogger(ClienteFrame.class.getName()).log(Level.SEVERE, null, ex);
+     } catch (InstantiationException ex) {
+       Logger.getLogger(ClienteFrame.class.getName()).log(Level.SEVERE, null, ex);
+     } catch (IllegalAccessException ex) {
+       Logger.getLogger(ClienteFrame.class.getName()).log(Level.SEVERE, null, ex);
+     } catch (UnsupportedLookAndFeelException ex) {
+       Logger.getLogger(ClienteFrame.class.getName()).log(Level.SEVERE, null, ex);
+     }
+     
+ 
+     EventQueue.invokeLater(new Runnable() {
+       public void run()          new ClientFrame().setVisible(true);
+       }
+     });
+   }
+ }

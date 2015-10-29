@@ -5,7 +5,8 @@
 /*    */ import java.net.Socket;
 /*    */ import java.util.logging.Level;
 /*    */ import java.util.logging.Logger;
-/*    */ import pt.progJava.americoLib.control108.bean.ChatMessage;
+
+import distribution.serializable.ChatMessage;
 /*    */ 
 /*    */ 
 /*    */ 
