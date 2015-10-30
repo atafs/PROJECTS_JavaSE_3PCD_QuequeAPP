@@ -185,8 +185,8 @@ public class ClientFrame extends javax.swing.JFrame {
 		// setDefaultCloseOperation(3);
 
 		// PANEL1
-		jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("CONNECT"));
-		btnConectar.setText("ONLINE");
+		jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("ONLINE"));
+		btnConectar.setText("Connect");
 		btnConectar.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				ClientFrame.this.btnConectarActionPerformed(evt);

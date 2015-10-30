@@ -186,7 +186,7 @@ public class ClientFrame extends javax.swing.JFrame {
 
 		// PANEL1
 		jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("CONNECT"));
-		btnConectar.setText("ONLINE");
+		btnConectar.setText("Connect");
 		btnConectar.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				ClientFrame.this.btnConectarActionPerformed(evt);
@@ -194,7 +194,7 @@ public class ClientFrame extends javax.swing.JFrame {
 
 		});
 
-		btnSair.setText("OFFLINE");
+		btnSair.setText("Exit");
 		btnSair.setEnabled(false);
 		btnSair.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
