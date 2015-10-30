@@ -1,0 +1,17 @@
+package com.iscte.queque.client.log;
+
+public class LogMessage {
+
+	//ATTRIBUTE
+	private Logger log;
+
+	//CONSTRUCTOR
+	public LogMessage() {
+		log = (Logger) org.apache.log4j.Logger.getLogger(LogMessage.class);
+	}
+
+	//GETTER
+	public Logger getLog() {
+		return log;
+	}	
+}

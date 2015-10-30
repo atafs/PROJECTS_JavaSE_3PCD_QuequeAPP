@@ -1,0 +1,5 @@
+package com.iscte.queque.locale;
+
+public class BundleProperties {
+
+}
