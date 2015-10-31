@@ -1,0 +1,11 @@
+package com.iscte.queque.client.thread;
+
+/** THREAD to receive messages from client */
+public class In implements Runnable {
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+}

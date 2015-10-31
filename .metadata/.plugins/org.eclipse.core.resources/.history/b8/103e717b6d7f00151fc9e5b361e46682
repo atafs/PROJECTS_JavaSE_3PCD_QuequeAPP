@@ -1,0 +1,20 @@
+package com.iscte.queque.client.listener;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import com.iscte.queque.client.gui.ClientFrame;
+
+public class BtnEnviar extends QuequeListener implements ActionListener{
+
+		//CONSTRUCTOR
+		public BtnEnviar(ClientFrame gui) {
+			super(gui);
+		}
+
+		//ACTIONLISTENER
+		@Override
+		public void actionPerformed(ActionEvent evt) {
+			super.getGui().btnEnviarActionPerformed(evt);
+		}
+}

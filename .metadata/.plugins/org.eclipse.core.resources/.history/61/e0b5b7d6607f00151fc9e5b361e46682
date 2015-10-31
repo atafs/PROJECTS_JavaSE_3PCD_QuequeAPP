@@ -1,0 +1,5 @@
+package com.iscte.queque.client.listener;
+
+public class QuequeListener {
+
+}

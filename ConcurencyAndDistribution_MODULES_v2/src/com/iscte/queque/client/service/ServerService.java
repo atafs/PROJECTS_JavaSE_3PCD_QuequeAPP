@@ -3,20 +3,17 @@
 /*     */ import java.io.IOException;
 /*     */ import java.io.ObjectInputStream;
 /*     */ import java.io.ObjectOutputStream;
-/*     */ import java.io.PrintStream;
 /*     */ import java.net.ServerSocket;
 /*     */ import java.net.Socket;
 /*     */ import java.util.HashMap;
 /*     */ import java.util.HashSet;
 /*     */ import java.util.Iterator;
 /*     */ import java.util.Map;
-/*     */ import java.util.Map.Entry;
 /*     */ import java.util.Set;
 /*     */ import java.util.logging.Level;
 /*     */ import java.util.logging.Logger;
 
 import com.iscte.queque.server.bean.ChatMessage;
-import com.iscte.queque.server.bean.ChatMessage.Action;
 /*     */ 
 /*     */ 
 /*     */ 
@@ -29,7 +26,7 @@ import com.iscte.queque.server.bean.ChatMessage.Action;
 /*     */ {
 /*     */   private ServerSocket serverSocket;
 /*     */   private Socket socket;
-/*  31 */   private Map<String, ObjectOutputStream> mapOnlies = new HashMap();
+/*  31 */   private Map<String, ObjectOutputStream> mapOnlies = new HashMap<String, ObjectOutputStream>();
 /*     */   
 /*     */   public ServerService()
 /*     */   {
@@ -193,7 +190,7 @@ import com.iscte.queque.server.bean.ChatMessage.Action;
 /*     */   
 /*     */   private void sendOnlines()
 /*     */   {
-/* 195 */     Set<String> setNames = new HashSet();
+/* 195 */     Set<String> setNames = new HashSet<String>();
 /* 196 */     for (Map.Entry<String, ObjectOutputStream> kv : this.mapOnlies.entrySet()) {
 /* 197 */       setNames.add(kv.getKey());
 /*     */     }

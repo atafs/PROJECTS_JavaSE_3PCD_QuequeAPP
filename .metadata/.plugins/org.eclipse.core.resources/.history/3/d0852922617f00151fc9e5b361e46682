@@ -1,0 +1,12 @@
+package com.iscte.queque.client.listener;
+
+import com.iscte.queque.client.gui.ClientFrame;
+
+public class BtnConectar extends QuequeListener implements ActionListener{
+
+	//CONSTRUCTOR
+	public BtnConectar(ClientFrame gui) {
+		super(gui);
+	}
+
+}

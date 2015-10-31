@@ -8,10 +8,12 @@
 /*    */ 
 /*    */ 
 /*    */ 
-/*    */ public class ChatMessage
-/*    */   implements Serializable
-/*    */ {
-/*    */   private String name;
+/*    */ public class ChatMessage implements Serializable {
+/**
+	 * 
+	 */
+	       private static final long serialVersionUID = 1L;
+		   private String name;
 /*    */   private String text;
 /*    */   private String nameReserved;
 /*    */   private Set<String> setOnlines;
@@ -19,7 +21,7 @@
 /*    */   
 /*    */   public ChatMessage()
 /*    */   {
-/* 22 */     this.setOnlines = new HashSet();
+/* 22 */     this.setOnlines = new HashSet<String>();
 /*    */   }
 /*    */   
 /*    */   public String getName()

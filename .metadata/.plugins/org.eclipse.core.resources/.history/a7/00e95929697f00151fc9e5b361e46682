@@ -1,0 +1,8 @@
+package com.iscte.queque.client.listener;
+
+import java.awt.event.ActionListener;
+
+public class BtnSair extends QuequeListener implements ActionListener{
+
+
+}

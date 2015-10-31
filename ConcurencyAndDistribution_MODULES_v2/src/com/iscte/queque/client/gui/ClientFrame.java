@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -22,12 +23,18 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.iscte.queque.client.listener.chat.BtnConectar;
+import com.iscte.queque.client.listener.chat.BtnEnviar;
+import com.iscte.queque.client.listener.chat.BtnLimpar;
+import com.iscte.queque.client.listener.chat.BtnSair;
+import com.iscte.queque.client.log.LogMessage;
 import com.iscte.queque.client.service.ClientService;
+import com.iscte.queque.client.thread.In;
 import com.iscte.queque.server.bean.ChatMessage;
 
 public class ClientFrame extends javax.swing.JFrame {
 
-	private static final long serialVersionUID = 1L;
+	//ATTRIBUTES
 	private Socket socket;
 	private ChatMessage message;
 	private JButton btnConectar;
@@ -45,62 +52,30 @@ public class ClientFrame extends javax.swing.JFrame {
 	private JTextArea txtAreaSend;
 	private JTextField txtName;
 	private ClientService service;
+	//LOG4J LOGGER
+	private static LogMessage logger = new LogMessage();
+	private static final long serialVersionUID = 1L;
 
+	//CONSTRUCTOR
 	public ClientFrame() {
-		initComponents();
+		gui_initComponents();
         gui_lastInstructions();
         gui_start();  
 	}
-
-	private class ListenerSocket implements Runnable {
-		private java.io.ObjectInputStream input;
-
-		public ListenerSocket(java.net.Socket socket) {
-			try {
-				this.input = new java.io.ObjectInputStream(
-						socket.getInputStream());
-			} catch (java.io.IOException ex) {
-				java.util.logging.Logger.getLogger(ClientFrame.class.getName())
-						.log(java.util.logging.Level.SEVERE, null, ex);
-			}
-		}
-
-		public void run() {
-			ChatMessage message = null;
-			try {
-				while ((message = (ChatMessage) this.input.readObject()) != null) {
-					ChatMessage.Action action = message.getAction();
-
-					if (action.equals(ChatMessage.Action.CONNECT)) {
-						connect(message);
-					} else if (action.equals(ChatMessage.Action.DISCONNECT)) {
-						disconnected();
-						socket.close();
-					} else if (action.equals(ChatMessage.Action.SEND_ONE)) {
-						receive(message);
-					} else if (action.equals(ChatMessage.Action.USERS_ONLINE)) {
-						refreshOnlines(message);
-					}
-				}
-			} catch (java.io.IOException ex) {
-				java.util.logging.Logger.getLogger(ClientFrame.class.getName())
-						.log(java.util.logging.Level.SEVERE, null, ex);
-			} catch (ClassNotFoundException ex) {
-				java.util.logging.Logger.getLogger(ClientFrame.class.getName())
-						.log(java.util.logging.Level.SEVERE, null, ex);
-			}
-		}
+	
+	//GETTERS AND SETTERS
+	public Socket getSocket() {
+		return socket;
 	}
 
-	private void connect(ChatMessage message) {
-		if (message.getText().equals("NO")) {
-			this.txtName.setText("");
-			javax.swing.JOptionPane.showMessageDialog(this,
-					"CONNECTION FAILERD.\n TRY AGAIN WITH A DIFERENT NAME");
-			return;
-		}
+	public void connect(ChatMessage message) {
+//		if (message.getText().equals("NO")) {
+//			this.txtName.setText("");
+//			JOptionPane.showMessageDialog(this, "CONNECTION FAILED.\n TRY AGAIN WITH A DIFERENT NAME");
+//			return;
+//		}
 
-		this.message = message;
+ 		this.message = message;
 
 		this.btnConectar.setEnabled(false);
 		this.txtName.setEditable(false);
@@ -116,7 +91,7 @@ public class ClientFrame extends javax.swing.JFrame {
 				"CONNECTION SUCCEDED.\n YOU ARE CONNECTED IN CHATROOM");
 	}
 
-	private void disconnected() {
+	public void disconnected() {
 		this.btnConectar.setEnabled(true);
 		this.txtName.setEnabled(true);
 
@@ -133,14 +108,14 @@ public class ClientFrame extends javax.swing.JFrame {
 				"YOU HAVE LEFT THE CHATROOM");
 	}
 
-	private void receive(ChatMessage message) {
+	public void receive(ChatMessage message) {
 		this.txtAreaReceive.append(message.getName() + " SAID: "
 				+ message.getText() + "\n");
 	}
 
-	private void refreshOnlines(ChatMessage message) {
+	public void refreshOnlines(ChatMessage message) {
 		System.out.println(message.getSetOnlines().toString());
-		java.util.Set<String> names = message.getSetOnlines();
+		Set<String> names = message.getSetOnlines();
 
 		names.remove(message.getName());
 
@@ -151,7 +126,7 @@ public class ClientFrame extends javax.swing.JFrame {
 		this.listOnlines.setLayoutOrientation(0);
 	}
 
-	private void initComponents() {
+	private void gui_initComponents() {
 
 		// TABS
 		setTitle("QuequeAPP");
@@ -187,20 +162,11 @@ public class ClientFrame extends javax.swing.JFrame {
 		// PANEL1
 		jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("CONNECT"));
 		btnConectar.setText("ONLINE");
-		btnConectar.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				ClientFrame.this.btnConectarActionPerformed(evt);
-			}
-
-		});
+		btnConectar.addActionListener(new BtnConectar(this));
 
 		btnSair.setText("OFFLINE");
 		btnSair.setEnabled(false);
-		btnSair.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				ClientFrame.this.btnSairActionPerformed(evt);
-			}
-		});
+		btnSair.addActionListener(new BtnSair(this));
 
 		// PANEL2,4
 		jPanel2.setBorder(BorderFactory.createTitledBorder("MESSAGES AND USERS"));
@@ -235,12 +201,7 @@ public class ClientFrame extends javax.swing.JFrame {
 		  } catch (IOException ex) {
 		  }
 		btnEnviar.setEnabled(false);
-		btnEnviar.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				ClientFrame.this.btnEnviarActionPerformed(evt);
-			}
-
-		});
+		btnEnviar.addActionListener(new BtnEnviar(this));
 		
 		btnLimpar.setText("Clear");
 		btnLimpar.setBackground(Color.WHITE);
@@ -252,12 +213,7 @@ public class ClientFrame extends javax.swing.JFrame {
 		  } catch (IOException ex) {
 		  }
 		btnLimpar.setEnabled(false);
-		btnLimpar.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				ClientFrame.this.btnLimparActionPerformed(evt);
-			}
-
-		});
+		btnLimpar.addActionListener(new BtnLimpar(this));
 
 		//BOX
 		jPanel1.setLayout(new BoxLayout(jPanel1, BoxLayout.X_AXIS));
@@ -287,7 +243,7 @@ public class ClientFrame extends javax.swing.JFrame {
 		jtp.addTab("CONTACTS", envio);
 	}
 
-	private void btnConectarActionPerformed(ActionEvent evt) {
+	public void btnConectarActionPerformed(ActionEvent evt) {
 		String name = this.txtName.getText();
 
 		if (!name.isEmpty()) {
@@ -298,23 +254,23 @@ public class ClientFrame extends javax.swing.JFrame {
 			this.service = new ClientService();
 			this.socket = this.service.connect();
 
-			new Thread(new ListenerSocket(this.socket)).start();
+			new Thread(new In(this, this.socket)).start();
 			this.service.send(this.message);
 		}
 		this.txtAreaSend.setText("");
 	}
 
-	private void btnSairActionPerformed(ActionEvent evt) {
+	public void btnSairActionPerformed(ActionEvent evt) {
 		this.message.setAction(ChatMessage.Action.DISCONNECT);
 		this.service.send(this.message);
 		disconnected();
 	}
 
-	private void btnLimparActionPerformed(ActionEvent evt) {
+	public void btnLimparActionPerformed(ActionEvent evt) {
 		this.txtAreaSend.setText("");
 	}
 
-	private void btnEnviarActionPerformed(ActionEvent evt) {
+	public void btnEnviarActionPerformed(ActionEvent evt) {
 		String text = this.txtAreaSend.getText();
 		String name = this.message.getName();
 
