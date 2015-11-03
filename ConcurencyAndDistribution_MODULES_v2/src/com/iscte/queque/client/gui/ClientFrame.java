@@ -7,6 +7,9 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.Socket;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
@@ -17,12 +20,17 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
+import com.iscte.queque.client.io.read.Reader;
+import com.iscte.queque.client.io.write.Writer;
 import com.iscte.queque.client.listener.chat.BtnConectar;
 import com.iscte.queque.client.listener.chat.BtnEnviar;
 import com.iscte.queque.client.listener.chat.BtnLimpar;
@@ -55,6 +63,17 @@ public class ClientFrame extends javax.swing.JFrame {
 	//LOG4J LOGGER
 	private static LogMessage logger = new LogMessage();
 	private static final long serialVersionUID = 1L;
+	//COUNTERS
+	private int listOnlinesCounter;
+	
+	//TXT
+	//PATHS (absolute for windows)
+	final static String READ_FROM_FILE = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES_v2\\message\\txt\\readFromFile.txt";
+	final static String WRITE_TO_FILE = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES_v2\\message\\txt\\writeToFile.txt";
+	final static Charset ENCODING = StandardCharsets.UTF_8;
+	private Reader reader = new Reader();
+	private Writer writer = new Writer();
+		
 
 	//CONSTRUCTOR
 	public ClientFrame() {
@@ -96,10 +115,10 @@ public class ClientFrame extends javax.swing.JFrame {
 		this.txtName.setEnabled(true);
 
 		this.btnSair.setEnabled(false);
-		this.txtAreaSend.setEnabled(false);
-		this.txtAreaReceive.setEnabled(false);
-		this.btnEnviar.setEnabled(false);
-		this.btnLimpar.setEnabled(false);
+		this.txtAreaSend.setEnabled(true);
+		this.txtAreaReceive.setEnabled(true);
+		this.btnEnviar.setEnabled(true);
+		this.btnLimpar.setEnabled(true);
 
 		this.txtAreaReceive.setText("");
 		this.txtAreaSend.setText("");
@@ -170,6 +189,12 @@ public class ClientFrame extends javax.swing.JFrame {
 
 		// PANEL2,4
 		jPanel2.setBorder(BorderFactory.createTitledBorder("MESSAGES AND USERS"));
+		listOnlines.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				System.err.println("selectedElement="+listOnlines.getSelectedIndex());
+			}
+		});
 		jScrollPane3.setViewportView(this.listOnlines);
 
 		// PANEL3
@@ -277,20 +302,28 @@ public class ClientFrame extends javax.swing.JFrame {
 		this.message = new ChatMessage();
 
 		if (this.listOnlines.getSelectedIndex() > -1) {
-			this.message.setNameReserved((String) this.listOnlines
-					.getSelectedValue());
+			this.message.setNameReserved((String) this.listOnlines.getSelectedValue());
 			this.message.setAction(ChatMessage.Action.SEND_ONE);
-			this.listOnlines.clearSelection();
+			//this.listOnlines.clearSelection();
 		} else {
-			this.message.setAction(ChatMessage.Action.SEND_ALL);
+			JOptionPane.showMessageDialog(this,"PLEASE SELECT SOMEONE TO SEND A MESSAGE");
+			return;
+			//this.message.setAction(ChatMessage.Action.SEND_ALL);
 		}
 
 		if (!text.isEmpty()) {
 
+			//NAME AND MESSAGE
 			this.message.setName(name);
 			this.message.setText(text);
 
+			//PRINT TO TEXT_AREA AND TXT
 			this.txtAreaReceive.append("YOU SAID: " + text + "\n");
+			try {	
+				writer.writeLargerTextFile(WRITE_TO_FILE, message.getName() + ": " + text);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
 			this.service.send(this.message);
 		}

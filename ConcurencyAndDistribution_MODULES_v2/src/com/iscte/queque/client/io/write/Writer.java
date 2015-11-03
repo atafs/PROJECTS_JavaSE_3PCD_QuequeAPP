@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -54,6 +55,14 @@ public class Writer {
 				writer.write(line);
 				writer.newLine();
 			}
+		}
+	}
+	
+	public void writeLargerTextFile(String aFileName, String aLines) throws IOException {
+		try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(aFileName, true)))) {
+		    out.println(aLines);
+		}catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 

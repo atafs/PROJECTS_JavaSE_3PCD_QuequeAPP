@@ -6,20 +6,20 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="listOnlines" key="selection"/>
+		<item value="listOnlinesCounter" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="listOnlinesCounter"/>
 			<item value="listOnlines"/>
-			<item value="fonteButton1"/>
-			<item value="jScrollPane1"/>
-			<item value="jPanel4"/>
-			<item value="this."/>
-			<item value="connect"/>
-			<item value="ListenerSocket"/>
-			<item value="&#x09;&#x09;ChatMessage message = (ChatMessage) &#x09;&#x09;ChatMessage message = (ChatMessage) this.input.readObject();();"/>
+			<item value="jScrollPane3"/>
+			<item value="logger"/>
+			<item value="thread"/>
+			<item value="btnConectarActionPerformed"/>
+			<item value="setText"/>
+			<item value="btnEnviar"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>
@@ -29,7 +29,7 @@
 		<item value="305" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="444" key="DIALOG_HEIGHT"/>
-		<item value="1203" key="DIALOG_X_ORIGIN"/>
-		<item value="133" key="DIALOG_Y_ORIGIN"/>
+		<item value="1386" key="DIALOG_X_ORIGIN"/>
+		<item value="428" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

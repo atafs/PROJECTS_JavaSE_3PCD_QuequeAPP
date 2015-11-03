@@ -1,8 +1,0 @@
-package gui.swing.icon_and_text;
-
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.ListCellRenderer;
-
-public class Renderer extends DefaultListCellRenderer implements ListCellRenderer<Object> {
-
-}

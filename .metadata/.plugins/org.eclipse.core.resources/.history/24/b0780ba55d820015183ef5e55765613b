@@ -1,0 +1,76 @@
+package com.iscte.queque.client.thread;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.iscte.queque.client.log.LogMessage;
+import com.iscte.queque.server.bean.ChatMessage;
+import com.iscte.queque.server.service.ServidorService;
+
+/** THREAD to send messages and notify from SERVER to clients */
+public class Out implements Runnable{
+
+	private ServerSocket serverSocket;
+	private Socket socket;
+	private Map<String, ObjectOutputStream> mapOnlies = new HashMap();
+	//LOG4J LOGGER
+	private static LogMessage logger = new LogMessage();
+	private ObjectOutputStream output;
+	private ObjectInputStream input;
+
+	public Out(Socket socket) {
+		try {
+			this.output = new ObjectOutputStream(socket.getOutputStream());
+			this.input = new ObjectInputStream(socket.getInputStream());
+		} catch (IOException ex) {
+			logger.getLog().debug(ex);
+
+		}
+	}
+
+	public void run() {
+		ChatMessage message = null;
+		try {
+			while ((message = (ChatMessage) this.input.readObject()) != null) {
+				ChatMessage.Action action = message.getAction();
+
+				if (action.equals(ChatMessage.Action.CONNECT)) {
+					boolean isConnected = Out.this.connect(
+							message, this.output);
+
+					if (isConnected) {
+						Out.this.mapOnlies.put(
+								message.getName(), this.output);
+						Out.this.sendOnlines();
+					}
+				} else {
+					if (action.equals(ChatMessage.Action.DISCONNECT)) {
+						Out.this.disconnected(message,
+								this.output);
+						Out.this.sendOnlines();
+						return;
+					}
+					if (action.equals(ChatMessage.Action.SEND_ONE)) {
+						Out.this.sendOne(message);
+
+					} else if (action.equals(ChatMessage.Action.SEND_ALL)) {
+						Out.this.sendAll(message);
+					}
+				}
+			}
+		} catch (IOException ex) {
+			ServidorService.this.disconnected(message, this.output);
+			ServidorService.this.sendOnlines();
+			System.out.println(message.getName() + " LEFT THE CHAT.");
+			logger.getLog().debug(message.getName() + " LEFT THE CHAT.");
+		} catch (ClassNotFoundException ex) {
+			logger.getLog().debug(ex);
+
+		}
+	}
+}

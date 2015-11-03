@@ -1,0 +1,35 @@
+package com.iscte.queque.client.queue;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
+
+import com.iscte.queque.client.serializable.ChatMessage;
+
+public class ManageContact {
+	
+	//ATTRIBUTES
+	private List<ChatMessage> listMessages = new ArrayList<ChatMessage>();
+
+	//CONSTRUCTOR
+	public ManageQueue(Queue<ChatMessage> listMessages) {
+		this.listMessages = listMessages;
+	}
+
+	//GETTERS AND SETTERS
+	public Queue<ChatMessage> getListMessages() {
+		return listMessages;
+	}
+
+	public void setListMessages(Queue<ChatMessage> listMessages) {
+		this.listMessages = listMessages;
+	}
+	
+	//TOSTRING
+	@Override
+	public String toString() {
+		return super.toString();
+	}
+
+}

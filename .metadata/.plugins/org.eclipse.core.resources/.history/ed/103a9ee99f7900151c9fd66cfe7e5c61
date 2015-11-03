@@ -1,7 +1,0 @@
-package gui.swing.icon_and_text;
-
-import javax.swing.JFrame;
-
-public class ListGUI_v5 extends JFrame{
-
-}
