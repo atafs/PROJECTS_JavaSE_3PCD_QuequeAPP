@@ -123,7 +123,8 @@ public class ClientFrame extends javax.swing.JFrame {
 		this.txtAreaReceive.setText("");
 		this.txtAreaSend.setText("");
 
-		JOptionPane.showMessageDialog(this,"YOU HAVE LEFT THE CHATROOM");
+		javax.swing.JOptionPane.showMessageDialog(this,
+				"YOU HAVE LEFT THE CHATROOM");
 	}
 
 	public void receive(ChatMessage message) {

@@ -21,7 +21,7 @@ public class ServidorService {
 	private ServerSocket serverSocket;
 	private Socket socket;
 	private Map<String, ObjectOutputStream> mapOnlies = new HashMap<String, ObjectOutputStream>();
-	private Map<ManageContact, ManageQueue> queueLists = new HashMap<ManageContact, ManageQueue>();
+	private Map<ArrayList<ManageContact>, ManageQueue> queueLists = new HashMap<ArrayList<ManageContact>, ManageQueue>();
 	//LOG4J LOGGER
 	private static LogMessage logger = new LogMessage();
 
@@ -32,7 +32,6 @@ public class ServidorService {
 			for (;;) {
 				this.socket = this.serverSocket.accept();
 
-				//THREAD
 				new Thread(new Out(this.socket)).start();
 			}
 		} catch (Exception e) {
@@ -98,7 +97,8 @@ public class ServidorService {
 	private boolean connect(ChatMessage message, ObjectOutputStream output) {
 		if (this.mapOnlies.size() == 0) {
 			message.setText("YES");
-			System.out.println("YES. YOU ARE CONNECTED. And YOU ARE THE FIRST ONE");
+			System.out
+					.println("YES. YOU ARE CONNECTED. And YOU ARE THE FIRST ONE");
 			send(message, output);
 			return true;
 		}
@@ -142,7 +142,8 @@ public class ServidorService {
 	}
 
 	private void sendOne(ChatMessage message) {
-		for (Map.Entry<String, ObjectOutputStream> kv : this.mapOnlies.entrySet()) {
+		for (Map.Entry<String, ObjectOutputStream> kv : this.mapOnlies
+				.entrySet()) {
 			if (((String) kv.getKey()).equals(message.getNameReserved())) {
 				try {
 					((ObjectOutputStream) kv.getValue()).writeObject(message);

@@ -6,21 +6,19 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.iscte.queque.client.log.LogMessage;
 import com.iscte.queque.server.bean.ChatMessage;
 
 public class ClientService {
 	private Socket socket;
 	private ObjectOutputStream output;
-	//LOG4J LOGGER
-	private static LogMessage logger = new LogMessage();
 
 	public Socket connect() {
 		try {
 			this.socket = new Socket("localhost", 5555);
 			this.output = new ObjectOutputStream(this.socket.getOutputStream());
 		} catch (IOException ex) {
-			logger.getLog().debug(ex);
+			Logger.getLogger(ClientService.class.getName()).log(Level.SEVERE,
+					null, ex);
 		}
 		return this.socket;
 	}
@@ -29,7 +27,8 @@ public class ClientService {
 		try {
 			this.output.writeObject(message);
 		} catch (IOException ex) {
-			logger.getLog().debug(ex);
+			Logger.getLogger(ClientService.class.getName()).log(Level.SEVERE,
+					null, ex);
 		}
 	}
 }

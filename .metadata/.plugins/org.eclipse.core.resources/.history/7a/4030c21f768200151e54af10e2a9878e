@@ -17,23 +17,15 @@ public class ManageContact {
 		this.listContacts = listContacts;
 	}
 
-	//GETTERS AND SETTERS	
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public List<Contact> getListContacts() {
+	//GETTERS AND SETTERS
+	public List<Contact> getListMessages() {
 		return listContacts;
 	}
 
-	public void setListContacts(List<Contact> listContacts) {
+	public void setListMessages(List<Contact> listContacts) {
 		this.listContacts = listContacts;
 	}
-
+	
 	//TOSTRING
 	@Override
 	public String toString() {

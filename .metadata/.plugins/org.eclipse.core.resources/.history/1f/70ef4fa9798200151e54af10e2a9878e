@@ -21,7 +21,7 @@ public class ServidorService {
 	private ServerSocket serverSocket;
 	private Socket socket;
 	private Map<String, ObjectOutputStream> mapOnlies = new HashMap<String, ObjectOutputStream>();
-	private Map<ManageContact, ManageQueue> queueLists = new HashMap<ManageContact, ManageQueue>();
+	private Map<ArrayList<ManageContact>, ManageQueue> queueLists = new HashMap<ArrayList<ManageContact>, ManageQueue>();
 	//LOG4J LOGGER
 	private static LogMessage logger = new LogMessage();
 
