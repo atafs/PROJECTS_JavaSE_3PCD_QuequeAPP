@@ -8,7 +8,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 
-import com.iscte.queque.client.list.dao.Contact;
+import com.iscte.queque.client.dao.Contact;
 
 public class ChatMessage implements Serializable {
 
@@ -23,7 +23,6 @@ public class ChatMessage implements Serializable {
 	
 	//LISTS
 	private Set<String> setOnlines;
-	private List<Contact> listContacts = new ArrayList<Contact>();
 	
 	public ChatMessage() {
 		this.setOnlines = new HashSet<String>();
@@ -75,14 +74,6 @@ public class ChatMessage implements Serializable {
 
 	public void setState(Action state) {
 		this.state = state;
-	}
-
-	public List<Contact> getListContacts() {
-		return listContacts;
-	}
-
-	public void setListContacts(List<Contact> listContacts) {
-		this.listContacts = listContacts;
 	}
 
 	public static enum Action {

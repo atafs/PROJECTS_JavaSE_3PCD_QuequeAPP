@@ -8,3 +8,7 @@
 1446580181249	Move compilation unit
 1446581134104	Rename package 'com.iscte.queque.client.queue'
 1446591622944	Delete elements
+1446679211200	Delete element
+1446679229199	Rename package 'com.iscte.queque.client.list.dao'
+1446679427332	Delete element
+1446679534878	Rename type 'ServidorService'

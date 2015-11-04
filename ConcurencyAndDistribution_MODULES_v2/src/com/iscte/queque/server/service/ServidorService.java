@@ -15,7 +15,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 
-import com.iscte.queque.client.list.dao.Contact;
+import com.iscte.queque.client.dao.Contact;
 import com.iscte.queque.client.log.LogMessage;
 import com.iscte.queque.client.serializable.ChatMessage;
 
@@ -138,6 +138,7 @@ public class ServidorService {
 		for (Map.Entry<String, ObjectOutputStream> kv : this.mapOnlies.entrySet()) {
 			if (((String) kv.getKey()).equals(message.getNameReserved())) {
 				try {
+					message.setState(ChatMessage.Action.ONLINE);
 					if (message.getState().equals(ChatMessage.Action.ONLINE)) {
 						((ObjectOutputStream) kv.getValue()).writeObject(message);
 					} else if (message.getState().equals(ChatMessage.Action.OFFLINE)) {
