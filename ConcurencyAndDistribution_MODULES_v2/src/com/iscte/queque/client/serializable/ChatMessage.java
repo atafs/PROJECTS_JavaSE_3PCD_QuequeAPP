@@ -1,8 +1,14 @@
 package com.iscte.queque.client.serializable;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Set;
+
+import com.iscte.queque.client.list.dao.Contact;
 
 public class ChatMessage implements Serializable {
 
@@ -10,9 +16,15 @@ public class ChatMessage implements Serializable {
 	private String name;
 	private String text;
 	private String nameReserved;
-	private Set<String> setOnlines;
+	
+	//CONTANTS
 	private Action action;
-
+	private Action state;
+	
+	//LISTS
+	private Set<String> setOnlines;
+	private List<Contact> listContacts = new ArrayList<Contact>();
+	
 	public ChatMessage() {
 		this.setOnlines = new HashSet<String>();
 	}
@@ -57,8 +69,24 @@ public class ChatMessage implements Serializable {
 		this.action = action;
 	}
 
+	public Action getState() {
+		return state;
+	}
+
+	public void setState(Action state) {
+		this.state = state;
+	}
+
+	public List<Contact> getListContacts() {
+		return listContacts;
+	}
+
+	public void setListContacts(List<Contact> listContacts) {
+		this.listContacts = listContacts;
+	}
+
 	public static enum Action {
-		CONNECT, DISCONNECT, SEND_ONE, SEND_ALL, USERS_ONLINE;
+		CONNECT, DISCONNECT, SEND_ONE, SEND_ALL, USERS_ONLINE, ONLINE, OFFLINE;
 
 		private Action() {
 		}

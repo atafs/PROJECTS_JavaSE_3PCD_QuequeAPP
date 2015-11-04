@@ -36,9 +36,9 @@ import com.iscte.queque.client.listener.chat.BtnEnviar;
 import com.iscte.queque.client.listener.chat.BtnLimpar;
 import com.iscte.queque.client.listener.chat.BtnSair;
 import com.iscte.queque.client.log.LogMessage;
+import com.iscte.queque.client.serializable.ChatMessage;
 import com.iscte.queque.client.service.ClientService;
 import com.iscte.queque.client.thread.In;
-import com.iscte.queque.server.bean.ChatMessage;
 
 public class ClientFrame extends javax.swing.JFrame {
 
@@ -106,29 +106,28 @@ public class ClientFrame extends javax.swing.JFrame {
 		this.btnEnviar.setEnabled(true);
 		this.btnLimpar.setEnabled(true);
 
-		javax.swing.JOptionPane.showMessageDialog(this,
-				"CONNECTION SUCCEDED.\n YOU ARE CONNECTED IN CHATROOM");
+		JOptionPane.showMessageDialog(this,"CONNECTION SUCCEDED.\n YOU ARE CONNECTED IN CHATROOM");
 	}
 
 	public void disconnected() {
-		this.btnConectar.setEnabled(true);
-		this.txtName.setEnabled(true);
-
-		this.btnSair.setEnabled(false);
-		this.txtAreaSend.setEnabled(true);
-		this.txtAreaReceive.setEnabled(true);
-		this.btnEnviar.setEnabled(true);
-		this.btnLimpar.setEnabled(true);
+//		this.btnConectar.setEnabled(true);
+//		this.txtName.setEnabled(true);
+//
+//		
+//		this.txtAreaSend.setEnabled(true);
+//		this.txtAreaReceive.setEnabled(true);
+//		this.btnEnviar.setEnabled(true);
+//		this.btnLimpar.setEnabled(true);
 
 		this.txtAreaReceive.setText("");
 		this.txtAreaSend.setText("");
-
+		this.message.setState(ChatMessage.Action.OFFLINE);
+		this.btnSair.setEnabled(false);
 		JOptionPane.showMessageDialog(this,"YOU HAVE LEFT THE CHATROOM");
 	}
 
 	public void receive(ChatMessage message) {
-		this.txtAreaReceive.append(message.getName() + " SAID: "
-				+ message.getText() + "\n");
+		this.txtAreaReceive.append(message.getName() + " SAID: "+ message.getText() + "\n");
 	}
 
 	public void refreshOnlines(ChatMessage message) {
@@ -273,6 +272,7 @@ public class ClientFrame extends javax.swing.JFrame {
 		if (!name.isEmpty()) {
 			this.message = new ChatMessage();
 			this.message.setAction(ChatMessage.Action.CONNECT);
+			this.message.setState(ChatMessage.Action.ONLINE);
 			this.message.setName(name);
 
 			this.service = new ClientService();
@@ -285,7 +285,7 @@ public class ClientFrame extends javax.swing.JFrame {
 	}
 
 	public void btnSairActionPerformed(ActionEvent evt) {
-		this.message.setAction(ChatMessage.Action.DISCONNECT);
+//		this.message.setAction(ChatMessage.Action.DISCONNECT);
 		this.service.send(this.message);
 		disconnected();
 	}

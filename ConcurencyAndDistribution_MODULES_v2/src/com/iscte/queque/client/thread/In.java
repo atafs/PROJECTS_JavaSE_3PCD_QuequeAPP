@@ -5,7 +5,7 @@ import java.net.Socket;
 
 import com.iscte.queque.client.gui.ClientFrame;
 import com.iscte.queque.client.log.LogMessage;
-import com.iscte.queque.server.bean.ChatMessage;
+import com.iscte.queque.client.serializable.ChatMessage;
 
 /** THREAD to receive messages from CLIENT */
 public class In implements Runnable {

@@ -50,14 +50,14 @@
 <fullyQualifiedTypeName name="com.iscte.queque.client.thread.Out"/>
 <fullyQualifiedTypeName name="java.util.Queue"/>
 <fullyQualifiedTypeName name="java.util.LinkedList"/>
-<fullyQualifiedTypeName name="java.util.PriorityQueue"/>
 <fullyQualifiedTypeName name="java.util.Iterator"/>
-<fullyQualifiedTypeName name="com.iscte.queque.client.serializable.ChatMessage"/>
 <fullyQualifiedTypeName name="com.iscte.queque.client.queue.ManageList"/>
 <fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="com.iscte.queque.client.queue.dao.Contact"/>
 <fullyQualifiedTypeName name="com.iscte.queque.client.queue.ManageContact"/>
 <fullyQualifiedTypeName name="javax.swing.event.ListSelectionListener"/>
 <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.PriorityQueue"/>
+<fullyQualifiedTypeName name="com.iscte.queque.client.serializable.ChatMessage"/>
 </qualifiedTypeNameHistroy>

@@ -3,11 +3,9 @@ package com.iscte.queque.client.service;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.iscte.queque.client.log.LogMessage;
-import com.iscte.queque.server.bean.ChatMessage;
+import com.iscte.queque.client.serializable.ChatMessage;
 
 public class ClientService {
 	private Socket socket;

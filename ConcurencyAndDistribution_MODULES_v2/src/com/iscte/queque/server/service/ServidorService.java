@@ -9,19 +9,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Set;
 
-import com.iscte.queque.client.list.ManageContact;
-import com.iscte.queque.client.list.ManageQueue;
+import com.iscte.queque.client.list.dao.Contact;
 import com.iscte.queque.client.log.LogMessage;
-import com.iscte.queque.server.bean.ChatMessage;
+import com.iscte.queque.client.serializable.ChatMessage;
 
 public class ServidorService {
 	private ServerSocket serverSocket;
 	private Socket socket;
+	
+	//LISTS
 	private Map<String, ObjectOutputStream> mapOnlies = new HashMap<String, ObjectOutputStream>();
-	private Map<ManageContact, ManageQueue> queueLists = new HashMap<ManageContact, ManageQueue>();
+	private Map<String, PriorityQueue<ChatMessage>> queueLists = new HashMap<String, PriorityQueue<ChatMessage>>();
+	
 	//LOG4J LOGGER
 	private static LogMessage logger = new LogMessage();
 
@@ -68,19 +73,8 @@ public class ServidorService {
 							ServidorService.this.mapOnlies.put(message.getName(), this.output);
 							ServidorService.this.sendOnlines();
 						}
-					} else {
-						if (action.equals(ChatMessage.Action.DISCONNECT)) {
-							ServidorService.this.disconnected(message,this.output);
-							ServidorService.this.sendOnlines();
-							return;
-						}
-						if (action.equals(ChatMessage.Action.SEND_ONE)) {
+					} else if (action.equals(ChatMessage.Action.SEND_ONE)) {
 							ServidorService.this.sendOne(message);
-
-						} 
-//						else if (action.equals(ChatMessage.Action.SEND_ALL)) {
-//							ServidorService.this.sendAll(message);
-//						}
 					}
 				}
 			} catch (IOException ex) {
@@ -128,9 +122,8 @@ public class ServidorService {
 		message.setText("LEFT CHATROOM. SEE YOU NEXT TIME!!!");
 
 		message.setAction(ChatMessage.Action.SEND_ONE);
-		sendAll(message);
-		System.out.println("USER -> " + message.getName()
-				+ " LEFT THE CHATROOM");
+//		sendAll(message);
+		System.out.println("USER -> " + message.getName() + " LEFT THE CHATROOM");
 	}
 
 	private void send(ChatMessage message, ObjectOutputStream output) {
@@ -145,7 +138,15 @@ public class ServidorService {
 		for (Map.Entry<String, ObjectOutputStream> kv : this.mapOnlies.entrySet()) {
 			if (((String) kv.getKey()).equals(message.getNameReserved())) {
 				try {
-					((ObjectOutputStream) kv.getValue()).writeObject(message);
+					if (message.getState().equals(ChatMessage.Action.ONLINE)) {
+						((ObjectOutputStream) kv.getValue()).writeObject(message);
+					} else if (message.getState().equals(ChatMessage.Action.OFFLINE)) {
+//						for (Map.Entry<String, PriorityQueue<ChatMessage>> kv2 : this.queueLists.entrySet()) {
+//							kv2.setValue(new PriorityQueue<ChatMessage>())  .setKey((String)kv.getKey());
+//						}
+						//ADD message.getNameReserved()
+						//ADD message
+					}
 				} catch (IOException ex) {
 					logger.getLog().debug(ex);
 				}
@@ -153,20 +154,20 @@ public class ServidorService {
 		}
 	}
 
-	private void sendAll(ChatMessage message) {
-		for (Map.Entry<String, ObjectOutputStream> kv : this.mapOnlies.entrySet()) {
-
-			if (!((String) kv.getKey()).equals(message.getName())) {
-				message.setAction(ChatMessage.Action.SEND_ONE);
-				try {
-					System.out.println("USER -> " + message.getName());
-					((ObjectOutputStream) kv.getValue()).writeObject(message);
-				} catch (IOException ex) {
-					logger.getLog().debug(ex);
-				}
-			}
-		}
-	}
+//	private void sendAll(ChatMessage message) {
+//		for (Map.Entry<String, ObjectOutputStream> kv : this.mapOnlies.entrySet()) {
+//
+//			if (!((String) kv.getKey()).equals(message.getName())) {
+//				message.setAction(ChatMessage.Action.SEND_ONE);
+//				try {
+//					System.out.println("USER -> " + message.getName());
+//					((ObjectOutputStream) kv.getValue()).writeObject(message);
+//				} catch (IOException ex) {
+//					logger.getLog().debug(ex);
+//				}
+//			}
+//		}
+//	}
 
 	private void sendOnlines() {
 		Set<String> setNames = new HashSet<String>();
