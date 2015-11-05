@@ -5,11 +5,18 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.Socket;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Scanner;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
@@ -40,7 +47,7 @@ import com.iscte.queque.client.serializable.ChatMessage;
 import com.iscte.queque.client.service.ClientService;
 import com.iscte.queque.client.thread.In;
 
-public class ClientFrame extends javax.swing.JFrame {
+public class ClientFrame extends JFrame {
 
 	//ATTRIBUTES
 	private Socket socket;
@@ -63,6 +70,7 @@ public class ClientFrame extends javax.swing.JFrame {
 	//LOG4J LOGGER
 	private static LogMessage logger = new LogMessage();
 	private static final long serialVersionUID = 1L;
+	
 	//COUNTERS
 	private int listOnlinesCounter;
 	
@@ -70,6 +78,7 @@ public class ClientFrame extends javax.swing.JFrame {
 	//PATHS (absolute for windows)
 	final static String READ_FROM_FILE = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES_v2\\message\\txt\\readFromFile.txt";
 	final static String WRITE_TO_FILE = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES_v2\\message\\txt\\writeToFile.txt";
+	final static String WRITE_TO_FILE_USER = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES_v2\\message\\txt\\";
 	final static Charset ENCODING = StandardCharsets.UTF_8;
 	private Reader reader = new Reader();
 	private Writer writer = new Writer();
@@ -127,7 +136,18 @@ public class ClientFrame extends javax.swing.JFrame {
 	}
 
 	public void receive(ChatMessage message) {
+		
+		//TEXTAREA
 		this.txtAreaReceive.append(message.getName() + " SAID: "+ message.getText() + "\n");
+		
+		//TXT
+		logger.getLog().debug(message.getText());
+		try {
+			String path = WRITE_TO_FILE_USER + message.getName() + ".txt";
+			writer.writeLargerTextFile(path, message.getName() + " SAID: "+ message.getText());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
 	}
 
 	public void refreshOnlines(ChatMessage message) {
@@ -187,11 +207,37 @@ public class ClientFrame extends javax.swing.JFrame {
 
 		// PANEL2,4
 		jPanel2.setBorder(BorderFactory.createTitledBorder("MESSAGES AND USERS"));
-		listOnlines.addListSelectionListener(new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				System.err.println("selectedElement="+listOnlines.getSelectedIndex());
-			}
+//		listOnlines.addListSelectionListener(new ListSelectionListener() {
+//			@Override
+//			public void valueChanged(ListSelectionEvent e) {
+//				System.err.println("selectedElement="+listOnlines.getSelectedIndex());
+//			}
+//		});
+		
+		listOnlines.addMouseListener(new MouseAdapter() {
+		    public void mouseClicked(MouseEvent evt) {
+//		        JList list = (JList)evt.getSource();
+		        if (evt.getClickCount() == 2) {
+		            // Double-click detected
+		            int index = listOnlines.locationToIndex(evt.getPoint());
+					logger.getLog().debug("JLIST selectedElement=" + index + "; ");
+					
+					//READ FROM FILE
+					String path = WRITE_TO_FILE_USER + message.getName() + ".txt";
+					try {
+						readLargerTextFileAlternate(path);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+
+					
+		        } else if (evt.getClickCount() == 3) {
+		            // Triple-click detected
+		            int index = listOnlines.locationToIndex(evt.getPoint());
+					logger.getLog().debug("JLIST selectedElement=" + index + "; ");
+
+		        }
+		    }
 		});
 		jScrollPane3.setViewportView(this.listOnlines);
 
@@ -341,5 +387,39 @@ public class ClientFrame extends javax.swing.JFrame {
     private void gui_start() {
     	setVisible(true);
     }
+    
+	/** IO: For larger files */
+	public void readLargerTextFile(String aFileName) throws IOException {
+		Path path = Paths.get(aFileName);
+		try (Scanner scanner = new Scanner(path, ENCODING.name())) {
+			String tempText = "";
+			while (scanner.hasNextLine()) {
+				// process each line in some way
+				//TEXTAREA
+				tempText += scanner.nextLine() + "\n";
+				logger.getLog().debug(scanner.nextLine());
+
+			}
+			this.txtAreaReceive.setText("");
+			this.txtAreaReceive.append(tempText + "\n");
+
+		}
+	}
+	
+	/** IO: */
+	public void readLargerTextFileAlternate(String aFileName) throws IOException {
+		Path path = Paths.get(aFileName);
+		try (BufferedReader reader = Files.newBufferedReader(path, ENCODING)) {
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				// process each line in some way
+				//TEXTAREA
+				line += line + "\n";
+				logger.getLog().debug(line);
+			}
+			this.txtAreaReceive.setText("");
+			this.txtAreaReceive.append(line + "\n");
+		}
+	}
     
 }
