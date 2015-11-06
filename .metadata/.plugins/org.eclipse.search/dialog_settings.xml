@@ -10,16 +10,28 @@
 		<item value="1000" key="org.eclipse.search.resultpage.limit"/>
 	</section>
 	<section name="TextSearchPage">
-		<item value="6" key="HISTORY_SIZE"/>
+		<item value="7" key="HISTORY_SIZE"/>
 		<item value="false" key="CASE_SENSITIVE"/>
 		<item value="false" key="REG_EX_SEARCH"/>
 		<item value="true" key="WHOLE_WORD"/>
 		<item value="false" key="SEARCH_DERIVED"/>
+		<section name="HISTORY6">
+			<item value="true" key="ignoreCase"/>
+			<item value="0" key="scope"/>
+			<item value="false" key="isWholeWord"/>
+			<item value="This is a line added in code." key="textPattern"/>
+			<item value="false" key="isRegExSearch"/>
+			<list key="fileNamePatterns">
+				<item value="*"/>
+			</list>
+			<list key="workingSets">
+			</list>
+		</section>
 		<section name="HISTORY4">
 			<item value="true" key="ignoreCase"/>
 			<item value="1" key="scope"/>
 			<item value="true" key="isWholeWord"/>
-			<item value="NO" key="textPattern"/>
+			<item value="YOU HAVE LEFT THE ROOM" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -29,9 +41,9 @@
 		</section>
 		<section name="HISTORY5">
 			<item value="true" key="ignoreCase"/>
-			<item value="0" key="scope"/>
-			<item value="false" key="isWholeWord"/>
-			<item value="This is a line added in code." key="textPattern"/>
+			<item value="1" key="scope"/>
+			<item value="true" key="isWholeWord"/>
+			<item value="NO" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -46,7 +58,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="1" key="scope"/>
 			<item value="true" key="isWholeWord"/>
-			<item value="LEFT THE ROOM" key="textPattern"/>
+			<item value="JOptionPane" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -58,7 +70,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="1" key="scope"/>
 			<item value="true" key="isWholeWord"/>
-			<item value="YOU HAVE LEFT THE ROOM" key="textPattern"/>
+			<item value="LEFT THE ROOM" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -70,7 +82,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="1" key="scope"/>
 			<item value="true" key="isWholeWord"/>
-			<item value="receive" key="textPattern"/>
+			<item value="refreshOnlines" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -82,7 +94,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="1" key="scope"/>
 			<item value="true" key="isWholeWord"/>
-			<item value="JOptionPane" key="textPattern"/>
+			<item value="receive" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -105,16 +117,11 @@
 			<item value="org.eclipse.pde.internal.ui.search.SearchPage"/>
 		</list>
 		<list key="Search.enabledPageIds">
-			<item value="org.eclipse.rse.internal.files.ui.search.searchPage"/>
 			<item value="org.eclipse.search.internal.ui.text.TextSearchPage"/>
-			<item value="org.eclipse.mylyn.tasks.ui.search.page"/>
-			<item value="org.eclipse.egit.ui.commitSearchPage"/>
-			<item value="org.eclipse.jdt.ui.JavaSearchPage"/>
-			<item value="org.eclipse.wst.jsdt.ui.JavaSearchPage"/>
-			<item value="org.eclipse.pde.internal.ui.search.SearchPage"/>
 		</list>
 	</section>
 	<section name="SearchDialog">
+		<item value="false" key="IS_OPEN_PREVIOUS_PAGE"/>
 		<item value="org.eclipse.search.internal.ui.text.TextSearchPage" key="PREVIOUS_PAGE"/>
 	</section>
 	<section name="org.eclipse.jdt.ui.JavaSearchResultPage">

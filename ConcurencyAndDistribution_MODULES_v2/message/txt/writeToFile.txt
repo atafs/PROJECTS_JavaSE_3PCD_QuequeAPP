@@ -1,12 +1,20 @@
-aaaaaaa: erre
-null: egerg
-null: ergr
-ddddddddddddddd: erggr
-ddddddddddddddd: ergeg
-ddddddddddddddd: erg
-null: erert
-null: erer
-null: erert
-ddddddddddddddd: ertertertert
-ddddddddddddddd: ertetr
-ddddddddddddddd: erter
+Agora estou a Escrever
+Para o Ficheiro
+null: sdqwdqwdwqdqwdqwd
+null: qwdqwd
+null: 111111111111111111
+null: 222222222222222
+null: 333333333333333333
+null: 44444444444444444444
+null: 5555555555555555555555
+null: 666666666666666666666666
+null: 777777777777777777777777777
+null: fgdfgdfgfdgsgdfg
+null: asfsadasdsa
+null: dfsdfdsf
+null: sdfsdf
+null: 111111111111111111111
+null: sdfsdfsd
+null: zzzzzzzzzzzzzzzzzz
+null: vsdfsdfsdf
+null: adasd

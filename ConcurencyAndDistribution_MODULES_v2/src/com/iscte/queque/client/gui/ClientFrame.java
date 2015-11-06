@@ -15,7 +15,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -33,8 +35,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import com.iscte.queque.client.io.read.Reader;
 import com.iscte.queque.client.io.write.Writer;
@@ -76,17 +76,37 @@ public class ClientFrame extends JFrame {
 	
 	//TXT
 	//PATHS (absolute for windows)
-	final static String READ_FROM_FILE = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES_v2\\message\\txt\\readFromFile.txt";
-	final static String WRITE_TO_FILE = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES_v2\\message\\txt\\writeToFile.txt";
-	final static String WRITE_TO_FILE_USER = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES_v2\\message\\txt\\";
-	final static Charset ENCODING = StandardCharsets.UTF_8;
+	private String userName = "";
+	private final static String READ_FROM_FILE = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES_v2\\message\\txt\\readFromFile.txt";
+	private final static String WRITE_TO_FILE = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES_v2\\message\\txt\\writeToFile.txt";
+	private final static String WRITE_TO_FILE_USER = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES_v2\\message\\txt\\";
+	private static String userPATH = "";
+	private final static Charset ENCODING = StandardCharsets.UTF_8;
 	private Reader reader = new Reader();
 	private Writer writer = new Writer();
 		
 
 	//CONSTRUCTOR
-	public ClientFrame() {
-		gui_initComponents();
+	public ClientFrame(/*String userPATH*/) {
+//		//this.userName = userName;
+//		this.userPATH = userPATH;
+//		
+//		//READER
+//		Reader reader = new Reader();
+//		try {
+//			List<String> text = new ArrayList<String>();
+//			text = reader.readSmallTextFile(userPATH);
+//			
+//			
+//			for (int i = 0; i < text.size(); i++) {
+//				userName = text.get(i);
+//				userName.split(" ");
+//			}
+//			
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+		gui_initComponents(/*userName*/);
         gui_lastInstructions();
         gui_start();  
 	}
@@ -163,7 +183,7 @@ public class ClientFrame extends JFrame {
 		this.listOnlines.setLayoutOrientation(0);
 	}
 
-	private void gui_initComponents() {
+	private void gui_initComponents(/*String user*/) {
 
 		// TABS
 		setTitle("QuequeAPP");
@@ -194,6 +214,9 @@ public class ClientFrame extends JFrame {
 		this.btnEnviar = new JButton();
 		this.btnLimpar = new JButton();
 
+		//TEXTFIELD
+//		txtName.setText(user);
+		
 		// setDefaultCloseOperation(3);
 
 		// PANEL1

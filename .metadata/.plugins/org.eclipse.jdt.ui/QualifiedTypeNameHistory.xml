@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
 <fullyQualifiedTypeName name="gui.swing.icon_and_text.ImgNText"/>
-<fullyQualifiedTypeName name="java.lang.Object"/>
 <fullyQualifiedTypeName name="enums.state.data.Message"/>
 <fullyQualifiedTypeName name="pt.progJava.americoLib.control107.service.ClienteService"/>
 <fullyQualifiedTypeName name="pt.progJava.americoLib.control107.frame.ClienteFrame"/>
-<fullyQualifiedTypeName name="javax.swing.JFrame"/>
 <fullyQualifiedTypeName name="dao.phonebook.test.Main"/>
 <fullyQualifiedTypeName name="gui.client.Client"/>
 <fullyQualifiedTypeName name="distribution.serializable.ChatMessage"/>
@@ -60,4 +57,7 @@
 <fullyQualifiedTypeName name="java.awt.event.MouseAdapter"/>
 <fullyQualifiedTypeName name="java.awt.event.MouseEvent"/>
 <fullyQualifiedTypeName name="com.iscte.queque.client.io.read.Reader"/>
+<fullyQualifiedTypeName name="javax.swing.JFrame"/>
+<fullyQualifiedTypeName name="java.lang.Object"/>
+<fullyQualifiedTypeName name="java.awt.Color"/>
 </qualifiedTypeNameHistroy>
