@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workingSetManager>
+<workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1449578277261_1" label="OLD VERSIONS" name="OLD VERSIONS"/>
+<workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1449578305870_2" label="FRIDAY" name="FRIDAY">
+<item elementID="=ConcurencyAndDistribution_MODULES_v2" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+</workingSet>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1445605494265_0" label="Window Working Set" name="Aggregate for window 1445605494265"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1449696636485_7" label="Multiple Working Sets" name="Aggregate:FRIDAY:OLD VERSIONS:">
+<workingSet IMemento.internal.id="FRIDAY"/>
+<workingSet IMemento.internal.id="OLD VERSIONS"/>
+</workingSet>
+<mruList name="FRIDAY"/>
 </workingSetManager>

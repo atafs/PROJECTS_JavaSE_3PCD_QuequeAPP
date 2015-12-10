@@ -5,6 +5,12 @@ import com.iscte.queque.client.gui.ClientFrame;
 public class ClientMain {
 	public static void main(String[] args) {
 
+//		//IMPORTANT ###########################################
+//		READ FROM LIST
+//		WRITE TO LIST
+//		
+//		DO NOT READ FROM TXT (to much overhead)
+		
 //		//PATH=D:\\clouds\\user\\user1.txt
 //		String path = "";
 //		String userName = "";

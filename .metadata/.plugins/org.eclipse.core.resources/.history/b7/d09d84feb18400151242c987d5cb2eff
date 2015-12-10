@@ -1,7 +1,0 @@
-package com.iscte.queque.client.gui;
-
-import javax.swing.JFrame;
-
-public class ServerFrame extends JFrame{
-
-}

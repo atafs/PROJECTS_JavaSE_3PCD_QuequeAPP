@@ -6,20 +6,20 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="txtAreaReceive" key="selection"/>
+		<item value="txtName" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="true" key="wholeword"/>
 		<list key="findhistory">
+			<item value="txtName"/>
+			<item value="text"/>
 			<item value="txtAreaReceive"/>
 			<item value="list_clients_model"/>
 			<item value="listOnlines"/>
 			<item value="refreshOnlines"/>
 			<item value="mapOnlies"/>
 			<item value="server"/>
-			<item value="readLargerTextFile"/>
-			<item value="log"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>
