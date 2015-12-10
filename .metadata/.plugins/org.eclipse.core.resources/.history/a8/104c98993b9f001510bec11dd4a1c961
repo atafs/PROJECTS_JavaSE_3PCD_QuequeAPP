@@ -12,8 +12,8 @@ pathEllucianReadExcel		=.//excel//manage_issue_template.xls
 
 
 #CONSTANTS ##########################################################
-BANNER_MODULE_ENUM			=zzz
-SOLUTION_CENTER_ENUM		=yyy
-FILE_EXTENSION_ENUM			=xxx
+BANNER_MODULE_ENUM			=BDM, General, General - Solution Centers, HR, HR - Solution Centers, Finance, Finance - Solution Centers, None
+SOLUTION_CENTER_ENUM		=AUSTRALIA, BRAZIL, CALIFORNIA, CANADA, EUROPE, LATINAMERICA, MIDDLEEAST, Tennessee, Texas, GLOBAL, INDIA, EUROPA, Solution Center, None
+FILE_EXTENSION_ENUM			=docx, xlsx
 
 
