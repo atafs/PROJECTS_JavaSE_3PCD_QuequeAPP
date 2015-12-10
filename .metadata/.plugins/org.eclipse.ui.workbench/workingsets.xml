@@ -2,13 +2,13 @@
 <workingSetManager>
 <workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1449578277261_1" label="OLD VERSIONS" name="OLD VERSIONS"/>
 <workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1449578305870_2" label="FRIDAY" name="FRIDAY">
-<item elementID="=ConcurencyAndDistribution_MODULES_v2_CLIENT" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=ConcurrencyAndDistribution_CLIENT" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 </workingSet>
 <workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1449710601872_4" label="CLIENT" name="CLIENT">
-<item elementID="=ConcurencyAndDistribution_MODULES_v2_CLIENT" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=ConcurrencyAndDistribution_CLIENT" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 </workingSet>
 <workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1449710615040_5" label="SERVER" name="SERVER">
-<item elementID="=ConcurencyAndDistribution_MODULES_v2_SERVER" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=ConcurrencyAndDistribution_SERVER" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 </workingSet>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1445605494265_0" label="Window Working Set" name="Aggregate for window 1445605494265"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1449696636485_7" label="Multiple Working Sets" name="Aggregate:FRIDAY:OLD VERSIONS:">
