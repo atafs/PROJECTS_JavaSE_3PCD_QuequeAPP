@@ -1,5 +1,0 @@
-//SERVER GUI
-get the server gui that I have... 
-
-//CLIENT-CLIENT
-connection sending messages to one another.... get one for phaseI
