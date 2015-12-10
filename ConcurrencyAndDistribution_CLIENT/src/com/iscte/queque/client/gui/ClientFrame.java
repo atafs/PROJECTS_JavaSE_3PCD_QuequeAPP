@@ -42,6 +42,10 @@ import com.iscte.queque.client.listener.chat.BtnConectar;
 import com.iscte.queque.client.listener.chat.BtnEnviar;
 import com.iscte.queque.client.listener.chat.BtnLimpar;
 import com.iscte.queque.client.listener.chat.BtnSair;
+import com.iscte.queque.client.listener.contact.BtnAdd;
+import com.iscte.queque.client.listener.contact.BtnClear;
+import com.iscte.queque.client.listener.contact.BtnNew;
+import com.iscte.queque.client.listener.contact.BtnRemove;
 import com.iscte.queque.client.log.LogMessage;
 import com.iscte.queque.client.serializable.ChatMessage;
 import com.iscte.queque.client.service.ClientService;
@@ -71,7 +75,13 @@ public class ClientFrame extends JFrame {
 	private JTextField txtName;
 	
 	//TAB CONTACTS ITEMS ############################
-
+	private JPanel jPanel4;
+	private JTextField txtNameGroup;
+	private JButton btnNew;
+	private JButton btAdd;
+	private JButton btRemove;
+	private JButton btClear;
+	
 	//LOG4J LOGGER
 	private static LogMessage logger = new LogMessage();
 	private static final long serialVersionUID = 1L;
@@ -201,13 +211,81 @@ public class ClientFrame extends JFrame {
 		label1.setText("MY CONTACTS");
 		contactPanel.add(label1);
 		
-//		//TAB1
-//		jp2.setLayout(new BorderLayout());
-//		jp2.add(BorderLayout.NORTH, jPanel1);
-//		jp2.add(BorderLayout.CENTER, jPanel2);
-//		jp2.add(BorderLayout.SOUTH, jPanel3);
+		this.jPanel4 = new JPanel();
+		this.txtNameGroup = new JTextField();
+		this.btnNew = new JButton();
+		this.btAdd = new JButton();
+		this.btRemove = new JButton();
+		this.btClear = new JButton();
+		
+		// PANEL4
+		jPanel4.setBorder(BorderFactory.createTitledBorder("MANAGE CONTACTS (single/group)"));
+		//FONT
+		Font fonteButton1 = new Font("Serif", Font.BOLD, 15);
+		
+		btnNew.setText("New Group");
+		btnNew.setBackground(Color.WHITE);
+		btnNew.setForeground(Color.BLUE);
+		btnNew.setFont(fonteButton1);
+		  try {
+		    Image img = ImageIO.read(getClass().getResource("/gui/listener/img/newGroup.png"));
+		    btnNew.setIcon(new ImageIcon(img));
+		  } catch (IOException ex) {
+		  }
+		btnNew.addActionListener(new BtnNew(this));
 
-		// PANEL2 ###################################
+		btAdd.setText("Add Contact");
+		btAdd.setBackground(Color.WHITE);
+		btAdd.setForeground(Color.BLUE);
+		btAdd.setFont(fonteButton1);
+		  try {
+		    Image img = ImageIO.read(getClass().getResource("/gui/listener/img/newContact.jpg"));
+		    btAdd.setIcon(new ImageIcon(img));
+		  } catch (IOException ex) {
+		  }
+		btAdd.setEnabled(false);
+		btAdd.addActionListener(new BtnAdd(this));
+		
+		btRemove.setText("Remove Contact");
+		btRemove.setBackground(Color.WHITE);
+		btRemove.setForeground(Color.BLUE);
+		btRemove.setFont(fonteButton1);
+		  try {
+		    Image img = ImageIO.read(getClass().getResource("/gui/listener/img/deleteContact.jpg"));
+		    btRemove.setIcon(new ImageIcon(img));
+		  } catch (IOException ex) {
+		  }
+		btRemove.setEnabled(false);
+		btRemove.addActionListener(new BtnRemove(this));
+		
+		btClear.setText("Delete Groups");
+		btClear.setBackground(Color.WHITE);
+		btClear.setForeground(Color.BLUE);
+		btClear.setFont(fonteButton1);
+		  try {
+		    Image img = ImageIO.read(getClass().getResource("/gui/listener/img/deleteGroup.png"));
+		    btClear.setIcon(new ImageIcon(img));
+		  } catch (IOException ex) {
+		  }
+		btClear.setEnabled(false);
+		btClear.addActionListener(new BtnClear(this));
+		
+		//BOX
+		jPanel4.setLayout(new BoxLayout(jPanel4, BoxLayout.X_AXIS));
+		
+		//ADD
+		jPanel4.add(btnNew);
+		jPanel4.add(btAdd);
+		jPanel4.add(btRemove);
+		jPanel4.add(btClear);
+		
+		//TAB contactPanel
+		contactPanel.setLayout(new BorderLayout());
+//		contactPanel.add(BorderLayout.NORTH, jPanel1);
+//		contactPanel.add(BorderLayout.CENTER, jPanel2);
+		contactPanel.add(BorderLayout.SOUTH, jPanel4);
+
+		// PANEL chatPanel ###########################
 		JPanel chatPanel = new JPanel();
 
 		this.jPanel1 = new JPanel();
@@ -277,6 +355,8 @@ public class ClientFrame extends JFrame {
 
 		// PANEL3
 		jPanel3.setBorder(BorderFactory.createEtchedBorder());
+		//FONT
+		Font fonteButton = new Font("Serif", Font.BOLD, 15);
 
 		txtAreaReceive.setEditable(false);
 		txtAreaReceive.setColumns(20);
@@ -286,7 +366,7 @@ public class ClientFrame extends JFrame {
 		jScrollPane1.setViewportView(this.txtAreaReceive);
 
 		txtAreaSend.setColumns(20);
-		txtAreaSend.setRows(5);
+		txtAreaSend.setRows(2);
 		txtAreaSend.setBackground(Color.BLUE);
 		txtAreaSend.setForeground(Color.WHITE);
 		txtAreaSend.setSize(200, 200);
@@ -294,7 +374,6 @@ public class ClientFrame extends JFrame {
 		jScrollPane2.setViewportView(this.txtAreaSend);
 
 		btnEnviar.setText("Send");
-		Font fonteButton = new Font("Serif", Font.BOLD, 30);
 		btnEnviar.setBackground(Color.WHITE);
 		btnEnviar.setForeground(Color.BLUE);
 		btnEnviar.setFont(fonteButton);
@@ -341,7 +420,7 @@ public class ClientFrame extends JFrame {
 		chatPanel.add(BorderLayout.CENTER, jPanel2);
 		chatPanel.add(BorderLayout.SOUTH, jPanel3);
 
-		// ADD PANELS TO TABS
+		// ADD PANELS TO TABS #############################
 		jtp.addTab("CHAT", chatPanel);
 		jtp.addTab("CONTACTS", contactPanel);
 	}
@@ -368,6 +447,22 @@ public class ClientFrame extends JFrame {
 //		this.message.setAction(ChatMessage.Action.DISCONNECT);
 		this.service.send(this.message);
 		disconnected();
+	}
+	
+	public void btnAddActionPerformed(ActionEvent evt) {
+		//...
+	}
+	
+	public void btnClearActionPerformed(ActionEvent evt) {
+		//...
+	}
+	
+	public void btnNewActionPerformed(ActionEvent evt) {
+		//...
+	}
+	
+	public void btnRemoveActionPerformed(ActionEvent evt) {
+		//...
 	}
 
 	public void btnLimparActionPerformed(ActionEvent evt) {
@@ -413,8 +508,9 @@ public class ClientFrame extends JFrame {
 	/** INIT: */
     private void gui_lastInstructions() {
     	//setDefaultLookAndFeelDecorated(true);
-     	setSize(900, 500);
+     	setSize(740, 500);
     	setLocation(200, 200);
+    	setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
