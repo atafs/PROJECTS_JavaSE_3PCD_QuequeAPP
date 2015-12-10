@@ -1,0 +1,7 @@
+package com.iscte.queque.client.enums;
+
+public enum ActionStateClient {
+	ONLINE, OFFLINE;
+	
+
+}

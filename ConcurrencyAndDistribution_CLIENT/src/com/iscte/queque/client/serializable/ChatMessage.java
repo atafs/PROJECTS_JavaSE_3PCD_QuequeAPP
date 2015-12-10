@@ -1,33 +1,28 @@
 package com.iscte.queque.client.serializable;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
 import java.util.Set;
-
-import com.iscte.queque.client.dao.Contact;
 
 public class ChatMessage implements Serializable {
 
+	//ATTRIBUTES
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private String text;
 	private String nameReserved;
-	
-	//CONTANTS
+	//CONSTANTS
 	private Action action;
 	private Action state;
-	
 	//LISTS
 	private Set<String> setOnlines;
 	
+	//CONSTRUCTOR
 	public ChatMessage() {
 		this.setOnlines = new HashSet<String>();
 	}
 
+	//GETTERS AND SETTERS
 	public String getName() {
 		return this.name;
 	}
@@ -76,10 +71,19 @@ public class ChatMessage implements Serializable {
 		this.state = state;
 	}
 
+	//INNER CLASS: ENUM
 	public static enum Action {
 		CONNECT, DISCONNECT, SEND_ONE, SEND_ALL, USERS_ONLINE, ONLINE, OFFLINE;
 
 		private Action() {
 		}
+	}
+	
+	//INNER CLASS: ENUM
+	public static enum ActionState{
+		ONLINE, OFFLINE;
+
+		//CONSTRUCTOR
+		private ActionState() {}
 	}
 }

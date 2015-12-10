@@ -1,0 +1,12 @@
+package com.iscte.queque.client.serializable.group;
+
+import java.util.List;
+
+import com.iscte.queque.client.test.dao.contact.Contact;
+
+public class ContactGroup {
+
+	// ATTRIBUTES
+	private String nameReserved;
+	private List<Contact> myContacts;
+}

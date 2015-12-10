@@ -1,0 +1,8 @@
+package com.iscte.queque.client.serializable.contact;
+
+public class ContactGroup {
+
+	// ATTRIBUTES
+	private String nameReserved;
+	private Contact myContacts;
+}

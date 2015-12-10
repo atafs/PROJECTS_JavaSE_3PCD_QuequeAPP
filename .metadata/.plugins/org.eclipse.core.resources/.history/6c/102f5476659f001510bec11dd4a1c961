@@ -1,0 +1,5 @@
+package com.iscte.queque.client.serializable.contact;
+
+public class GroupContact {
+
+}

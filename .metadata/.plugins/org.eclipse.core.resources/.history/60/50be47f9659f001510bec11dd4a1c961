@@ -1,0 +1,18 @@
+package com.iscte.queque.client.serializable;
+
+/** DAO */
+public class Client {
+	
+	// ATTRIBUTES
+	//CLIENT: myData
+	private String name;
+	private String nameReserved;
+	//CLIENT: 
+	//- myGroup: ContactGroup
+	//  - myChat: ChatMessage
+	private 
+	
+	
+	//private ChatMessage chat;
+
+}
