@@ -2,6 +2,7 @@ package com.iscte.queque.client.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -44,6 +45,7 @@ import com.iscte.queque.client.listener.chat.BtnLimpar;
 import com.iscte.queque.client.listener.chat.BtnSair;
 import com.iscte.queque.client.listener.contact.BtnAdd;
 import com.iscte.queque.client.listener.contact.BtnClear;
+import com.iscte.queque.client.listener.contact.BtnCreateNewGroup;
 import com.iscte.queque.client.listener.contact.BtnNew;
 import com.iscte.queque.client.listener.contact.BtnRemove;
 import com.iscte.queque.client.log.LogMessage;
@@ -76,11 +78,13 @@ public class ClientFrame extends JFrame {
 	
 	//TAB CONTACTS ITEMS ############################
 	private JPanel jPanel4;
-	private JTextField txtNameGroup;
 	private JButton btnNew;
 	private JButton btAdd;
 	private JButton btRemove;
 	private JButton btClear;
+	private JPanel jPanel5;
+	private JTextField txtNameGroup;
+	private JButton  btnCreateNewGroup;
 	
 	//LOG4J LOGGER
 	private static LogMessage logger = new LogMessage();
@@ -205,14 +209,14 @@ public class ClientFrame extends JFrame {
 		JTabbedPane jtp = new JTabbedPane();
 		getContentPane().add(jtp);
 
-		// PANEL1 ###################################
+		// PANEL contactPanel ###########################
 		JPanel contactPanel = new JPanel();
 		JLabel label1 = new JLabel();
 		label1.setText("MY CONTACTS");
 		contactPanel.add(label1);
 		
+		//PANEL4: SOUTH
 		this.jPanel4 = new JPanel();
-		this.txtNameGroup = new JTextField();
 		this.btnNew = new JButton();
 		this.btAdd = new JButton();
 		this.btRemove = new JButton();
@@ -279,9 +283,40 @@ public class ClientFrame extends JFrame {
 		jPanel4.add(btRemove);
 		jPanel4.add(btClear);
 		
+		// PANEL4 NORTH
+		this.jPanel5 = new JPanel();
+		this.jPanel5.setBorder(BorderFactory.createTitledBorder("GROUP NAME"));
+		FlowLayout flow = new FlowLayout();
+		flow.setAlignment(10);
+		jPanel5.setLayout(flow);
+		
+		//TEXTFIELD
+		Font fonteButton2 = new Font("Serif", Font.ITALIC, 15);
+		this.txtNameGroup = new JTextField();
+		this.txtNameGroup.setFont(fonteButton2);
+		this.txtNameGroup.setEditable(false);
+		this.txtNameGroup.setText("click the button create to insert name of new group first...");
+		this.txtNameGroup.setSize(jPanel5.getWidth(), jPanel5.getHeight());
+
+		//BUTTON
+		this.btnCreateNewGroup = new JButton();
+		this.btnCreateNewGroup.setFont(fonteButton2);
+		btnCreateNewGroup.setText("Create");
+		btnCreateNewGroup.setBackground(Color.WHITE);
+		btnCreateNewGroup.setForeground(Color.BLUE);
+		btnCreateNewGroup.setFont(fonteButton1);
+		btnCreateNewGroup.setEnabled(false);
+		btnCreateNewGroup.addActionListener(new BtnCreateNewGroup(this));
+
+		//BOX
+		jPanel5.setLayout(new BoxLayout(jPanel5, BoxLayout.X_AXIS));
+		//ADD
+		jPanel5.add(txtNameGroup);
+		jPanel5.add(btnCreateNewGroup);
+		
 		//TAB contactPanel
 		contactPanel.setLayout(new BorderLayout());
-//		contactPanel.add(BorderLayout.NORTH, jPanel1);
+		contactPanel.add(BorderLayout.NORTH, jPanel5);
 //		contactPanel.add(BorderLayout.CENTER, jPanel2);
 		contactPanel.add(BorderLayout.SOUTH, jPanel4);
 
@@ -458,13 +493,20 @@ public class ClientFrame extends JFrame {
 	}
 	
 	public void btnNewActionPerformed(ActionEvent evt) {
-		//...
+		//TEXT
+		this.txtNameGroup.setEditable(true);
+		this.btnCreateNewGroup.setEnabled(true);
+		this.txtNameGroup.setText("");
 	}
 	
 	public void btnRemoveActionPerformed(ActionEvent evt) {
 		//...
 	}
-
+	
+	public void btnCreateNewGroupActionPerformed(ActionEvent evt) {
+		//...
+	}
+	
 	public void btnLimparActionPerformed(ActionEvent evt) {
 		this.txtAreaSend.setText("");
 	}
