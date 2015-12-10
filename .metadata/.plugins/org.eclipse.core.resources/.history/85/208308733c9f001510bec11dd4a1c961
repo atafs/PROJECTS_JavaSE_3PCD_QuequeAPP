@@ -12,8 +12,8 @@ pathEllucianReadExcel		=.//excel//manage_issue_template.xls
 
 
 #CONSTANTS ##########################################################
-NAME_ZZZ			=zzz
-NAME_YYY			=yyy
-NAME_ZZZ			=xxx
+BANNER_MODULE_ENUM			=zzz
+SOLUTION_CENTER_ENUM		=yyy
+FILE_EXTENSION_ENUM			=xxx
 
 

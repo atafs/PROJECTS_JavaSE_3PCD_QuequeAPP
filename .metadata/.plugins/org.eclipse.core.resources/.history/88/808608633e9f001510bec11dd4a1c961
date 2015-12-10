@@ -82,9 +82,9 @@ public class ClientFrame extends JFrame {
 	//TXT
 	//PATHS (absolute for windows)
 	private String userName = "";
-	private final static String READ_FROM_FILE = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurrencyAndDistribution_CLIENT\\message\\txt\\readFromFile.txt";
-	private final static String WRITE_TO_FILE = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurrencyAndDistribution_CLIENT\\message\\txt\\writeToFile.txt";
-	private final static String WRITE_TO_FILE_USER = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurrencyAndDistribution_CLIENT\\message\\txt\\";
+	private final static String READ_FROM_FILE = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES_v2\\message\\txt\\readFromFile.txt";
+	private final static String WRITE_TO_FILE = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES_v2\\message\\txt\\writeToFile.txt";
+	private final static String WRITE_TO_FILE_USER = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES_v2\\message\\txt\\";
 	private static String userPATH = "";
 	private final static Charset ENCODING = StandardCharsets.UTF_8;
 	private Reader reader = new Reader();

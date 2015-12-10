@@ -82,9 +82,9 @@ public class ClientFrame extends JFrame {
 	//TXT
 	//PATHS (absolute for windows)
 	private String userName = "";
-	private final static String READ_FROM_FILE = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurrencyAndDistribution_CLIENT\\message\\txt\\readFromFile.txt";
-	private final static String WRITE_TO_FILE = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurrencyAndDistribution_CLIENT\\message\\txt\\writeToFile.txt";
-	private final static String WRITE_TO_FILE_USER = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurrencyAndDistribution_CLIENT\\message\\txt\\";
+	private final static String READ_FROM_FILE = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES_v2\\message\\txt\\readFromFile.txt";
+	private final static String WRITE_TO_FILE = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES_v2\\message\\txt\\writeToFile.txt";
+	private final static String WRITE_TO_FILE_USER = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES_v2\\message\\txt\\";
 	private static String userPATH = "";
 	private final static Charset ENCODING = StandardCharsets.UTF_8;
 	private Reader reader = new Reader();
@@ -196,19 +196,19 @@ public class ClientFrame extends JFrame {
 		getContentPane().add(jtp);
 
 		// PANEL1 ###################################
-		JPanel contactPanel = new JPanel();
+		JPanel envio = new JPanel();
 		JLabel label1 = new JLabel();
 		label1.setText("MY CONTACTS");
-		contactPanel.add(label1);
+		envio.add(label1);
 		
-//		//TAB1
-//		jp2.setLayout(new BorderLayout());
-//		jp2.add(BorderLayout.NORTH, jPanel1);
-//		jp2.add(BorderLayout.CENTER, jPanel2);
-//		jp2.add(BorderLayout.SOUTH, jPanel3);
+		//TAB1
+		jp2.setLayout(new BorderLayout());
+		jp2.add(BorderLayout.NORTH, jPanel1);
+		jp2.add(BorderLayout.CENTER, jPanel2);
+		jp2.add(BorderLayout.SOUTH, jPanel3);
 
 		// PANEL2 ###################################
-		JPanel chatPanel = new JPanel();
+		JPanel jp2 = new JPanel();
 
 		this.jPanel1 = new JPanel();
 		this.txtName = new JTextField();
@@ -282,7 +282,7 @@ public class ClientFrame extends JFrame {
 		txtAreaReceive.setColumns(20);
 		txtAreaReceive.setRows(5);
 		txtAreaReceive.setEnabled(false);
-		txtAreaReceive.setSize(chatPanel.getWidth(), chatPanel.getHeight());
+		txtAreaReceive.setSize(jp2.getWidth(), jp2.getHeight());
 		jScrollPane1.setViewportView(this.txtAreaReceive);
 
 		txtAreaSend.setColumns(20);
@@ -336,14 +336,14 @@ public class ClientFrame extends JFrame {
 		jPanel2.add(jScrollPane3);
 
 		//TAB1
-		chatPanel.setLayout(new BorderLayout());
-		chatPanel.add(BorderLayout.NORTH, jPanel1);
-		chatPanel.add(BorderLayout.CENTER, jPanel2);
-		chatPanel.add(BorderLayout.SOUTH, jPanel3);
+		jp2.setLayout(new BorderLayout());
+		jp2.add(BorderLayout.NORTH, jPanel1);
+		jp2.add(BorderLayout.CENTER, jPanel2);
+		jp2.add(BorderLayout.SOUTH, jPanel3);
 
 		// ADD PANELS TO TABS
-		jtp.addTab("CHAT", chatPanel);
-		jtp.addTab("CONTACTS", contactPanel);
+		jtp.addTab("CHAT", jp2);
+		jtp.addTab("CONTACTS", envio);
 	}
 
 	public void btnConectarActionPerformed(ActionEvent evt) {
