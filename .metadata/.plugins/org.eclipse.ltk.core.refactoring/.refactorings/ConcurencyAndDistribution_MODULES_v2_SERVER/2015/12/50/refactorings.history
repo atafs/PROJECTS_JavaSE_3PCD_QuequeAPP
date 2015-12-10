@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 3 elements from project &apos;ConcurencyAndDistribution_MODULES_v2_SERVER&apos;&#x0D;&#x0A;- Original project: &apos;ConcurencyAndDistribution_MODULES_v2_SERVER&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     adminDaily.log&#x0D;&#x0A;     adminDaily.log.2015-10-26&#x0D;&#x0A;     adminDaily.log.2015-10-30" description="Delete elements" element1="log/adminDaily.log" element2="log/adminDaily.log.2015-10-26" element3="log/adminDaily.log.2015-10-30" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="3" stamp="1449710569067" subPackages="false" version="1.0"/>
+</session>
