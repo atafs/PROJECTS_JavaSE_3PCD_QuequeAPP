@@ -1,0 +1,10 @@
+package com.iscte.queque.client.test.list.main;
+
+public class JSONMain {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

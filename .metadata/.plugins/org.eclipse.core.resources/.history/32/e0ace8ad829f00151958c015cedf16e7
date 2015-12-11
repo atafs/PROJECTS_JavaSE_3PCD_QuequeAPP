@@ -1,0 +1,3 @@
+#CONSTANTS #######################################
+myDataUser				=.//data//myDataUser.txt
+myDataUserPath			=D://clouds//Drive Ilimitado//PROJECTS_JavaSE_3PCD_QuequeAPP//ConcurrencyAndDistribution_CLIENT//data//myDataUser.txt

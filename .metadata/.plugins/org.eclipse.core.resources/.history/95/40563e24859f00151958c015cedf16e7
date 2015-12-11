@@ -1,0 +1,40 @@
+package com.iscte.queque.client.main;
+
+import com.iscte.queque.client.gui.ClientFrame;
+import com.iscte.queque.client.log.LogMessage;
+import com.iscte.queque.client.properties.Properties;
+
+public class ClientMain {
+	
+	//ATTIBUTES
+	private static Properties properties;
+	private static LogMessage logger = new LogMessage();
+
+	//MAIN
+	public static void main(String[] args) {
+
+		//INSTANTIATE PATHS
+		String[] parts = args;
+		String myAccount = "";
+		
+		//PRINT IN LOGGER
+		for (int j = 0; j < parts.length; j++) {
+	        logger.getLog().info("DATA IN ARGS: " + parts[j].trim());
+		}
+		
+		//CONDITION: USING DEFAULY OR ARGS PATH
+		if (parts.length == 0) {
+			//NO ARG (use the default path instead)
+	    	properties = new Properties();
+	    	myAccount = properties.myAccount();
+			new ClientFrame(myDataUserPath).setVisible(true);
+		}
+		else {
+			//USE VALUE PATH GIVIN IN PROGRAM ARGS
+			myDataUserFullPath = parts[0];
+	    	properties = new Properties(parts[0]);
+	    	//INSTANTIATE
+			new ClientFrame(myDataUserFullPath).setVisible(true);
+		}
+	}
+}

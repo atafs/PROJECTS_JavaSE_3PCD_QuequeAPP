@@ -2,7 +2,6 @@ package com.iscte.queque.client.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
@@ -50,12 +49,15 @@ import com.iscte.queque.client.listener.contact.BtnNew;
 import com.iscte.queque.client.listener.contact.BtnRemove;
 import com.iscte.queque.client.log.LogMessage;
 import com.iscte.queque.client.serializable.ChatMessage;
+import com.iscte.queque.client.serializable.Client;
 import com.iscte.queque.client.service.ClientService;
 import com.iscte.queque.client.thread.In;
 
 public class ClientFrame extends JFrame {
 
 	//ATTRIBUTES
+	private Client myDataClient;
+	
 	private Socket socket;
 	private ChatMessage message;
 	private ClientService service;
@@ -99,43 +101,37 @@ public class ClientFrame extends JFrame {
 	//LOG4J LOGGER
 	private static LogMessage logger = new LogMessage();
 	private static final long serialVersionUID = 1L;
-	
-	//COUNTERS
-	private int listOnlinesCounter;
-	
+
 	//TXT
-	//PATHS (absolute for windows)
-	private String userName = "";
 	private final static String READ_FROM_FILE = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurrencyAndDistribution_CLIENT\\message\\txt\\readFromFile.txt";
 	private final static String WRITE_TO_FILE = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurrencyAndDistribution_CLIENT\\message\\txt\\writeToFile.txt";
 	private final static String WRITE_TO_FILE_USER = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurrencyAndDistribution_CLIENT\\message\\txt\\";
-	private static String userPATH = "";
 	private final static Charset ENCODING = StandardCharsets.UTF_8;
 	private Reader reader = new Reader();
 	private Writer writer = new Writer();
-		
 
 	//CONSTRUCTOR
-	public ClientFrame(/*String userPATH*/) {
-//		//this.userName = userName;
-//		this.userPATH = userPATH;
-//		
-//		//READER
-//		Reader reader = new Reader();
-//		try {
-//			List<String> text = new ArrayList<String>();
-//			text = reader.readSmallTextFile(userPATH);
-//			
-//			
-//			for (int i = 0; i < text.size(); i++) {
-//				userName = text.get(i);
-//				userName.split(" ");
-//			}
-//			
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+	public ClientFrame() {
+		//GUI
 		gui_initComponents(/*userName*/);
+        gui_lastInstructions();
+        gui_start();  
+	}
+	
+	public ClientFrame(String myAccount) {
+		//USER DATA
+		myDataClient = new Client();
+		
+		//READ STRING
+		String[] parts = myAccount.split(" ");
+		if ( !(parts[0].trim().equals(""))) {
+			myDataClient.setName(parts[0]);
+		} else if(!(parts[1].trim().equals(""))) {
+			myDataClient.setNameReserved(parts[1]);
+		}
+
+		//GUI
+		gui_initComponents();
         gui_lastInstructions();
         gui_start();  
 	}
@@ -151,7 +147,6 @@ public class ClientFrame extends JFrame {
 //			JOptionPane.showMessageDialog(this, "CONNECTION FAILED.\n TRY AGAIN WITH A DIFERENT NAME");
 //			return;
 //		}
-
  		this.message = message;
 
 		this.btnConectar.setEnabled(false);
@@ -218,7 +213,7 @@ public class ClientFrame extends JFrame {
 		this.clientAllUsers.setLayoutOrientation(0);
 	}
 
-	private void gui_initComponents(/*String user*/) {
+	private void gui_initComponents() {
 
 		// TABS
 		setTitle("QuequeAPP");
@@ -601,20 +596,38 @@ public class ClientFrame extends JFrame {
 	}
 
 	public void btnOnlineActionPerformed(ActionEvent evt) {
-		String name = this.txtName.getText();
-
-		if (!name.isEmpty()) {
-			this.message = new ChatMessage();
-			this.message.setAction(ChatMessage.Action.CONNECT);
-			this.message.setState(ChatMessage.Action.ONLINE);
-			this.message.setName(name);
-
-			this.service = new ClientService();
-			this.socket = this.service.connect();
-
-			new Thread(new In(this, this.socket)).start();
-			this.service.send(this.message);
+		//USER NAME
+		String name = "";
+		//1-IF textField has a value
+		if (!this.txtName.getText().isEmpty()) {
+			name = this.txtName.getText();
 		}
+		else {
+			//2-IF textField has NO value, but client class has it
+			if (!(myDataClient.getName().equals(""))) {
+				name = myDataClient.getName();
+				this.txtName.setText(name);
+			} 
+			//3-DEFAULT
+			else {
+				name = "defaultNameForUser";
+				this.txtName.setText(name);
+			}
+		}
+
+		//
+		this.message = new ChatMessage();
+		this.message.setAction(ChatMessage.Action.CONNECT);
+		this.message.setState(ChatMessage.Action.ONLINE);
+		this.message.setName(name);
+
+		this.service = new ClientService();
+		this.socket = this.service.connect();
+
+		new Thread(new In(this, this.socket)).start();
+		this.service.send(this.message);
+		
+		//CLEAN TEXTFIELD SEND
 		this.txtFieldSend.setText("");
 	}
 

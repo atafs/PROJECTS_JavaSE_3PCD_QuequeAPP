@@ -16,5 +16,37 @@ public class Client implements Serializable {
 	//- myGroup: ContactGroup
 	//  - myChat: ChatMessage
 	private List<ContactGroup> myGroups;
-
+	
+	//CONSTRUCTOR
+	public Client(String name, String nameReserved) {
+		this.name = name;
+		this.nameReserved = nameReserved;
+		//this.myGroups = 
+	}
+	
+	public Client() {
+		this.name = "";
+		this.nameReserved = "";
+		//this.myGroups = 
+	}
+	
+	//GETTERS AND SETTERS
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getNameReserved() {
+		return nameReserved;
+	}
+	public void setNameReserved(String nameReserved) {
+		this.nameReserved = nameReserved;
+	}
+	public List<ContactGroup> getMyGroups() {
+		return myGroups;
+	}
+	public void setMyGroups(List<ContactGroup> myGroups) {
+		this.myGroups = myGroups;
+	}
 }

@@ -2,7 +2,7 @@ package com.iscte.queque.client.serializable.group;
 
 import java.util.List;
 
-import com.iscte.queque.client.test.dao.contact.Contact;
+import com.iscte.queque.client.test.contact.Contact;
 
 public class ContactGroup {
 

@@ -1,0 +1,71 @@
+package com.iscte.queque.client.main;
+
+import com.iscte.queque.client.gui.ClientFrame;
+import com.iscte.queque.client.log.LogMessage;
+import com.iscte.queque.client.properties.Properties;
+
+public class ClientMain {
+	
+	//ATTIBUTES
+	private static Properties properties;
+	private static LogMessage logger = new LogMessage();
+
+	//MAIN
+	public static void main(String[] args) {
+
+		//LOCAL VARIABLES
+		String myAccount = "";
+		String name = "";
+		String nameReserved = "";
+		
+		//READ FROM FILE
+    	properties = new Properties();
+    	//GET THE STRING WITH DATA
+    	myAccount = properties.getMyAccount();
+
+		//USER DATA
+		String[] parts = myAccount.split(" ");
+		if ( !(parts[0].trim().equals(""))) {
+			name = parts[0];
+		} else if(!(parts[1].trim().equals(""))) {
+			nameReserved = parts[1];
+		}
+		
+		new ClientFrame(myAccount).setVisible(true);
+
+		
+		
+		
+		
+		
+		
+		
+//		//GET DATA IN FILE
+//		//PRINT IN LOGGER
+//		for (int j = 0; j < parts.length; j++) {
+//			//USER NAME
+//			if (parts[j] == 0) {
+//				name = parts[j];
+//			} else if(parts[j] == 1){
+//				nameReserved = parts[j];
+//			}
+//			myAccount += parts[j].trim();
+//			logger.getLog().info("myAccount: " + parts[j].trim());
+//		}
+//		
+//		//CONDITION: USING DEFAULY OR ARGS PATH
+//		if (parts.length == 0) {
+//			//NO ARG (use the default path instead)
+//	    	properties = new Properties();
+//	    	myAccount = properties.getMyAccount();
+//			new ClientFrame(myDataUserPath).setVisible(true);
+//		}
+//		else {
+//			//USE VALUE PATH GIVIN IN PROGRAM ARGS
+//			myDataUserFullPath = parts[0];
+//	    	properties = new Properties(parts[0]);
+//	    	//INSTANTIATE
+//			new ClientFrame(myDataUserFullPath).setVisible(true);
+//		}
+	}
+}

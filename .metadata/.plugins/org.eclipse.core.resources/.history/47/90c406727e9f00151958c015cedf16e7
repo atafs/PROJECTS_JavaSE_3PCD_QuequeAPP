@@ -1,0 +1,25 @@
+package com.iscte.queque.client.properties;
+
+import com.iscte.queque.client.io.read.Reader_v2;
+
+public class Properties {
+
+	//ATTRIBUTES
+	private String path = "";
+	private Reader_v2 reader;
+	
+	//PROPERTIES
+	private String myDataUser = "";
+
+	//CONSTRUCTOR
+	public Properties() {
+		path = "./properties/config.properties";
+		
+		//SYSTEM PROPERTIES
+		reader = new Reader_v2();
+		myDataUser = reader.readFileReader(path, "myDataUser");
+	}
+	
+
+	
+}

@@ -1,0 +1,26 @@
+package com.iscte.queque.client.main;
+
+import com.iscte.queque.client.gui.ClientFrame;
+import com.iscte.queque.client.log.LogMessage;
+import com.iscte.queque.client.properties.Properties;
+
+public class ClientMain {
+	
+	//ATTIBUTES
+	private static Properties properties;
+
+	//MAIN
+	public static void main(String[] args) {
+
+		//LOCAL VARIABLES
+		String myAccount = "";
+		
+		//READ FROM FILE
+    	properties = new Properties();
+    	//GET THE STRING WITH DATA
+    	myAccount = properties.getMyAccount();
+
+    	//INSTANTIATE GUI
+		new ClientFrame(myAccount).setVisible(true);
+	}
+}

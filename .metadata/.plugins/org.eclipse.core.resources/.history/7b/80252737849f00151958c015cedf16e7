@@ -1,0 +1,7 @@
+#CONSTANTS #######################################
+myDataUserPath				=.//data//myDataUser.txt
+myDataUserFullPath			=D://clouds//Drive Ilimitado//PROJECTS_JavaSE_3PCD_QuequeAPP//ConcurrencyAndDistribution_CLIENT//data//myDataUser.txt
+
+//USER 
+name						=AmericoTomas
+nameReserved				=atafs
