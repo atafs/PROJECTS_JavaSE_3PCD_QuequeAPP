@@ -311,7 +311,7 @@ public class ClientFrame extends JFrame {
 		
 		//JLIST ALL USERS
 		this.jPanel6 = new JPanel();
-		jPanel6.setBorder(BorderFactory.createTitledBorder("All Users"));
+		jPanel6.setBorder(BorderFactory.createTitledBorder("All Users ONLINE"));
 		
 		this.clientAllUsers = new JList<String>();
 		clientAllUsers.addMouseListener(new MouseAdapter() {
@@ -320,23 +320,10 @@ public class ClientFrame extends JFrame {
 		        if (evt.getClickCount() == 2) {
 		            // Double-click detected
 		            int index = clientAllUsers.locationToIndex(evt.getPoint());
-					logger.getLog().debug("JLIST selectedElement=" + index + "; ");
-					
-					//READ FROM FILE
-					String path = WRITE_TO_FILE_USER + message.getName() + ".txt";
-					try {
-						readLargerTextFileAlternate(path);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-
-					
-		        } else if (evt.getClickCount() == 3) {
-		            // Triple-click detected
-		            int index = listOnlines.locationToIndex(evt.getPoint());
-					logger.getLog().debug("JLIST selectedElement=" + index + "; ");
-
-		        }
+					logger.getLog().debug("JLIST clientAllUsers=" + index + "; ");
+				
+				
+		        } 
 		    }
 		});
 		this.jScrollPane6 = new JScrollPane();
@@ -354,27 +341,26 @@ public class ClientFrame extends JFrame {
 		this.clientContactGroup = new JList<String>();
 		clientContactGroup.addMouseListener(new MouseAdapter() {
 		    public void mouseClicked(MouseEvent evt) {
-//				        JList list = (JList)evt.getSource();
 		        if (evt.getClickCount() == 2) {
 		            // Double-click detected
 		            int index = clientContactGroup.locationToIndex(evt.getPoint());
-					logger.getLog().debug("JLIST selectedElement=" + index + "; ");
-					
-					//READ FROM FILE
-					String path = WRITE_TO_FILE_USER + message.getName() + ".txt";
-					try {
-						readLargerTextFileAlternate(path);
-					} catch (IOException e) {
-						e.printStackTrace();
+					logger.getLog().debug("JLIST selectedElement=" + index + "; ");	
+							
+					String s = clientContactGroup.getSelectedValue();
+					logger.getLog().debug(s);	
+
+					//TODO americo
+					//UPDATE JLIST CONTACTS
+					String[] array = new String[myDataClient.getMyGroups().get(index).getMyContactGroups().size()];
+					for (int i = 0; i < myDataClient.getMyGroups().get(index).getMyContactGroups().size(); i++) {
+						array[i] = myDataClient.getMyGroups().get(index).getMyContactGroups().get(i).getName();
 					}
-
 					
-		        } else if (evt.getClickCount() == 3) {
-		            // Triple-click detected
-		            int index = clientContactGroup.locationToIndex(evt.getPoint());
-					logger.getLog().debug("JLIST selectedElement=" + index + "; ");
-
-		        }
+					//JLIST clientAllUsers
+					clientContact.setListData(array);
+					clientContact.setSelectionMode(0);
+					clientContact.setLayoutOrientation(0);
+		        } 
 		    }
 		});
 		this.jScrollPane7 = new JScrollPane();
@@ -392,27 +378,11 @@ public class ClientFrame extends JFrame {
 		this.clientContact = new JList<String>();
 		clientContact.addMouseListener(new MouseAdapter() {
 		    public void mouseClicked(MouseEvent evt) {
-//				        JList list = (JList)evt.getSource();
 		        if (evt.getClickCount() == 2) {
 		            // Double-click detected
 		            int index = clientContact.locationToIndex(evt.getPoint());
-					logger.getLog().debug("JLIST selectedElement=" + index + "; ");
-					
-					//READ FROM FILE
-					String path = WRITE_TO_FILE_USER + message.getName() + ".txt";
-					try {
-						readLargerTextFileAlternate(path);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-
-					
-		        } else if (evt.getClickCount() == 3) {
-		            // Triple-click detected
-		            int index = clientContact.locationToIndex(evt.getPoint());
-					logger.getLog().debug("JLIST selectedElement=" + index + "; ");
-
-		        }
+					logger.getLog().debug("JLIST selectedElement=" + index + "; ");	
+		        } 
 		    }
 		});
 		this.jScrollPane8 = new JScrollPane();
@@ -483,23 +453,8 @@ public class ClientFrame extends JFrame {
 		        if (evt.getClickCount() == 2) {
 		            // Double-click detected
 		            int index = listOnlines.locationToIndex(evt.getPoint());
-					logger.getLog().debug("JLIST selectedElement=" + index + "; ");
-					
-					//READ FROM FILE
-					String path = WRITE_TO_FILE_USER + message.getName() + ".txt";
-					try {
-						readLargerTextFileAlternate(path);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-
-					
-		        } else if (evt.getClickCount() == 3) {
-		            // Triple-click detected
-		            int index = listOnlines.locationToIndex(evt.getPoint());
-					logger.getLog().debug("JLIST selectedElement=" + index + "; ");
-
-		        }
+					logger.getLog().debug("JLIST selectedElement=" + index + "; ");	
+		        } 
 		    }
 		});
 		jScrollPane3.setViewportView(this.listOnlines);
@@ -620,9 +575,64 @@ public class ClientFrame extends JFrame {
 	}
 	
 	public void btnAddActionPerformed(ActionEvent evt) {
-		//...
+		//LOGGER
+		logger.getLog().debug("ACTION: ADD CONTACT BUTTON CLICKED...");
+		
+		//LOCAL VARIABLES
+		int indexAllUsers = this.clientAllUsers.getSelectedIndex();
+		int indexContactGroup = this.clientContactGroup.getSelectedIndex();
+		String name = clientAllUsers.getSelectedValue();
+		
+		//IF: both of the JLISTs have been selected
+		if (indexAllUsers == -1 || indexContactGroup == -1) {
+			//MESSAGE
+			JOptionPane.showMessageDialog(this,"NO VALUE IS SELECTED IN JLISTS: ALL USERS and CONTACT GROUPS... SELECT BOTH!!");
+			return;
+		}
+		
+		//CHECK: IF the new contact has already been created
+		//IF: FIRST NEW CONTACT
+		if (myDataClient.getMyGroups().get(indexContactGroup).getMyContactGroups().size() == 0) {
+			//INSTANTIATE AND ADD
+			Contact myContactGroups = new Contact(name);
+			myDataClient.getMyGroups().get(indexContactGroup).getMyContactGroups().add(myContactGroups);
+			
+			//ADD TO JLIST
+			refreshContacts_Add(myDataClient.getMyGroups().get(indexContactGroup).getMyContactGroups());
+		}
+
+		//IF: MORE THAN ONE EXISTS, CHECK FOR REPEATED VALUES
+		else {
+			for (Contact myContact : myDataClient.getMyGroups().get(indexContactGroup).getMyContactGroups()) {
+				if (myContact.getName().equals(name)) {
+					//MESSAGE
+					JOptionPane.showMessageDialog(this,"THAT NAME IS ALREADY AT LIST... CHOOSE ANOTHER!!");
+					return;
+				}		
+			}
+			//INSTANTIATE AND ADD
+			Contact myContactGroups = new Contact(name);
+			myDataClient.getMyGroups().get(indexContactGroup).getMyContactGroups().add(myContactGroups);
+			
+			//ADD TO JLIST
+			refreshContacts_Add(myDataClient.getMyGroups().get(indexContactGroup).getMyContactGroups());
+		}	
 	}
 	
+	//ACTION: btnCreateNewGroupActionPerformed
+	public synchronized void refreshContacts_Add(List<Contact> myContacts) {	
+		//CONVERT FROM ARRAYLIST TO ARRAY
+		String[] array = new String[myContacts.size()];
+		for (int i = 0; i < myContacts.size(); i++) {
+			array[i] = myContacts.get(i).getName();
+		}
+		
+		//JLIST clientAllUsers
+		this.clientContact.setListData(array);
+		this.clientContact.setSelectionMode(0);
+		this.clientContact.setLayoutOrientation(0);
+	}
+
 	public void btnClearActionPerformed(ActionEvent evt) {
 		//LOCAL VARIABLES
 		int index = this.clientContactGroup.getSelectedIndex();
@@ -689,7 +699,6 @@ public class ClientFrame extends JFrame {
 		//IF: FIRST NEW GROUP
 		if (myDataClient.getMyGroups().size() == 0) {
 			//INSTANTIATE AND ADD
-			//INSTANTIATE AND ADD
 			newContactGroup = new ContactGroup(newNameOfGroup);
 			myDataClient.getMyGroups().add(newContactGroup);
 			//ADD TO JLIST
@@ -711,6 +720,8 @@ public class ClientFrame extends JFrame {
 			myDataClient.getMyGroups().add(newContactGroup);
 			//ADD TO JLIST
 			refreshGroupName_Add(myDataClient.getMyGroups());
+			//CLEAN TEXTFIELD
+			txtNameGroup.setText("");
 		}
 	}
 	
@@ -727,7 +738,7 @@ public class ClientFrame extends JFrame {
 		this.clientContactGroup.setSelectionMode(0);
 		this.clientContactGroup.setLayoutOrientation(0);
 	}
-	
+
 	//AUX METHOD FOR clearTextField
 	private void aux_clearTextField() {
 		this.txtFieldSend.setText("");

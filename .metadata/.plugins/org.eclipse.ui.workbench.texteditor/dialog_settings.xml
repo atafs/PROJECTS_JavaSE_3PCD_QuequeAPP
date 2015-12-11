@@ -13,12 +13,12 @@
 		<item value="true" key="wholeword"/>
 		<list key="findhistory">
 			<item value="txtName"/>
+			<item value="listOnlines"/>
 			<item value="txtNameGroup"/>
 			<item value="envio"/>
 			<item value="text"/>
 			<item value="txtAreaReceive"/>
 			<item value="list_clients_model"/>
-			<item value="listOnlines"/>
 			<item value="refreshOnlines"/>
 		</list>
 		<list key="replacehistory">

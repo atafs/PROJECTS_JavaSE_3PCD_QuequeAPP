@@ -37,7 +37,7 @@
 	<section name="SourceActionDialog.constructors">
 		<item value="false" key="SynchronizedModifier"/>
 		<item value="false" key="Comments"/>
-		<item value="0" key="InsertPosition.v2"/>
+		<item value="2" key="InsertPosition.v2"/>
 		<item value="1" key="VisibilityModifier"/>
 		<item value="false" key="FinalModifier"/>
 	</section>
@@ -51,6 +51,21 @@
 	<section name="RefactoringWizard.preview">
 		<item value="600" key="width"/>
 		<item value="400" key="height"/>
+	</section>
+	<section name="FatJarPackageWizard">
+		<item value="D:\clouds\Drive Ilimitado\PROJECTS_JavaSE_3PCD_QuequeAPP" key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION"/>
+		<item value="New_configuration - ConcurrencyAndDistribution_CLIENT" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
+		<item value="C:\Users\Americo\Desktop\clientRunCMD_v1.0\client.jar" key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION"/>
+		<item value="false" key="FatJarPackageWizardPage.ANTSCRIPT_SAVE"/>
+		<item value="1" key="FatJarPackageWizardPage.LIBRARY_HANDLING"/>
+		<list key="FatJarPackageWizardPage.DESTINATION_NAMES_ID">
+			<item value="C:\Users\Americo\Desktop\clientRunCMD_v1.0\client.jar"/>
+			<item value="C:\Users\Americo\Desktop\clientRunCMD_v1.0\v1_0.jar"/>
+		</list>
+		<list key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION_HISTORY">
+			<item value="D:\clouds\Drive Ilimitado\PROJECTS_JavaSE_3PCD_QuequeAPP.xml"/>
+			<item value=".xml"/>
+		</list>
 	</section>
 	<section name="JavaBuildConfigurationBlock">
 		<item value="false" key="expanded2"/>
@@ -67,7 +82,7 @@
 	<section name="RenameInformationPopup">
 	</section>
 	<section name="ClasspathContainerSelectionPage">
-		<item value="4" key="index"/>
+		<item value="10" key="index"/>
 	</section>
 	<section name="NewPackageWizardPage">
 		<item value="false" key="create_package_info_java"/>
