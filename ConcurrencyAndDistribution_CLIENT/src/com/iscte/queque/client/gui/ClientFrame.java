@@ -356,10 +356,15 @@ public class ClientFrame extends JFrame {
 						array[i] = myDataClient.getMyGroups().get(index).getMyContactGroups().get(i).getName();
 					}
 					
-					//JLIST clientAllUsers
+					//JLIST clientContact
 					clientContact.setListData(array);
 					clientContact.setSelectionMode(0);
 					clientContact.setLayoutOrientation(0);
+					
+					//JLIST listOnlines
+					listOnlines.setListData(array);
+					listOnlines.setSelectionMode(0);
+					listOnlines.setLayoutOrientation(0);
 		        } 
 		    }
 		});
