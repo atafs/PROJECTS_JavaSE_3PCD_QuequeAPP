@@ -661,7 +661,6 @@ public class ClientFrame extends JFrame {
 					JOptionPane.showMessageDialog(this,"THAT NAME IS TAKEN... CHOOSE ANOTHER!!");
 					//CLEAN TEXTFIELD
 					txtNameGroup.setText("");
-					return;
 				}		
 			}
 			//INSTANTIATE AND ADD

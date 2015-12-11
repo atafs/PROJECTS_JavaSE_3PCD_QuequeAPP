@@ -653,16 +653,14 @@ public class ClientFrame extends JFrame {
 			//INSTANTIATE AND ADD
 			myDataClient.getMyGroups().add(new ContactGroup(newNameOfGroup));
 		}
-		else {
-			//IF: MORE THAN ONE EXISTS, CHECK FOR REPEATED VALUES
-			for (ContactGroup myGroups : myDataClient.getMyGroups()) {
-				if (myGroups.getGroupName().equals(newNameOfGroup)) {
-					//MESSAGE
-					JOptionPane.showMessageDialog(this,"THAT NAME IS TAKEN... CHOOSE ANOTHER!!");
-					//CLEAN TEXTFIELD
-					txtNameGroup.setText("");
-					return;
-				}		
+		
+		for (ContactGroup myGroups : myDataClient.getMyGroups()) {
+			//IF: that name group is repeated
+			if (myGroups.getGroupName().equals(newNameOfGroup)) {
+				//MESSAGE
+				JOptionPane.showMessageDialog(this,"THAT NAME IS TAKEN... CHOOSE ANOTHER!!");
+				//CLEAN TEXTFIELD
+				txtNameGroup.setText("");
 			}
 			//INSTANTIATE AND ADD
 			myDataClient.getMyGroups().add(new ContactGroup(newNameOfGroup));

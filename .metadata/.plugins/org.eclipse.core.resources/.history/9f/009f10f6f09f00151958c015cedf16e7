@@ -13,10 +13,11 @@ public class ClientMain {
 	//MAIN
 	public static void main(String[] args) {
 
-		//LOCAL VARIABLE
+		//LOCAL VARIABLES
 		String myAccount = "";
 	
 		//IF NO ARGS IS GIVEN, USE DEFAULT VALUES
+//		if (!(args[0].equals(""))) {
 		if (!(args.length == 0)) {
 			//READ FROM FILE
 	    	properties = new Properties(args[0]);

@@ -18,11 +18,6 @@ public class ContactGroup {
 		this.myContactGroups = myContactGroups;
 	}
 	
-	public ContactGroup(String groupName) {
-		this.groupName = groupName;
-		this.myContactGroups = new ArrayList<Contact>();
-	}
-	
 	public ContactGroup() {
 		this.groupName = "";
 		this.myContactGroups = new ArrayList<Contact>();

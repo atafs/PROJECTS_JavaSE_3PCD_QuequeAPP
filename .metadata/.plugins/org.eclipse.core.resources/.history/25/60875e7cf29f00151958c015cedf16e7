@@ -1,11 +1,9 @@
 package com.iscte.queque.client.serializable;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.iscte.queque.client.serializable.group.ContactGroup;
-import com.iscte.queque.client.test.contact.Contact;
 
 /** DAO */
 public class Client implements Serializable {
@@ -25,13 +23,13 @@ public class Client implements Serializable {
 	public Client(String name, String nameReserved) {
 		this.name = name;
 		this.nameReserved = nameReserved;
-		this.myGroups = new ArrayList<ContactGroup>();
+		//this.myGroups = 
 	}
 	
 	public Client() {
 		this.name = "";
 		this.nameReserved = "";
-		this.myGroups = new ArrayList<ContactGroup>();
+		//this.myGroups = 
 	}
 	
 	//GETTERS AND SETTERS

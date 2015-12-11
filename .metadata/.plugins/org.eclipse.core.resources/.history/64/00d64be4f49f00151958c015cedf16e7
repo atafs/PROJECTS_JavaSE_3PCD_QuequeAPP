@@ -661,11 +661,12 @@ public class ClientFrame extends JFrame {
 					JOptionPane.showMessageDialog(this,"THAT NAME IS TAKEN... CHOOSE ANOTHER!!");
 					//CLEAN TEXTFIELD
 					txtNameGroup.setText("");
-					return;
-				}		
+				}
+				else {
+					//INSTANTIATE AND ADD
+					myDataClient.getMyGroups().add(new ContactGroup(newNameOfGroup));
+				}	
 			}
-			//INSTANTIATE AND ADD
-			myDataClient.getMyGroups().add(new ContactGroup(newNameOfGroup));
 		}
 	}
 	

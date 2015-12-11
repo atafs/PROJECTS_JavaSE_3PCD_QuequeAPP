@@ -31,7 +31,7 @@ public class Client implements Serializable {
 	public Client() {
 		this.name = "";
 		this.nameReserved = "";
-		this.myGroups = new ArrayList<ContactGroup>();
+		//this.myGroups = 
 	}
 	
 	//GETTERS AND SETTERS

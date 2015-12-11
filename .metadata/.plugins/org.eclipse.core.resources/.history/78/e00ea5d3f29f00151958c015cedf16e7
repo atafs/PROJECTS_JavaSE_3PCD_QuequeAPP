@@ -648,24 +648,11 @@ public class ClientFrame extends JFrame {
 		
 		//CHECK: IF the new group has already been created
 		String newNameOfGroup = txtNameGroup.getText();
-		//IF: FIRST NEW GROUP
-		if (myDataClient.getMyGroups().size() == 0) {
-			//INSTANTIATE AND ADD
-			myDataClient.getMyGroups().add(new ContactGroup(newNameOfGroup));
-		}
-		else {
-			//IF: MORE THAN ONE EXISTS, CHECK FOR REPEATED VALUES
-			for (ContactGroup myGroups : myDataClient.getMyGroups()) {
-				if (myGroups.getGroupName().equals(newNameOfGroup)) {
-					//MESSAGE
-					JOptionPane.showMessageDialog(this,"THAT NAME IS TAKEN... CHOOSE ANOTHER!!");
-					//CLEAN TEXTFIELD
-					txtNameGroup.setText("");
-					return;
-				}		
+		for (ContactGroup myGroups : myDataClient.getMyGroups()) {
+			if (myGroups.getGroupName().equals(newNameOfGroup)) {
+				JOptionPane.showMessageDialog(this,"THAT NAME IS TAKEN... CHOOSE ANOTHER!!");
+
 			}
-			//INSTANTIATE AND ADD
-			myDataClient.getMyGroups().add(new ContactGroup(newNameOfGroup));
 		}
 	}
 	

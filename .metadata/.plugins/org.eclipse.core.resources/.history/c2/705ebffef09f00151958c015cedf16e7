@@ -13,7 +13,7 @@ public class ClientMain {
 	//MAIN
 	public static void main(String[] args) {
 
-		//LOCAL VARIABLE
+		//LOCAL VARIABLES
 		String myAccount = "";
 	
 		//IF NO ARGS IS GIVEN, USE DEFAULT VALUES
