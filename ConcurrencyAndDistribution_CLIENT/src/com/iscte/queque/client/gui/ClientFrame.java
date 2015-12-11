@@ -17,6 +17,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -51,6 +53,7 @@ import com.iscte.queque.client.log.LogMessage;
 import com.iscte.queque.client.serializable.ChatMessage;
 import com.iscte.queque.client.serializable.Client;
 import com.iscte.queque.client.serializable.group.ContactGroup;
+import com.iscte.queque.client.serializable.group.contact.Contact;
 import com.iscte.queque.client.service.ClientService;
 import com.iscte.queque.client.thread.In;
 
@@ -181,7 +184,7 @@ public class ClientFrame extends JFrame {
 
 		String[] array = (String[]) names.toArray(new String[names.size()]);
 
-		//JLIST listOnlines
+		//TODO americo JLIST listOnlines
 		this.listOnlines.setListData(array);
 		this.listOnlines.setSelectionMode(0);
 		this.listOnlines.setLayoutOrientation(0);
@@ -191,7 +194,7 @@ public class ClientFrame extends JFrame {
 		this.clientAllUsers.setSelectionMode(0);
 		this.clientAllUsers.setLayoutOrientation(0);
 	}
-
+	
 	private void gui_initComponents() {
 
 		// TABS
@@ -621,7 +624,41 @@ public class ClientFrame extends JFrame {
 	}
 	
 	public void btnClearActionPerformed(ActionEvent evt) {
-		//...
+		//LOCAL VARIABLES
+		int index = this.clientContactGroup.getSelectedIndex();
+		
+		//IF: no value is selected in JList(-1=no value selected)
+		if (index == -1) {
+			//MESSAGE
+			JOptionPane.showMessageDialog(this,"NO VALUE IS SELECTED IN JLIST!");
+			return;
+		}
+		
+		String groupNameToDelete = myDataClient.getMyGroups().get(index).getGroupName();
+		refreshGroupName_Delete(myDataClient.getMyGroups(), groupNameToDelete);
+	}
+	
+	//ACTION: btnClearActionPerformed
+	private void refreshGroupName_Delete(List<ContactGroup> myContactGroups, String groupNameToDelete) {	
+		//DELETE FROM ARRAYLIST
+		for (int i = 0; i < myContactGroups.size(); i++) {
+			//IF: value is in LIST, remove it
+			if (myContactGroups.get(i).getGroupName().equals(groupNameToDelete)) {
+				myContactGroups.remove(i);
+				continue;
+			}
+		}
+		
+		//ADD TO ARRAY
+		String[] array = new String[myContactGroups.size()];
+		for (int i = 0; i < myContactGroups.size(); i++) {
+			array[i] = myContactGroups.get(i).getGroupName();
+		}
+		
+		//JLIST clientAllUsers
+		this.clientContactGroup.setListData(array);
+		this.clientContactGroup.setSelectionMode(0);
+		this.clientContactGroup.setLayoutOrientation(0);
 	}
 	
 	public void btnNewActionPerformed(ActionEvent evt) {
@@ -647,14 +684,19 @@ public class ClientFrame extends JFrame {
 		
 		
 		//CHECK: IF the new group has already been created
+		ContactGroup newContactGroup;
 		String newNameOfGroup = txtNameGroup.getText();
 		//IF: FIRST NEW GROUP
 		if (myDataClient.getMyGroups().size() == 0) {
 			//INSTANTIATE AND ADD
-			myDataClient.getMyGroups().add(new ContactGroup(newNameOfGroup));
+			//INSTANTIATE AND ADD
+			newContactGroup = new ContactGroup(newNameOfGroup);
+			myDataClient.getMyGroups().add(newContactGroup);
+			//ADD TO JLIST
+			refreshGroupName_Add(myDataClient.getMyGroups());
 		}
+		//IF: MORE THAN ONE EXISTS, CHECK FOR REPEATED VALUES
 		else {
-			//IF: MORE THAN ONE EXISTS, CHECK FOR REPEATED VALUES
 			for (ContactGroup myGroups : myDataClient.getMyGroups()) {
 				if (myGroups.getGroupName().equals(newNameOfGroup)) {
 					//MESSAGE
@@ -665,8 +707,25 @@ public class ClientFrame extends JFrame {
 				}		
 			}
 			//INSTANTIATE AND ADD
-			myDataClient.getMyGroups().add(new ContactGroup(newNameOfGroup));
+			newContactGroup = new ContactGroup(newNameOfGroup);
+			myDataClient.getMyGroups().add(newContactGroup);
+			//ADD TO JLIST
+			refreshGroupName_Add(myDataClient.getMyGroups());
 		}
+	}
+	
+	//ACTION: btnCreateNewGroupActionPerformed
+	private void refreshGroupName_Add(List<ContactGroup> myContactGroups) {	
+		//CONVERT FROM ARRAYLIST TO ARRAY
+		String[] array = new String[myContactGroups.size()];
+		for (int i = 0; i < myContactGroups.size(); i++) {
+			array[i] = myContactGroups.get(i).getGroupName();
+		}
+		
+		//JLIST clientAllUsers
+		this.clientContactGroup.setListData(array);
+		this.clientContactGroup.setSelectionMode(0);
+		this.clientContactGroup.setLayoutOrientation(0);
 	}
 	
 	//AUX METHOD FOR clearTextField

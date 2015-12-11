@@ -3,7 +3,8 @@ package com.iscte.queque.client.serializable.group;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.iscte.queque.client.test.contact.Contact;
+import com.iscte.queque.client.serializable.group.contact.Contact;
+
 
 //DAO
 public class ContactGroup {
