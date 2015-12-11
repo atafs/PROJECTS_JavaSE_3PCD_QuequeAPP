@@ -4,13 +4,15 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 import com.iscte.queque.client.serializable.ChatMessage.Action;
+import com.iscte.queque.client.serializable.group.ContactGroup;
 
 /** DAO */
-public class Contact {
+public class Contact{
 
 	// ATTRIBUTES
 	private String name;
 	private String nameReserved;
+	private String myGroupName;
 	//ENUM
 	private Action state;
 	//
@@ -18,8 +20,9 @@ public class Contact {
 	private Queue<String> messageQueue;
 
 	// CONSTRUCTOR
-	public Contact(String name) {
+	public Contact(String name, String myGroupName) {
 		this.name = name;
+		this.myGroupName = myGroupName;
 		this.messagesToReceive = 0;
 		this.messageQueue = new PriorityQueue<>();
 	}
@@ -47,5 +50,13 @@ public class Contact {
 
 	public void setMessageQueue(Queue<String> messageQueue) {
 		this.messageQueue = messageQueue;
+	}
+
+	public String getMyGroupName() {
+		return myGroupName;
+	}
+
+	public void setMyGroupName(String myGroupName) {
+		this.myGroupName = myGroupName;
 	}
 }

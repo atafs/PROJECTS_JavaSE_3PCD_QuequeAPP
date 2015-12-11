@@ -19,6 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -81,6 +82,7 @@ public class ClientFrame extends JFrame {
 	private JTextArea txtAreaReceive;
 	private JTextField txtFieldSend;
 	private JTextField txtName;
+	private JTextField txtmyGroupName;
 	
 	//TAB CONTACTS ITEMS ############################
 	private JPanel jPanel4;
@@ -151,6 +153,7 @@ public class ClientFrame extends JFrame {
 
 		this.btnConectar.setEnabled(false);
 		this.txtName.setEditable(false);
+		this.txtmyGroupName.setEditable(false);
 
 		this.btnSair.setEnabled(true);
 		this.txtFieldSend.setEnabled(true);
@@ -172,6 +175,12 @@ public class ClientFrame extends JFrame {
 	}
 
 	public void receive(ChatMessage message) {
+		//SAVE MESSAGE IN CLIENT(myData)
+		for (int i = 0; i < myDataClient.getMyGroups().size(); i++) {
+			if (myDataClient.getMyGroups().get(i).getGroupName().equals(txtmyGroupName.getText())) {
+				myDataClient.getMyGroups().get(i).getText().add("YOU SAID: " + message.getText() + "\n");
+			}
+		}
 		//TEXTAREA
 		this.txtAreaReceive.append(message.getName() + " SAID: "+ message.getText() + "\n");	
 	}
@@ -350,21 +359,11 @@ public class ClientFrame extends JFrame {
 					logger.getLog().debug(s);	
 
 					//TODO americo
-					//UPDATE JLIST CONTACTS
-					String[] array = new String[myDataClient.getMyGroups().get(index).getMyContactGroups().size()];
-					for (int i = 0; i < myDataClient.getMyGroups().get(index).getMyContactGroups().size(); i++) {
-						array[i] = myDataClient.getMyGroups().get(index).getMyContactGroups().get(i).getName();
-					}
-					
-					//JLIST clientContact
-					clientContact.setListData(array);
-					clientContact.setSelectionMode(0);
-					clientContact.setLayoutOrientation(0);
-					
-					//JLIST listOnlines
-					listOnlines.setListData(array);
-					listOnlines.setSelectionMode(0);
-					listOnlines.setLayoutOrientation(0);
+					refreshContacts_Add(myDataClient.getMyGroups().get(index).getMyContactGroups());
+		       
+					//CLEAN AND REFRESH
+					txtAreaReceive.setText("");
+					refreshTxtAreaReceive(myDataClient.getMyGroups().get(index).getText());
 		        } 
 		    }
 		});
@@ -416,6 +415,7 @@ public class ClientFrame extends JFrame {
 
 		this.jPanel1 = new JPanel();
 		this.txtName = new JTextField();
+		this.txtmyGroupName = new JTextField();
 		this.btnConectar = new JButton();
 		this.btnSair = new JButton();
 		this.jPanel2 = new JPanel();
@@ -429,6 +429,8 @@ public class ClientFrame extends JFrame {
 		this.btnEnviar = new JButton();
 		this.btnLimpar = new JButton();
 
+		//
+		this.txtmyGroupName.setEnabled(false);
 		//TEXTFIELD
 //		txtName.setText(user);
 		
@@ -516,6 +518,7 @@ public class ClientFrame extends JFrame {
 		
 		//ADD
 		jPanel1.add(txtName);
+		jPanel1.add(txtmyGroupName);
 		jPanel1.add(btnConectar);
 		jPanel1.add(btnSair);
 		
@@ -599,7 +602,8 @@ public class ClientFrame extends JFrame {
 		//IF: FIRST NEW CONTACT
 		if (myDataClient.getMyGroups().get(indexContactGroup).getMyContactGroups().size() == 0) {
 			//INSTANTIATE AND ADD
-			Contact myContactGroups = new Contact(name);
+			Contact myContactGroups = new Contact(name, clientContactGroup.getSelectedValue());
+			this.txtmyGroupName.setText(clientContactGroup.getSelectedValue());
 			myDataClient.getMyGroups().get(indexContactGroup).getMyContactGroups().add(myContactGroups);
 			
 			//ADD TO JLIST
@@ -616,7 +620,8 @@ public class ClientFrame extends JFrame {
 				}		
 			}
 			//INSTANTIATE AND ADD
-			Contact myContactGroups = new Contact(name);
+			Contact myContactGroups = new Contact(name, clientContactGroup.getSelectedValue());
+			this.txtmyGroupName.setText(clientContactGroup.getSelectedValue());
 			myDataClient.getMyGroups().get(indexContactGroup).getMyContactGroups().add(myContactGroups);
 			
 			//ADD TO JLIST
@@ -632,10 +637,55 @@ public class ClientFrame extends JFrame {
 			array[i] = myContacts.get(i).getName();
 		}
 		
-		//JLIST clientAllUsers
+		//JLIST clientContacts
 		this.clientContact.setListData(array);
 		this.clientContact.setSelectionMode(0);
 		this.clientContact.setLayoutOrientation(0);
+		
+		//JLIST listOnlines
+		listOnlines.setListData(array);
+		listOnlines.setSelectionMode(0);
+		listOnlines.setLayoutOrientation(0);
+	}
+	
+	//ACTION: btnCreateNewGroupActionPerformed
+	public synchronized void refreshTxtAreaReceive(Queue<String> text) {
+		//LOOP
+		if (text.isEmpty()) {
+			return;
+		}
+		for (String string : text) {
+			//PRINT TO TEXT_AREA AND TXT
+			this.txtAreaReceive.append(string.toString());
+		}
+	}
+	
+	//ACTION: btnCreateNewGroupActionPerformed
+	public synchronized void refreshContacts_Delete(List<Contact> myContacts, String contactNameToDelete) {	
+		//DELETE FROM ARRAYLIST
+		for (int i = 0; i < myContacts.size(); i++) {
+			//IF: value is in LIST, remove it
+			if (myContacts.get(i).getName().equals(contactNameToDelete)) {
+				myContacts.remove(i);
+				continue;
+			}
+		}
+		
+		//ADD TO ARRAY
+		String[] array = new String[myContacts.size()];
+		for (int i = 0; i < myContacts.size(); i++) {
+			array[i] = myContacts.get(i).getName();
+		}
+		
+		//JLIST clientContacts
+		clientContact.setListData(array);
+		clientContact.setSelectionMode(0);
+		clientContact.setLayoutOrientation(0);
+		
+		//JLIST listOnlines
+		listOnlines.setListData(array);
+		listOnlines.setSelectionMode(0);
+		listOnlines.setLayoutOrientation(0);
 	}
 
 	public void btnClearActionPerformed(ActionEvent evt) {
@@ -685,7 +735,22 @@ public class ClientFrame extends JFrame {
 	}
 	
 	public void btnRemoveActionPerformed(ActionEvent evt) {
-		//...
+		//LOGGER
+		logger.getLog().debug("ACTION: ADD CONTACT BUTTON CLICKED...");
+		
+		//LOCAL VARIABLES
+		int indexContact = this.clientContact.getSelectedIndex();
+		int indexContactGroup = this.clientContactGroup.getSelectedIndex();
+		
+		//IF: both of the JLISTs have been selected
+		if (indexContact == -1 || indexContactGroup == -1) {
+			//MESSAGE
+			JOptionPane.showMessageDialog(this,"NO VALUE IS SELECTED IN JLISTS: ALL USERS and CONTACT GROUPS... SELECT BOTH!!");
+			return;
+		}
+
+		String contactNameToDelete = myDataClient.getMyGroups().get(indexContactGroup).getMyContactGroups().get(indexContact).getName();
+		refreshContacts_Delete(myDataClient.getMyGroups().get(indexContactGroup).getMyContactGroups(), contactNameToDelete);
 	}
 	
 	public void btnCreateNewGroupActionPerformed(ActionEvent evt) {
@@ -768,7 +833,7 @@ public class ClientFrame extends JFrame {
 
 		if (this.listOnlines.getSelectedIndex() > -1) {
 			String selectedContact = (String) this.listOnlines.getSelectedValue();
-			this.message.setNameReserved(selectedContact);
+			this.message.setSelectedContact(selectedContact);
 			this.message.setAction(ChatMessage.Action.SEND_ONE);
 			//this.listOnlines.clearSelection();
 		} else {
@@ -782,6 +847,17 @@ public class ClientFrame extends JFrame {
 			//NAME AND MESSAGE
 			this.message.setName(name);
 			this.message.setText(text);
+			
+			//SAVE MESSAGE IN CLIENT(myData)
+			if (myDataClient.getMyGroups().size() == 0) {
+				JOptionPane.showMessageDialog(this,"CREATE A GROUP FIRST");
+				return;
+			}
+			for (int i = 0; i < myDataClient.getMyGroups().size(); i++) {
+				if (myDataClient.getMyGroups().get(i).getGroupName().equals(txtmyGroupName.getText())) {
+					myDataClient.getMyGroups().get(i).getText().add("YOU SAID: " + text + "\n");
+				}
+			}
 
 			//PRINT TO TEXT_AREA AND TXT
 			this.txtAreaReceive.append("YOU SAID: " + text + "\n");

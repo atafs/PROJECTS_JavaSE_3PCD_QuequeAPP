@@ -9,7 +9,7 @@ public class ChatMessage implements Serializable {
 	//ATTRIBUTES
 	private static final long serialVersionUID = 1L;
 	private String name;
-	private String nameReserved;
+	private String selectedContact;
 	private String text;
 	//CONSTANTS
 	private Action action;
@@ -31,8 +31,8 @@ public class ChatMessage implements Serializable {
 		return this.text;
 	}
 
-	public String getNameReserved() {
-		return this.nameReserved;
+	public String getSelectedContact() {
+		return this.selectedContact;
 	}
 
 	public Set<String> getSetOnlines() {
@@ -47,8 +47,8 @@ public class ChatMessage implements Serializable {
 		this.text = text;
 	}
 
-	public void setNameReserved(String nameReserved) {
-		this.nameReserved = nameReserved;
+	public void setSelectedContact(String selectedContact) {
+		this.selectedContact = selectedContact;
 	}
 
 	public void setSetOnlines(Set<String> setOnlines) {

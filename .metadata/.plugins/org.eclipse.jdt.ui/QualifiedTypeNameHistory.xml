@@ -23,7 +23,6 @@
 <fullyQualifiedTypeName name="com.iscte.queque.client.queue.ManageContact"/>
 <fullyQualifiedTypeName name="javax.swing.event.ListSelectionListener"/>
 <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
-<fullyQualifiedTypeName name="java.util.PriorityQueue"/>
 <fullyQualifiedTypeName name="com.iscte.queque.client.service.ServerService"/>
 <fullyQualifiedTypeName name="com.iscte.queque.client.dao.Contact"/>
 <fullyQualifiedTypeName name="java.awt.event.MouseAdapter"/>
@@ -52,12 +51,13 @@
 <fullyQualifiedTypeName name="java.awt.Dimension"/>
 <fullyQualifiedTypeName name="com.iscte.queque.client.io.read.Reader_v2"/>
 <fullyQualifiedTypeName name="com.iscte.queque.client.properties.Properties"/>
-<fullyQualifiedTypeName name="com.iscte.queque.client.serializable.Client"/>
 <fullyQualifiedTypeName name="com.google.gson.Gson"/>
 <fullyQualifiedTypeName name="com.google.gson.reflect.TypeToken"/>
-<fullyQualifiedTypeName name="com.iscte.queque.client.serializable.group.ContactGroup"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="com.iscte.queque.client.serializable.group.contact.Contact"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.iscte.queque.client.serializable.Client"/>
+<fullyQualifiedTypeName name="com.iscte.queque.client.serializable.group.ContactGroup"/>
+<fullyQualifiedTypeName name="java.util.PriorityQueue"/>
 </qualifiedTypeNameHistroy>
