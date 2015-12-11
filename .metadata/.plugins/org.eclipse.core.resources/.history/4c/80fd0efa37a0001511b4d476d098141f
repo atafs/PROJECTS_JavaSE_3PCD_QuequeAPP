@@ -152,7 +152,7 @@ public class ClientFrame extends JFrame {
 		this.btnConectar.setEnabled(false);
 		this.txtName.setEditable(false);
 
-		this.btnSair.setEnabled(false);
+		this.btnSair.setEnabled(true);
 		this.txtFieldSend.setEnabled(true);
 		this.txtAreaReceive.setEnabled(true);
 

@@ -152,7 +152,7 @@ public class ClientFrame extends JFrame {
 		this.btnConectar.setEnabled(false);
 		this.txtName.setEditable(false);
 
-		this.btnSair.setEnabled(false);
+		this.btnSair.setEnabled(true);
 		this.txtFieldSend.setEnabled(true);
 		this.txtAreaReceive.setEnabled(true);
 
@@ -361,10 +361,10 @@ public class ClientFrame extends JFrame {
 					clientContact.setSelectionMode(0);
 					clientContact.setLayoutOrientation(0);
 					
-//					//JLIST listOnlines
-//					listOnlines.setListData(array);
-//					listOnlines.setSelectionMode(0);
-//					listOnlines.setLayoutOrientation(0);
+					//JLIST listOnlines
+					listOnlines.setListData(array);
+					listOnlines.setSelectionMode(0);
+					listOnlines.setLayoutOrientation(0);
 		        } 
 		    }
 		});
@@ -660,10 +660,10 @@ public class ClientFrame extends JFrame {
 			clientContact.setSelectionMode(0);
 			clientContact.setLayoutOrientation(0);
 			
-//			//JLIST listOnlines
-//			listOnlines.setListData(array);
-//			listOnlines.setSelectionMode(0);
-//			listOnlines.setLayoutOrientation(0);
+			//JLIST listOnlines
+			listOnlines.setListData(array);
+			listOnlines.setSelectionMode(0);
+			listOnlines.setLayoutOrientation(0);
 		}
 
 
