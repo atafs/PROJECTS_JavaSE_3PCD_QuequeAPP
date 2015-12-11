@@ -9,8 +9,6 @@ import com.iscte.queque.client.serializable.group.ContactGroup;
 public class Client implements Serializable {
 	
 	// ATTRIBUTES
-	private static final long serialVersionUID = 1L;
-
 	//CLIENT: myData
 	private String name;
 	private String nameReserved;

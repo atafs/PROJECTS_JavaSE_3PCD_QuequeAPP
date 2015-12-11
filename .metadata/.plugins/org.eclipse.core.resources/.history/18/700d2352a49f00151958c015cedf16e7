@@ -126,8 +126,7 @@ public class ClientFrame extends JFrame {
 		String[] parts = myAccount.split(" ");
 		if ( !(parts[0].trim().equals(""))) {
 			myDataClient.setName(parts[0]);
-		}
-		if(!(parts[1].trim().equals(""))) {
+		} else if(!(parts[1].trim().equals(""))) {
 			myDataClient.setNameReserved(parts[1]);
 		}
 
@@ -143,6 +142,11 @@ public class ClientFrame extends JFrame {
 	}
 
 	public void connect(ChatMessage message) {
+//		if (message.getText().equals("NO")) {
+//			this.txtName.setText("");
+//			JOptionPane.showMessageDialog(this, "CONNECTION FAILED.\n TRY AGAIN WITH A DIFERENT NAME");
+//			return;
+//		}
  		this.message = message;
 
 		this.btnConectar.setEnabled(false);
@@ -159,7 +163,15 @@ public class ClientFrame extends JFrame {
 	}
 
 	public void disconnected() {
-		//
+//		this.btnConectar.setEnabled(true);
+//		this.txtName.setEnabled(true);
+//
+//		
+//		this.txtAreaSend.setEnabled(true);
+//		this.txtAreaReceive.setEnabled(true);
+//		this.btnEnviar.setEnabled(true);
+//		this.btnLimpar.setEnabled(true);
+
 		this.txtAreaReceive.setText("");
 		this.txtFieldSend.setText("");
 		this.message.setState(ChatMessage.Action.OFFLINE);
@@ -168,8 +180,18 @@ public class ClientFrame extends JFrame {
 	}
 
 	public void receive(ChatMessage message) {
+		
 		//TEXTAREA
-		this.txtAreaReceive.append(message.getName() + " SAID: "+ message.getText() + "\n");	
+		this.txtAreaReceive.append(message.getName() + " SAID: "+ message.getText() + "\n");
+		
+//		//TXT
+//		logger.getLog().debug(message.getText());
+//		try {
+//			String path = WRITE_TO_FILE_USER + message.getName() + ".txt";
+//			writer.writeLargerTextFile(path, message.getName() + " SAID: "+ message.getText());
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}	
 	}
 
 	public void refreshOnlines(ChatMessage message) {
@@ -686,6 +708,12 @@ public class ClientFrame extends JFrame {
 
 			//PRINT TO TEXT_AREA AND TXT
 			this.txtAreaReceive.append("YOU SAID: " + text + "\n");
+//			try {	
+//				writer.writeLargerTextFile(WRITE_TO_FILE, message.getName() + ": " + text);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+
 			this.service.send(this.message);
 		}
 		this.txtFieldSend.setText("");

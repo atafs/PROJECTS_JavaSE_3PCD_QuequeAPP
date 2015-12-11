@@ -18,7 +18,7 @@ public class ClientMain {
 	
 		//IF NO ARGS IS GIVEN, USE DEFAULT VALUES
 //		if (!(args[0].equals(""))) {
-		if (!(args.length == 0)) {
+		if (args.length == 0) {
 			//READ FROM FILE
 	    	properties = new Properties(args[0]);
 	    	//GET THE STRING WITH DATA

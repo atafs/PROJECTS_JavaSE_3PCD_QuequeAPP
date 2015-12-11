@@ -8,6 +8,5 @@
 </listAttribute>
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.iscte.queque.client.main.ClientMain"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="C:\Users\Americo\Desktop\clientRunCMD_v1.0\properties\config.properties"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="ConcurrencyAndDistribution_CLIENT"/>
 </launchConfiguration>
