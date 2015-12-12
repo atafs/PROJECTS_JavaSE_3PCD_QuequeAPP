@@ -16,7 +16,7 @@ public class ServerMain {
 	
 	//STREAM MESSAGE
 	private String messageStart;
-	private String messageServerRead = ":SERVER WRITE => ";
+	private String messageServerRead = ":SERVER READ => ";
 	
 	//STREAM READER/WRITER
 	private Scanner reader;
@@ -47,7 +47,7 @@ public class ServerMain {
 				//STREAM READER SCANNER
 				this.reader = new Scanner(server.getInputStream());
 				logger.getLog().info(this.messageStart);
-				logger.getLog().info("\n" + messageServerRead + "\n\t" + reader.nextLine());
+				logger.getLog().info("\n\t" + messageServerRead + "\n\t\t" + reader.nextLine());
 
 			}
 		} catch (IOException e) {

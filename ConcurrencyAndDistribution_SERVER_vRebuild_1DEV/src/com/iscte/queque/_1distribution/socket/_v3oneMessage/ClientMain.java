@@ -3,6 +3,7 @@ package com.iscte.queque._1distribution.socket._v3oneMessage;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -38,7 +39,9 @@ public class ClientMain {
 
 	//GUI
 	private JFrame frame;
+	private Container envio;
 	private JTextField textoParaEnviar;;
+	private JButton botao;
 	
 	//LOG4J LOGGER
 	private static LogMessage logger = new LogMessage();
@@ -89,54 +92,54 @@ public class ClientMain {
 	
 	/** GUI: init swing interface */ 
 	public void gui_initComponents() {
-		frame = new JFrame();
-		frame.setTitle("Chat");
+		this.frame = new JFrame();
+		this.frame.setTitle("Chat");
 
 		//fonte e botoes/texto
 		Font fonte = new Font("Serif", Font.PLAIN, 26);
-		textoParaEnviar = new JTextField();
-		textoParaEnviar.setFont(fonte);
-		textoParaEnviar.addKeyListener(new TextFieldListener());
-		JButton botao = new JButton("Enviar");
-		botao.setFont(fonte);
-		botao.addActionListener(new EnviarListener());
+		this.textoParaEnviar = new JTextField();
+		this.textoParaEnviar.setFont(fonte);
+		this.textoParaEnviar.addKeyListener(new TextFieldListener());
+		botao = new JButton("Enviar");
+		this.botao.setFont(fonte);
+		this.botao.addActionListener(new ButtonListener());
 		
 		//Container principal e JPanel
-		Container envio = new JPanel();
-		envio.setLayout(new BorderLayout());
-		envio.add(BorderLayout.CENTER, textoParaEnviar);
-		envio.add(BorderLayout.EAST, botao);
-		frame.getContentPane().add(BorderLayout.SOUTH, envio);
+		this.envio = new JPanel();
+		this.envio.setLayout(new BorderLayout());
+		this.envio.add(BorderLayout.CENTER, textoParaEnviar);
+		this.envio.add(BorderLayout.EAST, botao);
+		this.frame.getContentPane().add(BorderLayout.SOUTH, envio);
 
 	}
 	
 	/** GUI: last swing interface */ 
 	public void gui_lastInstructions() {
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(500,120);
-		frame.setLocationRelativeTo(null); 
+		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.frame.setSize(500,120);
+		this.frame.setLocationRelativeTo(null); 
 	}
 	
 	/** GUI: start swing interface */ 
 	public void gui_start() {
-		frame.setVisible(true);
+		this.frame.setVisible(true);
 	}
 	
 	/** GUI: action for action and key listener */
 	public void action_buttonOrEnterPressed() {
 		//LOCAL VARIABLE
-		String messageToSend = this.messageClientWrite + textoParaEnviar.getText();
+		String messageToSend = messageClientWrite + textoParaEnviar.getText();
 		
 		//WRITER
-		this.writer.println(messageToSend);
-		this.writer.flush();//garantir que foi enviado
-		this.textoParaEnviar.setText("");//limpar campo de texto
-		this.textoParaEnviar.requestFocus();//colocar cursor dentro do campo
+		writer.println(messageToSend);
+		writer.flush();//garantir que foi enviado
+		textoParaEnviar.setText("");//limpar campo de texto
+		textoParaEnviar.requestFocus();//colocar cursor dentro do campo
 		
 		//TO PRINT ONLY FIRST MESSAGE
 		if (flagFirstMessage) {
 			ClientMain.logger.getLog().info(messageToSend);
-			this.flagFirstMessage = false;
+			flagFirstMessage = false;
 		} else {
 			ClientMain.logger.getLog().info("ALREADY SENT ONE MESSAGE. NO LOOP INSTALLED IN APP!!");
 
@@ -145,20 +148,32 @@ public class ClientMain {
 	
 	/** GUI: inner class listener */ 
 	//LISTENER
-	private class EnviarListener extends ClientMain implements ActionListener {
+	private class ButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			super.action_buttonOrEnterPressed();
-		}	
+			action_buttonOrEnterPressed();
+		}
 	}
 	
 	//LISTENER
-	private class TextFieldListener extends ClientMain implements KeyListener {
+	private class TextFieldListener implements KeyListener {
 		@Override
 		public void keyPressed(KeyEvent e) {
-			super.action_buttonOrEnterPressed();
+			int key = e.getKeyCode();
+			
+			//ENTER KEY PRESSED
+			if (key == KeyEvent.VK_ENTER) {
+				Toolkit.getDefaultToolkit().beep();
+				action_buttonOrEnterPressed();
+			}
+			
+			//DELETE KEY PRESSED
+			if (key == KeyEvent.VK_DELETE) {
+				Toolkit.getDefaultToolkit().beep();
+				action_buttonOrEnterPressed();
+			}
 		}
-
+		
 		@Override
 		public void keyReleased(KeyEvent e) {}	
 		
