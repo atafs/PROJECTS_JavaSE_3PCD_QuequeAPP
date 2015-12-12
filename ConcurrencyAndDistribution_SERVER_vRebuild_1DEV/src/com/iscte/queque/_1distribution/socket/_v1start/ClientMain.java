@@ -42,15 +42,15 @@ public class ClientMain {
 			//RETURN STRING: server info
 			messageStart();
 			
-			//SCANNER
+			//STREAM SCANNER
 			this.reader = new Scanner(client.getInputStream());
 			logger.getLog().info(this.messageStart);
-			logger.getLog().info(messageClientRead + reader.nextLine());
+			logger.getLog().info("\n\t" + messageClientRead + reader.nextLine());
 			
 		}  catch (IOException e) {
 			logger.getLog().debug(e);
 		} finally {
-			reader.close();
+			//...
 		}
 	}
 	

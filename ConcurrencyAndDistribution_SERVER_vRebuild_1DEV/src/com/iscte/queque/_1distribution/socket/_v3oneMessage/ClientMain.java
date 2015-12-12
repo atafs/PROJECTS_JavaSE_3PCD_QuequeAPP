@@ -1,10 +1,12 @@
-package com.iscte.queque._1distribution.socket._v2oneMessage;
+package com.iscte.queque._1distribution.socket._v3oneMessage;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -94,6 +96,7 @@ public class ClientMain {
 		Font fonte = new Font("Serif", Font.PLAIN, 26);
 		textoParaEnviar = new JTextField();
 		textoParaEnviar.setFont(fonte);
+		textoParaEnviar.addKeyListener(new TextFieldListener());
 		JButton botao = new JButton("Enviar");
 		botao.setFont(fonte);
 		botao.addActionListener(new EnviarListener());
@@ -119,31 +122,49 @@ public class ClientMain {
 		frame.setVisible(true);
 	}
 	
+	/** GUI: action for action and key listener */
+	public void action_buttonOrEnterPressed() {
+		//LOCAL VARIABLE
+		String messageToSend = this.messageClientWrite + textoParaEnviar.getText();
+		
+		//WRITER
+		this.writer.println(messageToSend);
+		this.writer.flush();//garantir que foi enviado
+		this.textoParaEnviar.setText("");//limpar campo de texto
+		this.textoParaEnviar.requestFocus();//colocar cursor dentro do campo
+		
+		//TO PRINT ONLY FIRST MESSAGE
+		if (flagFirstMessage) {
+			ClientMain.logger.getLog().info(messageToSend);
+			this.flagFirstMessage = false;
+		} else {
+			ClientMain.logger.getLog().info("ALREADY SENT ONE MESSAGE. NO LOOP INSTALLED IN APP!!");
+
+		}
+	}
+	
 	/** GUI: inner class listener */ 
 	//LISTENER
 	private class EnviarListener extends ClientMain implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//LOCAL VARIABLE
-			String messageToSend = super.messageClientWrite + textoParaEnviar.getText();
-			
-			//WRITER
-			writer.println(messageToSend);
-			writer.flush();//garantir que foi enviado
-			textoParaEnviar.setText("");//limpar campo de texto
-			textoParaEnviar.requestFocus();//colocar cursor dentro do campo
-			
-			//TO PRINT ONLY FIRST MESSAGE
-			if (flagFirstMessage) {
-				ClientMain.logger.getLog().info(messageToSend);
-				flagFirstMessage = false;
-			} else {
-				ClientMain.logger.getLog().info("ALREADY SENT ONE MESSAGE. NO LOOP INSTALLED IN APP!!");
-
-			}
+			super.action_buttonOrEnterPressed();
 		}	
 	}
+	
+	//LISTENER
+	private class TextFieldListener extends ClientMain implements KeyListener {
+		@Override
+		public void keyPressed(KeyEvent e) {
+			super.action_buttonOrEnterPressed();
+		}
 
+		@Override
+		public void keyReleased(KeyEvent e) {}	
+		
+		@Override
+		public void keyTyped(KeyEvent e) {}
+	}
 }
 
 //(IP, porta TCP)

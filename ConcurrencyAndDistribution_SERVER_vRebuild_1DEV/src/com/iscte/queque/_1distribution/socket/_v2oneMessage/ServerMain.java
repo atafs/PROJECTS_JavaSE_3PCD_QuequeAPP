@@ -1,7 +1,6 @@
 package com.iscte.queque._1distribution.socket._v2oneMessage;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
@@ -16,13 +15,11 @@ public class ServerMain {
 	private Socket server;
 	
 	//STREAM MESSAGE
-	private String message = "Aprenda Java e seja contratado!!!";
 	private String messageStart;
 	private String messageServerRead = ":SERVER WRITE => ";
 	
 	//STREAM READER/WRITER
 	private Scanner reader;
-	private PrintWriter writer;
 	
 	//LOG4J LOGGER
 	private static LogMessage logger = new LogMessage();
@@ -47,23 +44,16 @@ public class ServerMain {
 				//RETURN STRING: server info
 				message_start();
 				
-				//READER SCANNER
+				//STREAM READER SCANNER
 				this.reader = new Scanner(server.getInputStream());
 				logger.getLog().info(this.messageStart);
-				logger.getLog().info(messageServerRead + reader.nextLine());
-
-//				//WRITER PRINTWRITER
-//				this.writer = new PrintWriter(this.server.getOutputStream()); 
-//				writer.println(messageServerRead + this.message);
-//				logger.getLog().info(this.messageStart);
-//				logger.getLog().info(messageServerRead + this.message);
+				logger.getLog().info("\n" + messageServerRead + "\n\t" + reader.nextLine());
 
 			}
 		} catch (IOException e) {
 			logger.getLog().debug(e);
 		}
 	}
-	
 	
 	/** Message: start of server */
 	private String message_start() {
