@@ -16,5 +16,4 @@ public class LogMessage {
 	public Logger getLog() {
 		return log;
 	}	
-	
 }
