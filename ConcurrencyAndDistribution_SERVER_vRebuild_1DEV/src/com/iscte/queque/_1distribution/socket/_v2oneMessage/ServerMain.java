@@ -1,4 +1,4 @@
-package com.iscte.queque._1distribution.socket._v1start;
+package com.iscte.queque._1distribution.socket._v2oneMessage;
 
 import java.io.IOException;
 import java.io.PrintWriter;
