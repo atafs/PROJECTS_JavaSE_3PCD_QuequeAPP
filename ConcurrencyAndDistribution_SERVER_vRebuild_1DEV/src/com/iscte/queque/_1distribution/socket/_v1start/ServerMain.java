@@ -46,6 +46,7 @@ public class ServerMain {
 					w.println(this.message);
 					logger.getLog().info(this.messageStart);
 					logger.getLog().info("Mensagem: " + this.message);
+				
 				}
 			}
 		} catch (IOException e) {
