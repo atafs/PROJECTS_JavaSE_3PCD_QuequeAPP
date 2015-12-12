@@ -9,7 +9,7 @@
 <item elementID="=ConcurrencyAndDistribution_CLIENT_vRebuild" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 </workingSet>
 <workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1449710615040_5" label="SERVER" name="SERVER">
-<item elementID="=ConcurrencyAndDistribution_SERVER_vRebuild_1CORE" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=ConcurrencyAndDistribution_SERVER_vRebuild_1DEV" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 <item elementID="=ConcurrencyAndDistribution_SERVER_vRebuild_2RELEASE" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 </workingSet>
 <workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1449863150144_9" label="FINAL" name="FINAL"/>
