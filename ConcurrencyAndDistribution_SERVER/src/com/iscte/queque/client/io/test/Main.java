@@ -13,8 +13,8 @@ import com.iscte.queque.client.log.LogMessage;
 public class Main {
 	
 	//PATHS (absolute for windows)
-	final static String READ_FROM_FILE = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES_v2\\message\\txt\\readFromFile.txt";
-	final static String WRITE_TO_FILE = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurencyAndDistribution_MODULES_v2\\message\\txt\\writeToFile.txt";
+	final static String READ_FROM_FILE = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurrencyAndDistribution_CLIENT\\message\\txt\\readFromFile.txt";
+	final static String WRITE_TO_FILE = "D:\\clouds\\Drive Ilimitado\\PROJECTS_JavaSE_3PCD_QuequeAPP\\ConcurrencyAndDistribution_CLIENT\\message\\txt\\writeToFile.txt";
 	final static Charset ENCODING = StandardCharsets.UTF_8;
 	
 	//LOG4J LOGGER

@@ -1,0 +1,20 @@
+package service;
+
+import java.io.ObjectOutputStream;
+
+import com.iscte.queque.client.serializable.ChatMessage;
+
+public class ServerService {
+	
+	//ATTRIBUTES
+	
+	//CONSTRUCTOR
+	
+	//METHODS
+	
+	/** Connect Server */
+	public void connect() {
+		
+	}
+
+}

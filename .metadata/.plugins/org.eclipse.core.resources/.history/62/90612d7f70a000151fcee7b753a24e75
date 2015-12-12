@@ -1,0 +1,13 @@
+package main;
+
+import server.Server;
+
+public class ServerMain {
+	
+	//MAIN
+	public static void main(String[] args) {
+		//INSTANTIATE
+		new Server();
+	}
+
+}

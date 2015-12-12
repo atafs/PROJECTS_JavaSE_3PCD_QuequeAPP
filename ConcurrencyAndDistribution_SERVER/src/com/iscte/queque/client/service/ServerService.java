@@ -95,13 +95,13 @@ public class ServerService extends JFrame{
 	}
 
 	private class Out implements Runnable {
-		private ObjectOutputStream output;
-		private ObjectInputStream input;
+		private ObjectOutputStream writer;
+		private ObjectInputStream reader;
 
 		public Out(Socket socket) {
 			try {
-				this.output = new ObjectOutputStream(socket.getOutputStream());
-				this.input = new ObjectInputStream(socket.getInputStream());
+				this.writer = new ObjectOutputStream(socket.getOutputStream());
+				this.reader = new ObjectInputStream(socket.getInputStream());
 			} catch (IOException ex) {
 				logger.getLog().debug(ex);
 
@@ -111,14 +111,14 @@ public class ServerService extends JFrame{
 		public void run() {
 			ChatMessage message = null;
 			try {
-				while ((message = (ChatMessage) this.input.readObject()) != null) {
+				while ((message = (ChatMessage) this.reader.readObject()) != null) {
 					ChatMessage.Action action = message.getAction();
 
 					if (action.equals(ChatMessage.Action.CONNECT)) {
-						boolean isConnected = ServerService.this.connect(message, this.output);
+						boolean isConnected = ServerService.this.connect(message, this.writer);
 
 						if (isConnected) {
-							ServerService.this.mapOnlies.put(message.getName(), this.output);
+							ServerService.this.mapOnlies.put(message.getName(), this.writer);
 							ServerService.this.sendOnlines();
 						}
 					} else if (action.equals(ChatMessage.Action.SEND_ONE)) {
@@ -126,7 +126,7 @@ public class ServerService extends JFrame{
 					}
 				}
 			} catch (IOException ex) {
-				ServerService.this.disconnected(message, this.output);
+				ServerService.this.disconnected(message, this.writer);
 				ServerService.this.sendOnlines();
 				System.out.println(message.getName() + " LEFT THE CHAT.");
 				logger.getLog().debug(message.getName() + " LEFT THE CHAT.");
@@ -262,6 +262,7 @@ public class ServerService extends JFrame{
 
 	private void sendOnlines() {
 		Set<String> setNames = new HashSet<String>();
+		txtAreaReceive.setText("");
 		for (Map.Entry<String, ObjectOutputStream> kv : this.mapOnlies.entrySet()) {
 			setNames.add(kv.getKey());
 			txtAreaReceive.append(kv.getKey() + "\n");

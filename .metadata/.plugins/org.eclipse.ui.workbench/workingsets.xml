@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workingSetManager>
-<workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1449578277261_1" label="OLD VERSIONS" name="OLD VERSIONS"/>
+<workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1449578277261_1" label="_OLD VERSIONS" name="_OLD VERSIONS">
+<item elementID="=ConcurrencyAndDistribution_CLIENT" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=ConcurrencyAndDistribution_SERVER" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+</workingSet>
 <workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1449578305870_2" label="FRIDAY" name="FRIDAY"/>
 <workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1449710601872_4" label="CLIENT" name="CLIENT">
-<item elementID="=ConcurrencyAndDistribution_CLIENT" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=ConcurrencyAndDistribution_CLIENT_vRebuild" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 </workingSet>
 <workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1449710615040_5" label="SERVER" name="SERVER">
-<item elementID="=ConcurrencyAndDistribution_SERVER" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=ConcurrencyAndDistribution_SERVER_vRebuild" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 </workingSet>
 <workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1449863150144_9" label="FINAL" name="FINAL"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1445605494265_0" label="Window Working Set" name="Aggregate for window 1445605494265"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1449696636485_7" label="Multiple Working Sets" name="Aggregate:FRIDAY:OLD VERSIONS:">
 <workingSet IMemento.internal.id="FRIDAY"/>
-<workingSet IMemento.internal.id="OLD VERSIONS"/>
+<workingSet IMemento.internal.id="_OLD VERSIONS"/>
 </workingSet>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1449718373764_10" label="Multiple Working Sets" name="Aggregate:CLIENT:SERVER:">
+<workingSet IMemento.internal.id="CLIENT"/>
+<workingSet IMemento.internal.id="SERVER"/>
+</workingSet>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1449882801544_12" label="Multiple Working Sets" name="Aggregate:CLIENT:OLD VERSIONS:SERVER:">
+<workingSet IMemento.internal.id="CLIENT"/>
+<workingSet IMemento.internal.id="_OLD VERSIONS"/>
+<workingSet IMemento.internal.id="SERVER"/>
+</workingSet>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1449882824343_14" label="Multiple Working Sets" name="Aggregate:_OLD VERSIONS:CLIENT:SERVER:">
+<workingSet IMemento.internal.id="_OLD VERSIONS"/>
 <workingSet IMemento.internal.id="CLIENT"/>
 <workingSet IMemento.internal.id="SERVER"/>
 </workingSet>
