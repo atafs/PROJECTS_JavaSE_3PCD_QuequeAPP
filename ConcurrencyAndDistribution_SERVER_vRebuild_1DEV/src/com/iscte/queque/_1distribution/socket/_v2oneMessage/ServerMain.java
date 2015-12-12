@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 
 import com.iscte.queque.log.LogMessage;
 
@@ -14,10 +15,14 @@ public class ServerMain {
 	private ServerSocket serverSocket;
 	private Socket server;
 	
-	//STREAM
-	private String message;
+	//STREAM MESSAGE
+	private String message = "Aprenda Java e seja contratado!!!";
 	private String messageStart;
 	private String messageServerRead = ":SERVER WRITE => ";
+	
+	//STREAM READER/WRITER
+	private Scanner reader;
+	private PrintWriter writer;
 	
 	//LOG4J LOGGER
 	private static LogMessage logger = new LogMessage();
@@ -40,15 +45,19 @@ public class ServerMain {
 			while(true) {
 				this.server = serverSocket.accept();
 				//RETURN STRING: server info
-				messageStart();
-
-				try ( PrintWriter w = new PrintWriter(this.server.getOutputStream()) ) {
-					this.message = "Aprenda Java e seja contratado!!!";
-					w.println(messageServerRead + this.message);
-					logger.getLog().info(this.messageStart);
-					logger.getLog().info("Mensagem: " + this.message);
+				message_start();
 				
-				}
+				//READER SCANNER
+				this.reader = new Scanner(server.getInputStream());
+				logger.getLog().info(this.messageStart);
+				logger.getLog().info(messageServerRead + reader.nextLine());
+
+//				//WRITER PRINTWRITER
+//				this.writer = new PrintWriter(this.server.getOutputStream()); 
+//				writer.println(messageServerRead + this.message);
+//				logger.getLog().info(this.messageStart);
+//				logger.getLog().info(messageServerRead + this.message);
+
 			}
 		} catch (IOException e) {
 			logger.getLog().debug(e);
@@ -57,7 +66,7 @@ public class ServerMain {
 	
 	
 	/** Message: start of server */
-	private String messageStart() {
+	private String message_start() {
 		//STRING
 		this.messageStart = "SERVER ONLINE " + "\n";
 		this.messageStart += "\tserver.Port = " + this.server.getPort() + "\n";

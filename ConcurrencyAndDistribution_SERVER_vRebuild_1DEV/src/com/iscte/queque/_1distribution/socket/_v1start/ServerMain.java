@@ -43,7 +43,6 @@ public class ServerMain {
 				messageStart();
 
 				try ( PrintWriter w = new PrintWriter(this.server.getOutputStream()) ) {
-					this.message = "Aprenda Java e seja contratado!!!";
 					w.println(messageServerRead + this.message);
 					logger.getLog().info(this.messageStart);
 					logger.getLog().info("Mensagem: " + this.message);
