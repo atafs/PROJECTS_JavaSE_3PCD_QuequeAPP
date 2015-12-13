@@ -1,4 +1,4 @@
-package com.iscte.queque._2concurrency.thread._v4multiMessage;
+package com.iscte.queque._2concurrency.thread._v5multiMessObject;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
@@ -35,8 +37,9 @@ public class ClientMain {
 	private String messageClientWrite;
 	
 	//STREAM READER/WRITER
-	private PrintWriter writer;
-	private Scanner reader;
+	private ObjectOutputStream writer;
+	private ObjectInputStream reader;
+	
 
 	//GUI
 	private JFrame frame;
@@ -71,10 +74,10 @@ public class ClientMain {
 			message_start();
 			
 			//WRITER PRINTWRITER
-			this.writer = new PrintWriter(client.getOutputStream());
+			this.writer = new ObjectOutputStream(client.getOutputStream());
 			
 			//READER SCANNER THREAD
-			this.reader = new Scanner(client.getInputStream());
+			this.reader = new ObjectInputStream(client.getInputStream());
 			new Thread(new ServerListener_thread()).start();
 
 		}  catch (IOException e) {
@@ -150,10 +153,15 @@ public class ClientMain {
 		String messageToSend = messageClientWrite + textoParaEnviar.getText();
 		
 		//WRITER
-		writer.println(messageToSend);
-		writer.flush();//garantir que foi enviado
-		textoParaEnviar.setText("");//limpar campo de texto
-		textoParaEnviar.requestFocus();//colocar cursor dentro do campo
+		try {
+			writer.writeObject(messageToSend);
+			writer.flush();//garantir que foi enviado
+			textoParaEnviar.setText("");//limpar campo de texto
+			textoParaEnviar.requestFocus();//colocar cursor dentro do campo
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 	
 	/** GUI: inner class listener */ 
@@ -193,13 +201,13 @@ public class ClientMain {
 	
 	//class de escuta do servidor
 	private class ServerListener_thread implements Runnable {
-
+		
 		//RUN
 		@Override
 		public void run() {
 			try {
 				String texto;
-				while((texto = reader.nextLine()) != null) {
+				while((texto = (String) reader.readObject()) != null) {
 					//adiciona no final de todo o texto o novo texto
 					textoRecebido.append(texto + "\n");
 				}

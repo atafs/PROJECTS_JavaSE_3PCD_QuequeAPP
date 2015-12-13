@@ -283,12 +283,6 @@ public class ServerService extends JFrame{
 			}
 		}
 	}
-	
-	/** */
-	private void saveCacheMessage(ChatMessage message, Map.Entry<String, ObjectOutputStream> kv) {
-		
-	}
-	
 
 	/** */
 	private void gui_initComponents() {

@@ -1,4 +1,4 @@
-package com.iscte.queque._1distribution.socket._v3oneMessage;
+package com.iscte.queque._1distribution.socket._v3oneMessKeyList;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
