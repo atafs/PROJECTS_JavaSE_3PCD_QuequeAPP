@@ -11,9 +11,7 @@ import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -38,9 +36,7 @@ public class ClientMain {
 	
 	//STREAM READER/WRITER
 	private ObjectOutputStream writer;
-	private ObjectInputStream reader;
 	
-
 	//GUI
 	private JFrame frame;
 	private String nome;
@@ -73,12 +69,10 @@ public class ClientMain {
 			//RETURN STRING: server info
 			message_start();
 			
-			//WRITER PRINTWRITER
+			//WRITER
 			this.writer = new ObjectOutputStream(client.getOutputStream());
-			
-			//READER SCANNER THREAD
-			this.reader = new ObjectInputStream(client.getInputStream());
-			new Thread(new ServerListener_thread()).start();
+			//READER
+			new Thread(new Thread_ServerListener_reader(this.client)).start();
 
 		}  catch (IOException e) {
 			logger.getLog().debug(e);
@@ -148,20 +142,26 @@ public class ClientMain {
 	}
 	
 	/** GUI: action for action and key listener */
-	public void action_buttonOrEnterPressed() {
+	public void message_sendToServer() {
 		//LOCAL VARIABLE
 		String messageToSend = messageClientWrite + "@£§€" + " => " + textoParaEnviar.getText();
 		
-		//WRITER
-		try {
-			writer.writeObject(messageToSend);
-			writer.flush();//garantir que foi enviado
-			textoParaEnviar.setText("");//limpar campo de texto
-			textoParaEnviar.requestFocus();//colocar cursor dentro do campo
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		//WRITER THREAD
+		Thread sendThread = new Thread() {
+		    public void run() {
+				try {
+					//ACTION
+					writer.writeObject(messageToSend);
+					writer.flush();//garantir que foi enviado
+					textoParaEnviar.setText("");//limpar campo de texto
+					textoParaEnviar.requestFocus();//colocar cursor dentro do campo
+					
+				} catch (Exception e) {
+					logger.getLog().info(e);
+				}	
+			}
+		};
+		sendThread.start();
 	}
 	
 	/** GUI: inner class listener */ 
@@ -169,7 +169,7 @@ public class ClientMain {
 	private class ButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			action_buttonOrEnterPressed();
+			message_sendToServer();
 		}
 	}
 	
@@ -182,13 +182,13 @@ public class ClientMain {
 			//ENTER KEY PRESSED
 			if (key == KeyEvent.VK_ENTER) {
 				Toolkit.getDefaultToolkit().beep();
-				action_buttonOrEnterPressed();
+				message_sendToServer();
 			}
 			
 			//DELETE KEY PRESSED
 			if (key == KeyEvent.VK_DELETE) {
 				Toolkit.getDefaultToolkit().beep();
-				action_buttonOrEnterPressed();
+				message_sendToServer();
 			}
 		}
 		
@@ -200,7 +200,17 @@ public class ClientMain {
 	}
 	
 	//class de escuta do servidor
-	private class ServerListener_thread implements Runnable {
+	private class Thread_ServerListener_reader implements Runnable {
+		
+		//ATTRIBUTES
+		private ObjectInputStream reader;
+		
+		//CONSTRUCTOR
+		public Thread_ServerListener_reader(Socket socket) throws IOException {
+			this.reader = new ObjectInputStream(socket.getInputStream());
+			logger.getLog().info("SERVER: new reader (ObjectInputStream): constructor");
+
+		}
 		
 		//RUN
 		@Override
@@ -215,6 +225,3 @@ public class ClientMain {
 		}		
 	}
 }
-
-//(IP, porta TCP)
-//inserimos uma stream atraves do scanner
