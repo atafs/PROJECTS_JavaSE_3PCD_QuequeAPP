@@ -3,15 +3,12 @@ package com.iscte.queque._2concurrency.thread._v7multiMessShareList_moreThreads;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -28,17 +25,11 @@ public class ServerMain {
 	private String messageStart;
 	
 	//STREAM READER/WRITER
+	@SuppressWarnings("unused")
 	private ObjectOutputStream writer;
 	
-	//LISTS
-	private List<PrintWriter> writersPrintWriter = new ArrayList<PrintWriter>();
-	private List<ObjectOutputStream> writersObjectOutputStream = new ArrayList<ObjectOutputStream>();
-
 	//LOG4J LOGGER
-	private static LogMessage logger = new LogMessage();
-	
-	//######################################################
-	
+	private static LogMessage logger = new LogMessage();	
 	//#######################################
 	
 	//MAIN
@@ -60,13 +51,10 @@ public class ServerMain {
 				//RETURN STRING: server info
 				message_start();
 				
-				//STREAM READER SCANNER THREAD
-				new Thread(new ClientListener_thread(server)).start();
-				
-				//STREAM WRITER PRINTWRITER ##########################
-				ObjectOutputStream writer = new ObjectOutputStream(server.getOutputStream());
-				writersObjectOutputStream.add(writer);
-				logger.getLog().info("new writer (ObjectOutputStream) added to list...");
+				//READER 
+				new Thread(new Thread_ClientListener_reader(server)).start();
+				//WRITER  
+				new Thread(new Thread_ClientListener_writer(server)).start();
 
 			}
 		} catch (IOException e) {
@@ -87,15 +75,23 @@ public class ServerMain {
 		return this.messageStart;
 	}
 	
-	//escutar requisicoes dos clientes
-	private class ClientListener_thread implements Runnable {
+	//INNER CLASS
+	private class Thread_ClientListener_reader implements Runnable {
 
 		//ATTRIBUTES
 		private ObjectInputStream reader;
+		private String texto;
+
+		//USER
+		private String userName;
+		private String userMessage;
+		
 		
 		//CONSTRUCTOR
-		public ClientListener_thread(Socket socket) throws IOException {
+		public Thread_ClientListener_reader(Socket socket) throws IOException {
 			this.reader = new ObjectInputStream(socket.getInputStream());
+			logger.getLog().info("new reader (ObjectInputStream): constructor");
+
 		}
 		
 		//RUN
@@ -106,62 +102,64 @@ public class ServerMain {
 				//LOGGER
 				logger.getLog().info("LOCATION: type=thread; class=ClientListener_thread; method=run()");
 				
-				String texto;
-				while((texto = (String) this.reader.readObject()) != null) {
+				//LOOP
+				while((this.texto = (String) this.reader.readObject()) != null) {
 
-					//TODO TEST #########################################
+					//STRING
+					String tempTexto = this.texto;
+					String[] tempTextoParts = tempTexto.split("@£§€");
+					this.userName = tempTextoParts[0].trim();
+					this.userMessage = userName + tempTextoParts[1];
+					
+					//THREADS
 					ExecutorService executor = Executors.newFixedThreadPool(2);
-					executor.execute(new MessageSave_thread(texto));
-					executor.execute(new MessageSend_thread(texto));
+					
+					//SAVE
+					executor.execute(new Thread_MessageSave(this.userName, this.userMessage));
+					//SEND
+					executor.execute(new Thread_MessageSend(this.userName, this.userMessage));
+					//SHUTDOWN
 					executor.shutdown();
-					// ####################################################
 
 				}
 			} catch(Exception e) {
 				logger.getLog().debug(e);
 			}
+		}
+	}
+	
+	//INNER CLASS
+	private class Thread_ClientListener_writer implements Runnable {
+
+		//ATTRIBUTES
+		private ObjectOutputStream writer;
+				
+		//CONSTRUCTOR
+		public Thread_ClientListener_writer(Socket socket) throws IOException {
+			this.writer = new ObjectOutputStream(server.getOutputStream());
+			logger.getLog().info("new writer (ObjectOutputStream): constructor");
 			
-//			//SYNTAXE: FOR AN OBJECT
-//			ChatMessage message = null;
-//			(message = (ChatMessage) this.reader.readObject())
-//			ChatMessage.Action action = message.getAction();	
 		}
-	}
 		
-	/** LIST: send to all the message */
-	private void writer_sendToAll_printwriter(String texto) {
-		for (PrintWriter w : writersPrintWriter) {
-			try {	
-				w.println(texto);
-				w.flush();
-			} catch (Exception e) {
-				logger.getLog().info(e);
-			}
+		//RUN
+		@Override
+		public void run() {	
+			//ADD NEW WRITERS
+			DBClientData.addNewWriters(writer);
 		}
 	}
-	
-	/** LIST: send to all the message */
-	private void writer_sendToAll_objectoutputstream(String texto) {
-		for (ObjectOutputStream w : writersObjectOutputStream) {
-			try {	
-				w.writeObject(texto);
-				w.flush();
-			} catch (Exception e) {
-				logger.getLog().info(e);
-			}
-		}
-	}
-	
-	//TODO TEST #####################################################
-	//innerClass: task for adding an amount to the account
-	public class MessageSave_thread implements Runnable {
+
+	//INNER CLASS
+	public class Thread_MessageSave implements Runnable {
 
 		//ATTRIBUTE
+		private String nameThread;
 		private String texto;
 		
 		//CONSTRUCTOR
-		public MessageSave_thread(String texto) {
+		public Thread_MessageSave(String nameThread, String texto) {
 			this.texto = texto;
+			this.nameThread = nameThread;
 		}
 		
 		//GETTER
@@ -173,7 +171,7 @@ public class ServerMain {
 		public void run() {	
 			try{
 				//LOGGER
-				logger.getLog().info("LOCATION: type=thread; class=MessageSave_thread; method=run()");
+				logger.getLog().info("LOCATION: name="+nameThread+"; type=thread; class=MessageSave_thread; method=run()");
 				
 				//ADD OBJECT TO LIST
 				DBClientData.addMessages(this);
@@ -186,44 +184,92 @@ public class ServerMain {
 
 	}
 	
-	//innerClass: task for subtracting an amount from the account
-	public class MessageSend_thread implements Runnable {
+	//INNER CLASS
+	public class Thread_MessageSend implements Runnable {
 
 		//ATTRIBUTE
+		private String nameThread;
 		private String texto;
 		
 		//CONSTRUCTOR
-		public MessageSend_thread(String texto) {
+		public Thread_MessageSend(String nameThread, String texto) {
 			this.texto = texto;
+			this.nameThread = nameThread;
 		}
-				
+			
+		//RUN
 		@Override
 		public void run() {	
 			//LOGGER
-			logger.getLog().info("LOCATION: type=thread; class=MessageSend_thread; method=run()");
+			logger.getLog().info("LOCATION: name="+nameThread+"; type=thread; class=MessageSend_thread; method=run()");
 			
-			//SEND OBJECT
-			writer_sendToAll_objectoutputstream(this.texto);
+			//SEND OBJECT TO ALL USERS
+			sendToAll(this.texto);
 
 		}
+		
+		/** WRITE TO ALL: send to all the message */
+		private void sendToAll(String texto) {
+			
+			//TODO TEST ######################################
+			//WRITERS
+			List<ObjectOutputStream> newWritersObjectOutputStream = DBClientData.getAllWriters();
+			Thread[] t = new Thread[newWritersObjectOutputStream.size()];
+			long time = System.currentTimeMillis();
+			try {
+				for(int i =0; i < newWritersObjectOutputStream.size(); i++){
+					//START
+					final int INDEX = i;
+					t[i]= new Thread() {
+					    public void run() {
+							try {
+								newWritersObjectOutputStream.get(INDEX).writeObject(texto);
+								newWritersObjectOutputStream.get(INDEX).flush();	
+							} catch (IOException e) {
+								logger.getLog().info(e);
+							}												    }
+					};
+					t[i].start();
+				}
+			
+				//JOIN
+				for(int j =0; j < newWritersObjectOutputStream.size(); j++){
+					try {
+						t[j].join();
+					} catch (InterruptedException e) {
+						logger.getLog().info(e);
+					}
+				}
+				//TIMER
+				time = System.currentTimeMillis() - time;
+				logger.getLog().info("[Time = " + time + "]; [ms]");
+					
+					
+				} catch (Exception e) {
+					logger.getLog().info(e);
+				}
+			}
 	}
 	
-	//innerClass: Account
+	//INNER CLASS
 	public static class DBClientData {
 		
 		/* ATTRIBUTES */
 		//LOCKS
-		private static Lock lock = new ReentrantLock();//create lock
+		private static Lock lockMessages = new ReentrantLock();//create lock
+		private static Lock lockWritersObjectOutputStream = new ReentrantLock();//create lock
 	
 		//LISTS
 		private static List<String> messages = new ArrayList<String>();
+		private static List<ObjectOutputStream> writersObjectOutputStream = new ArrayList<ObjectOutputStream>();
+
 		
 		//rotina: subtracting an amount from the account
-		public static void addMessages(MessageSave_thread messageSaveThread){
-			lock.lock();//acquire lock
+		public static void addMessages(Thread_MessageSave messageSaveThread){
+			lockMessages.lock();//acquire lock
 			try{
 				//LOGGER
-				logger.getLog().info("LOCATION: type=shared_resource; class=DBClientData; message='"+messageSaveThread.getTexto()+"'; method=addMessages(messageSaveThread)");
+				logger.getLog().info("LOCATION: message='"+messageSaveThread.getTexto()+"'; type=shared_resource; class=DBClientData; method=addMessages(messageSaveThread)");
 				
 				//SAVE OBJECT
 				DBClientData.messages.add(messageSaveThread.getTexto());
@@ -231,9 +277,47 @@ public class ServerMain {
 			} catch(Exception ex) {
 				logger.getLog().debug(ex);
 			} finally {
-				lock.unlock();//release lock
+				lockMessages.unlock();//release lock
 			}
 		}
+		
+		//rotina: subtracting an amount from the account
+		public static void addNewWriters(ObjectOutputStream writer){
+			lockWritersObjectOutputStream.lock();//acquire lock
+			try{
+				//LOGGER
+				logger.getLog().info("LOCATION: type=shared_resource; class=DBClientData; method=addMessages(messageSaveThread)");
+				
+				//SAVE OBJECT
+				DBClientData.writersObjectOutputStream.add(writer);
+				
+			} catch(Exception ex) {
+				logger.getLog().debug(ex);
+			} finally {
+				lockWritersObjectOutputStream.unlock();//release lock
+			}
+		}
+		
+		//GET
+		public static List<ObjectOutputStream> getAllWriters(){
+			lockWritersObjectOutputStream.lock();//acquire lock
+			List<ObjectOutputStream> newWritersObjectOutputStream = new ArrayList<ObjectOutputStream>();
+			try{
+				//LOGGER
+				logger.getLog().info("GET ALL: writersObjectOutputStream ");
+				
+				//GET ALL
+				for (ObjectOutputStream objectOutputStream : writersObjectOutputStream) {
+					newWritersObjectOutputStream.add(objectOutputStream);
+				}
+				
+			} catch(Exception ex) {
+				logger.getLog().debug(ex);
+			} finally {
+				lockWritersObjectOutputStream.unlock();//release lock
+			}
+			return newWritersObjectOutputStream;
+		}			
 	}
 }
 

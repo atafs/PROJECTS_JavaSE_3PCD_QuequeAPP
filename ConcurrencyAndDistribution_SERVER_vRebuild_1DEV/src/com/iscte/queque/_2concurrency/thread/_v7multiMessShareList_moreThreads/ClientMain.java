@@ -59,7 +59,7 @@ public class ClientMain {
 		
 		//CLIENT1
 		client.gui_initComponents("User");
-		client.messageClientWrite = client.nome + " => ";
+		client.messageClientWrite = client.nome;
 		client.gui_lastInstructions();
 		client.gui_start();
 	}
@@ -105,7 +105,7 @@ public class ClientMain {
 		frame = new JFrame();
 		int i = ((int)(Math.random()*100));
 		this.nome = nome + i;
-		this.messageClientWrite = this.nome + " => ";
+		this.messageClientWrite = this.nome;
 		frame.setTitle(this.nome);
 
 		//fonte e botoes/texto
@@ -150,7 +150,7 @@ public class ClientMain {
 	/** GUI: action for action and key listener */
 	public void action_buttonOrEnterPressed() {
 		//LOCAL VARIABLE
-		String messageToSend = messageClientWrite + textoParaEnviar.getText();
+		String messageToSend = messageClientWrite + "@£§€" + " => " + textoParaEnviar.getText();
 		
 		//WRITER
 		try {
