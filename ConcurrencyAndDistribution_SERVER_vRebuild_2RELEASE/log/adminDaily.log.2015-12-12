@@ -1,0 +1,15 @@
+[INFO] [12-12-2015 02:28:30] com.iscte.queque.client.log.LogMessage - SERVIDOR ON.
+[INFO] [12-12-2015 02:42:05] com.iscte.queque.log.LogMessage - SERVIDOR ON.
+[DEBUG] [12-12-2015 02:53:52] com.iscte.queque.log.LogMessage - java.net.BindException: Address already in use: JVM_Bind
+[INFO] [12-12-2015 02:53:59] com.iscte.queque.log.LogMessage - SERVIDOR ON.
+[DEBUG] [12-12-2015 02:54:25] com.iscte.queque.log.LogMessage - java.net.SocketException: Connection reset
+[INFO] [12-12-2015 02:54:55] com.iscte.queque.log.LogMessage - SERVIDOR ON.
+[DEBUG] [12-12-2015 02:55:08] com.iscte.queque.log.LogMessage - java.net.SocketException: Connection reset
+[DEBUG] [12-12-2015 02:55:08] com.iscte.queque.log.LogMessage - java.lang.NullPointerException
+[INFO] [12-12-2015 02:55:16] com.iscte.queque.log.LogMessage - SERVIDOR ON.
+[DEBUG] [12-12-2015 02:55:18] com.iscte.queque.log.LogMessage - java.net.SocketException: Connection reset
+[DEBUG] [12-12-2015 02:55:18] com.iscte.queque.log.LogMessage - java.lang.NullPointerException
+[INFO] [12-12-2015 02:57:40] com.iscte.queque.log.LogMessage - SERVIDOR ON.
+[DEBUG] [12-12-2015 02:57:42] com.iscte.queque.log.LogMessage - java.net.SocketException: Connection reset
+[DEBUG] [12-12-2015 02:57:42] com.iscte.queque.log.LogMessage - java.lang.NullPointerException
+[INFO] [12-12-2015 02:57:59] com.iscte.queque.log.LogMessage - SERVIDOR ON.
