@@ -9,15 +9,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+import com.iscte.queque.db.DBClientData;
 import com.iscte.queque.log.LogMessage;
 
-public class ServerMain {
+public class ServerMain extends JFrame{
 	
 	//INSTANTIATE ###########################
 	public  int port = 5000;
+	public static String ip = "";
 	private ServerSocket serverSocket;
 	private Socket server;
 	
@@ -32,12 +40,17 @@ public class ServerMain {
 	private static LogMessage logger = new LogMessage();	
 	//#######################################
 	
+	//CONSTRUCTOR
+	public ServerMain() {
+		//...
+	}
+	
 	//MAIN
 	public static void main(String[] args) throws Exception {
 		//INSTANTIATE
 		ServerMain server = new ServerMain();
 		server.connect_socket();
-		
+	
 	}
 	
 	/** CONNECT SOCKET */
@@ -113,6 +126,14 @@ public class ServerMain {
 					
 					//THREADS
 					ExecutorService executor = Executors.newFixedThreadPool(2);
+					
+					//TODO TO DELETE"""""""""""""""""""""""""""""""""""
+					if (DBClientData.writersObjectOutputStream.size() != 0) {
+						for (ObjectOutputStream writer1 : DBClientData.writersObjectOutputStream) {
+							System.out.println(writer1.toString());
+						}
+					}
+					//""""""""""""""""""""""""""""""""""""""""""""""""""
 					
 					//SAVE
 					executor.execute(new Thread_MessageSave(this.userName, this.userMessage));
@@ -211,113 +232,44 @@ public class ServerMain {
 		/** WRITE TO ALL: send to all the message */
 		private void sendToAll(String texto) {
 			
-			//TODO TEST ######################################
-			//WRITERS
-			List<ObjectOutputStream> newWritersObjectOutputStream = DBClientData.getAllWriters();
-			Thread[] t = new Thread[newWritersObjectOutputStream.size()];
-			long time = System.currentTimeMillis();
-			try {
-				for(int i =0; i < newWritersObjectOutputStream.size(); i++){
-					//START
-					final int INDEX = i;
-					t[i]= new Thread() {
-					    public void run() {
-							try {
-								newWritersObjectOutputStream.get(INDEX).writeObject(texto);
-								newWritersObjectOutputStream.get(INDEX).flush();	
-							} catch (IOException e) {
-								logger.getLog().info(e);
-							}												    }
-					};
-					t[i].start();
-				}
-			
-				//JOIN
-				for(int j =0; j < newWritersObjectOutputStream.size(); j++){
-					try {
-						t[j].join();
-					} catch (InterruptedException e) {
-						logger.getLog().info(e);
-					}
-				}
-				//TIMER
-				time = System.currentTimeMillis() - time;
-				logger.getLog().info("[Time = " + time + "]; [ms]");
-					
-					
-				} catch (Exception e) {
+		//TODO TEST ######################################
+		//WRITERS
+		List<ObjectOutputStream> newWritersObjectOutputStream = DBClientData.getAllWriters();
+		Thread[] t = new Thread[newWritersObjectOutputStream.size()];
+		long time = System.currentTimeMillis();
+		try {
+			for(int i =0; i < newWritersObjectOutputStream.size(); i++){
+				//START
+				final int INDEX = i;
+				t[i]= new Thread() {
+				    public void run() {
+						try {
+							newWritersObjectOutputStream.get(INDEX).writeObject(texto);
+							newWritersObjectOutputStream.get(INDEX).flush();	
+						} catch (IOException e) {
+							logger.getLog().info(e);
+						}												    }
+				};
+				t[i].start();
+			}
+		
+			//JOIN
+			for(int j =0; j < newWritersObjectOutputStream.size(); j++){
+				try {
+					t[j].join();
+				} catch (InterruptedException e) {
 					logger.getLog().info(e);
 				}
 			}
-	}
-	
-	//INNER CLASS
-	public static class DBClientData {
-		
-		/* ATTRIBUTES */
-		//LOCKS
-		private static Lock lockMessages = new ReentrantLock();//create lock
-		private static Lock lockWritersObjectOutputStream = new ReentrantLock();//create lock
-	
-		//LISTS
-		private static List<String> messages = new ArrayList<String>();
-		private static List<ObjectOutputStream> writersObjectOutputStream = new ArrayList<ObjectOutputStream>();
-
-		
-		//rotina: subtracting an amount from the account
-		public static void addMessages(Thread_MessageSave messageSaveThread){
-			lockMessages.lock();//acquire lock
-			try{
-				//LOGGER
-				logger.getLog().info("LOCATION: message='"+messageSaveThread.getTexto()+"'; type=shared_resource; class=DBClientData; method=addMessages(messageSaveThread)");
+			//TIMER
+			time = System.currentTimeMillis() - time;
+			logger.getLog().info("[Time = " + time + "]; [ms]");
 				
-				//SAVE OBJECT
-				DBClientData.messages.add(messageSaveThread.getTexto());
 				
-			} catch(Exception ex) {
-				logger.getLog().debug(ex);
-			} finally {
-				lockMessages.unlock();//release lock
+			} catch (Exception e) {
+				logger.getLog().info(e);
 			}
 		}
-		
-		//rotina: subtracting an amount from the account
-		public static void addNewWriters(ObjectOutputStream writer){
-			lockWritersObjectOutputStream.lock();//acquire lock
-			try{
-				//LOGGER
-				logger.getLog().info("LOCATION: type=shared_resource; class=DBClientData; method=addMessages(messageSaveThread)");
-				
-				//SAVE OBJECT
-				DBClientData.writersObjectOutputStream.add(writer);
-				
-			} catch(Exception ex) {
-				logger.getLog().debug(ex);
-			} finally {
-				lockWritersObjectOutputStream.unlock();//release lock
-			}
-		}
-		
-		//GET
-		public static List<ObjectOutputStream> getAllWriters(){
-			lockWritersObjectOutputStream.lock();//acquire lock
-			List<ObjectOutputStream> newWritersObjectOutputStream = new ArrayList<ObjectOutputStream>();
-			try{
-				//LOGGER
-				logger.getLog().info("GET ALL: writersObjectOutputStream ");
-				
-				//GET ALL
-				for (ObjectOutputStream objectOutputStream : writersObjectOutputStream) {
-					newWritersObjectOutputStream.add(objectOutputStream);
-				}
-				
-			} catch(Exception ex) {
-				logger.getLog().debug(ex);
-			} finally {
-				lockWritersObjectOutputStream.unlock();//release lock
-			}
-			return newWritersObjectOutputStream;
-		}			
 	}
 }
 
