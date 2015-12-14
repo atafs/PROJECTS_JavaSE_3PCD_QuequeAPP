@@ -1,0 +1,7 @@
+INDEX VERSION 1.127+D:\clouds\Drive Ilimitado\PROJECTS_JavaSE_3PCD_QuequeAPP\_3workspace_00_release01\.metadata\.plugins\org.eclipse.jdt.core
+1878754740.index
+3784462798.index
+1572051252.index
+3231336599.index
+2345068745.index
+3180829480.index

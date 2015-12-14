@@ -1,0 +1,105 @@
+package com.iscte.queque._2concurrency.lock.synchronized_._vSync_2Hash;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class HashSyncMain {
+	
+	//ATTRIBUTES
+	private int count;
+	
+	//CONSTANTS
+	private static final int MAX = 100;
+	private static final int SLEEP = 125;
+	
+	//CONSTRUCTOR
+	public HashSyncMain() {
+		this.count = 0;
+	}
+	
+	//GETTER
+	public int getCount() {
+		return count;
+	}
+
+	//MAIN
+	public static void main(String[] args) {
+		//INSTANTIATE
+		HashSyncMain variableSync = new HashSyncMain();
+		System.out.println("STARTING THE APP..........................");
+		
+		//INNER CLASS
+		Thread1 t1 = new Thread1("Americo");
+		//INNER CLASS
+		Thread1 t2 = new Thread1("Tomas");
+			
+		//START
+		t1.start();
+		t2.start();
+		
+		//JOIN
+		try {
+			t1.join();
+			t2.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}	
+		System.out.println("FINISHING THE APP AFTER JOIN THREADS: count = " + variableSync.count );
+
+	}
+	
+	//SYNCHRONIZED
+	public synchronized void incount(Thread t) {
+		count++;
+		if (t.getName().equals("Thread-0")) {
+			System.err.println(t.getName() + " => COUNT = " + count);
+			
+			//SLEEP
+			sleepIncount();	
+
+		} else if (t.getName().equals("Thread-1")) {
+			System.out.println(t.getName() + " => COUNT = " + count);
+			
+			//SLEEP
+			sleepIncount();
+		}
+	}
+	
+	//METHOD SLEEP
+	public void sleepIncount() {
+		//SLEEP
+		try {
+			Thread.sleep(this.SLEEP);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//INNER CLASS
+	private class Thread1 implements Runnable {
+
+		//ATTRIBUTES
+		private String threadName;
+		private String texto;
+
+		//CONSTRUCTOR
+		public Thread1(String threadName)  {
+			this.threadName = threadName;
+		}
+		
+		//RUN
+		@Override
+		public void run() {		
+			//LOOP
+			for (int i = 0; i < MAX; i++) {
+				incount(this);
+			}
+		}
+	}
+
+
+
+}

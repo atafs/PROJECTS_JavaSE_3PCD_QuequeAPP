@@ -1,0 +1,37 @@
+package com.iscte.queque._2concurrency.lock.synchronized_._vSync_1variable;
+
+public class VariableSyncMain {
+	
+	//ATTRIBUTES
+	private int count;
+	
+	//CONSTRUCTOR
+	public VariableSyncMain() {
+		this.count = 0;
+	}
+	
+	//GETTER
+	public int getCount() {
+		return count;
+	}
+
+	//MAIN
+	public static void main(String[] args) {
+		//INSTANTIATE
+		VariableSyncMain variableSync = new VariableSyncMain();
+		
+		Thread t1 = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+			}
+		})
+	}
+	
+	
+
+
+
+}
