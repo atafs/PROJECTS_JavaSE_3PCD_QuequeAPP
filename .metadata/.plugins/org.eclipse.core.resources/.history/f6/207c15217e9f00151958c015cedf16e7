@@ -1,0 +1,10 @@
+#TOCHANGE: INPUT MACHINE PATH#######################################
+myDataUser					=.//myData//myDataUser.txt
+
+
+
+#CONSTANTS ##########################################################
+NAME_ZZZ			=zzz
+NAME_YYY			=yyy
+NAME_ZZZ			=xxx
+

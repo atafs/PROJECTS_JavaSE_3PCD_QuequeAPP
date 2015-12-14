@@ -1,0 +1,54 @@
+package com.iscte.queque.client.serializable;
+
+import java.io.Serializable;
+import java.util.List;
+
+import com.iscte.queque.client.serializable.group.ContactGroup;
+
+/** DAO */
+public class Client implements Serializable {
+	
+	// ATTRIBUTES
+	private static final long serialVersionUID = 1L;
+
+	//CLIENT: myData
+	private String name;
+	private String nameReserved;
+	//CLIENT: 
+	//- myGroup: ContactGroup
+	//  - myChat: ChatMessage
+	private List<ContactGroup> myGroups;
+	
+	//CONSTRUCTOR
+	public Client(String name, String nameReserved) {
+		this.name = name;
+		this.nameReserved = nameReserved;
+		//this.myGroups = 
+	}
+	
+	public Client() {
+		this.name = "";
+		this.nameReserved = "";
+		//this.myGroups = 
+	}
+	
+	//GETTERS AND SETTERS
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getNameReserved() {
+		return nameReserved;
+	}
+	public void setNameReserved(String nameReserved) {
+		this.nameReserved = nameReserved;
+	}
+	public List<ContactGroup> getMyGroups() {
+		return myGroups;
+	}
+	public void setMyGroups(List<ContactGroup> myGroups) {
+		this.myGroups = myGroups;
+	}
+}

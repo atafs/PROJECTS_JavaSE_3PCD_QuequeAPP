@@ -1,0 +1,61 @@
+[INFO] [12-13-2015 21:15:40] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 21:15:42] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 21:15:43] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 21:40:19] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 21:40:23] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 21:40:24] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 22:06:51] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 22:06:52] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 22:06:54] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[DEBUG] [12-13-2015 22:37:11] com.iscte.queque.log.LogMessage - java.net.ConnectException: Connection refused: connect
+[DEBUG] [12-13-2015 22:37:14] com.iscte.queque.log.LogMessage - java.net.ConnectException: Connection refused: connect
+[INFO] [12-13-2015 22:37:22] com.iscte.queque.log.LogMessage - java.lang.NullPointerException
+[INFO] [12-13-2015 22:37:25] com.iscte.queque.log.LogMessage - java.lang.NullPointerException
+[INFO] [12-13-2015 22:37:27] com.iscte.queque.log.LogMessage - java.lang.NullPointerException
+[INFO] [12-13-2015 22:37:28] com.iscte.queque.log.LogMessage - java.lang.NullPointerException
+[INFO] [12-13-2015 22:37:30] com.iscte.queque.log.LogMessage - java.lang.NullPointerException
+[INFO] [12-13-2015 22:37:32] com.iscte.queque.log.LogMessage - java.lang.NullPointerException
+[INFO] [12-13-2015 22:41:48] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 22:41:49] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 22:42:04] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[DEBUG] [12-13-2015 22:54:12] com.iscte.queque.log.LogMessage - java.net.ConnectException: Connection refused: connect
+[DEBUG] [12-13-2015 22:54:22] com.iscte.queque.log.LogMessage - java.net.ConnectException: Connection refused: connect
+[DEBUG] [12-13-2015 22:54:24] com.iscte.queque.log.LogMessage - java.net.ConnectException: Connection refused: connect
+[DEBUG] [12-13-2015 22:54:30] com.iscte.queque.log.LogMessage - java.net.ConnectException: Connection refused: connect
+[DEBUG] [12-13-2015 22:54:32] com.iscte.queque.log.LogMessage - java.net.ConnectException: Connection refused: connect
+[INFO] [12-13-2015 22:54:36] com.iscte.queque.log.LogMessage - java.lang.NullPointerException
+[INFO] [12-13-2015 22:54:38] com.iscte.queque.log.LogMessage - java.lang.NullPointerException
+[INFO] [12-13-2015 22:54:55] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 22:57:06] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 22:57:23] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 22:57:34] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 22:57:37] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[DEBUG] [12-13-2015 22:59:40] com.iscte.queque.log.LogMessage - java.net.ConnectException: Connection refused: connect
+[DEBUG] [12-13-2015 22:59:43] com.iscte.queque.log.LogMessage - java.net.ConnectException: Connection refused: connect
+[DEBUG] [12-13-2015 22:59:45] com.iscte.queque.log.LogMessage - java.net.ConnectException: Connection refused: connect
+[DEBUG] [12-13-2015 22:59:47] com.iscte.queque.log.LogMessage - java.net.ConnectException: Connection refused: connect
+[INFO] [12-13-2015 22:59:57] com.iscte.queque.log.LogMessage - java.lang.NullPointerException
+[INFO] [12-13-2015 23:00:01] com.iscte.queque.log.LogMessage - java.lang.NullPointerException
+[INFO] [12-13-2015 23:00:04] com.iscte.queque.log.LogMessage - java.lang.NullPointerException
+[INFO] [12-13-2015 23:00:04] com.iscte.queque.log.LogMessage - java.lang.NullPointerException
+[INFO] [12-13-2015 23:00:05] com.iscte.queque.log.LogMessage - java.lang.NullPointerException
+[INFO] [12-13-2015 23:01:13] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 23:01:16] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 23:01:18] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 23:02:42] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 23:03:15] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 23:13:59] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 23:14:05] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 23:14:07] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 23:25:48] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 23:25:50] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 23:25:51] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 23:26:32] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 23:26:33] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 23:26:34] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 23:41:59] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 23:42:00] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 23:42:01] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 23:48:57] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 23:48:59] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor
+[INFO] [12-13-2015 23:49:00] com.iscte.queque.log.LogMessage - SERVER: new reader (ObjectInputStream): constructor

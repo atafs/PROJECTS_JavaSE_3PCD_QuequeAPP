@@ -1,0 +1,74 @@
+package com.iscte.queque.client.service;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+import com.iscte.queque.log.LogMessage;
+
+public class ServerService {
+	
+	//ATTRIBUTES
+	public int port = 5555;
+	public static String ip = "";
+	private ServerSocket server;
+	private Socket client;
+	private ObjectOutputStream writer;
+	private ObjectInputStream reader;
+	
+	//LOG4J LOGGER
+	private static LogMessage logger = new LogMessage();
+	
+	//CONSTRUCTOR
+	public ServerService() {
+		connectSocket();
+		connectStream();
+	}
+	
+	//METHODS
+	
+	/** Connect Server and Client Connection */
+	public void connectSocket() {
+		try {	
+			//SERVER CONNECTION
+			this.server = new ServerSocket(port);
+			logger.getLog().info("SERVIDOR ON.");
+
+			//CLIENT CONNECTION
+			this.client = this.server.accept();
+		
+		} catch (Exception e) {
+			logger.getLog().debug(e);
+		}
+	}
+	
+	/** Connect Stream of Client */
+	public void connectStream() {
+		try {
+			//CLIENT: IN and OUT STREAM
+			this.writer = new ObjectOutputStream(client.getOutputStream());
+			this.reader = new ObjectInputStream(client.getInputStream());
+			
+			//CLIENT: SEND DATA
+			while(true) {
+				writer.writeObject("ENVIAR DADOS...");
+			}
+		
+		} catch (IOException ex) {
+			logger.getLog().debug(ex);
+		
+		} finally {
+			try {
+				writer.close();
+				reader.close();
+			
+			} catch (IOException e) {
+				logger.getLog().debug(e);
+			}
+		}
+
+	}
+
+}

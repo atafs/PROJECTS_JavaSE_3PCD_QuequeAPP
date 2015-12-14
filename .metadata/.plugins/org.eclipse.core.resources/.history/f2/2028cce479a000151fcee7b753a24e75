@@ -1,0 +1,43 @@
+package com.iscte.queque.service;
+
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.Scanner;
+
+import com.iscte.queque.log.LogMessage;
+
+public class ClientService {
+	
+	//ATTRIBUTES
+	public int port = 5555;
+	
+	//LOG4J LOGGER
+	private static LogMessage logger = new LogMessage();
+	
+	//CONSTRUCTOR
+	public ClientService() {
+		
+	}
+	
+	//METHODS
+	/** Connect Server and Client Connection */
+	public void connectSocket() {
+		Scanner s = null;
+		try {
+			//CLIENT CONNECTOR
+			Socket client = new Socket("localhost", port);
+			
+			//GET INPUT STREAM
+			s = new Scanner(client.getInputStream());
+			System.out.println("Mensagem: " + s.nextLine());
+			s.close();
+		} catch (IOException e) {
+			logger.getLog().debug(e);
+		} finally {
+			s.close();
+		}
+
+		
+	}
+}

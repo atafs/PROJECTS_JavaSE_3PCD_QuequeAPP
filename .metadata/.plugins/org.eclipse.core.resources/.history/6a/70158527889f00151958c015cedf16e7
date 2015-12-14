@@ -1,0 +1,20 @@
+package com.iscte.queque.client.serializable;
+
+import java.io.Serializable;
+import java.util.List;
+
+import com.iscte.queque.client.serializable.group.ContactGroup;
+
+/** DAO */
+public class Client implements Serializable {
+	
+	// ATTRIBUTES
+	//CLIENT: myData
+	private String name;
+	private String nameReserved;
+	//CLIENT: 
+	//- myGroup: ContactGroup
+	//  - myChat: ChatMessage
+	private List<ContactGroup> myGroups;
+
+}

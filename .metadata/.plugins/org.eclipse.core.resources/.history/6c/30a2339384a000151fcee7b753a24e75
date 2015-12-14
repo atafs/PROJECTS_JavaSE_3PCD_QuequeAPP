@@ -1,0 +1,24 @@
+package com.iscte.queque.thread;
+
+import com.iscte.queque.service.ServerService;
+
+public class Accept implements Runnable {
+	
+	//ATTRIBUTES
+	private ServerService serverService;
+	
+	//CONSRUCTOR
+	public Accept() {
+		serverService = new ServerService();
+	}
+
+	@Override
+	public void run() {
+		new Thread(new Send()).start();
+		new Thread(new Receive()).start();
+
+		//SERVICE
+		serverService.connect_socket();
+	}
+
+}

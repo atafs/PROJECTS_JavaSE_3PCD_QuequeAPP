@@ -1,0 +1,66 @@
+package com.iscte.queque._1distribution.socket._v1start;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.Scanner;
+
+import com.iscte.queque.log.LogMessage;
+
+public class ClientMain {
+	
+	//INSTANTIATE ###########################
+	public String ip_v1 = "127.0.0.1";
+	public String ip_v2 = "localhost";
+	public  int port = 5000;
+	private Socket client;
+	
+	//STREAM
+	private Scanner s;
+	
+	//LOG4J LOGGER
+	private static LogMessage logger = new LogMessage();
+	//#######################################
+
+	
+	public static void main(String[] args) throws Exception  {
+		//INSTANTIATE
+		ClientMain client = new ClientMain();
+		client.connect_socket();
+
+	}
+	
+	/** CONNECT SOCKET */
+	public void connect_socket() {
+		
+		//SOCKET
+		try {
+			this.client = new Socket(ip_v1, port);
+			this.s = new Scanner(client.getInputStream());
+			logger.getLog().info("Mensagem: " + s.nextLine());
+			
+		}  catch (IOException e) {
+			logger.getLog().debug(e);
+		} finally {
+			s.close();
+		}
+	}
+	
+	/** Message: start of server */
+	private String messageStart() {
+		//STRING
+		this.messageStart = "SERVER ONLINE " + "\n";
+		this.messageStart += "\tserver.Port = " + this.server.getPort() + "\n";
+		this.messageStart += "\tserver.LocalPort = " + this.server.getLocalPort() + "\n";
+		this.messageStart += "\tserver.LocalAddress = " + this.server.getLocalAddress() + "\n";
+		this.messageStart += "\tserver.HostName = " + this.server.getInetAddress().getHostName() + "\n";
+		this.messageStart += "\tserver.HostAddress = " + this.server.getInetAddress().getHostAddress();
+		//RETURN
+		return this.messageStart;
+	}
+}
+
+//(IP, porta TCP)
+//inserimos uma stream atraves do scanner

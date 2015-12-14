@@ -1,0 +1,83 @@
+package com.iscte.queque.thread;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+import com.iscte.queque.log.LogMessage;
+
+public class ServerService implements Runnable {
+	
+	//ATTRIBUTES
+	public int port = 5555;
+	public static String ip = "";
+	private ServerSocket server;
+	private Socket client;
+	private ObjectOutputStream writer;
+	private ObjectInputStream reader;
+	
+	//LOG4J LOGGER
+	private static LogMessage logger = new LogMessage();
+	
+	//CONSRUCTOR
+	public ServerService() {
+		connect_socket();
+		connect_sendMessage();
+	}
+
+	@Override
+	public void run() {
+		new Thread(new Send()).start();
+		new Thread(new Receive()).start();
+
+		//SERVICE
+		//...
+	}
+	
+	//METHODS
+	/** Connect Server and Client Connection */
+	public void connect_socket() {
+		try {	
+			//SERVER CONNECTION
+			this.server = new ServerSocket(port);
+			logger.getLog().info("SERVIDOR ON.");
+
+			//CLIENT CONNECTION
+			this.client = this.server.accept();
+		
+		} catch (Exception e) {
+			logger.getLog().debug(e);
+		}
+	}
+	
+	/** Connect Send */
+	public void connect_sendMessage() {
+		while(true) {
+			try {
+				//CLIENT: IN and OUT STREAM
+				this.writer = new ObjectOutputStream(client.getOutputStream());
+				this.writer.writeObject("Welcome to americoSERVER!!!");
+				
+				this.reader = new ObjectInputStream(client.getInputStream());
+				String username = (String) this.reader.readObject();
+
+			} catch (ClassNotFoundException ex) {
+				logger.getLog().debug(ex);
+			
+			} catch (IOException ex) {
+				logger.getLog().debug(ex);
+			
+			} finally {
+				try {
+					writer.close();
+					reader.close();
+				
+				} catch (Exception e) {
+					logger.getLog().debug(e);
+				}
+			}
+		}
+	}
+}

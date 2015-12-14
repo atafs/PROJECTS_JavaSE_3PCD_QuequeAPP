@@ -1,0 +1,44 @@
+package com.iscte.queque.client.listener.chat;
+
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.peer.KeyboardFocusManagerPeer;
+
+import com.iscte.queque.client.gui.ClientFrame;
+import com.iscte.queque.client.listener.QuequeListener;
+
+public class BtnEnviar extends QuequeListener implements ActionListener, KeyListener{
+
+		//CONSTRUCTOR
+		public BtnEnviar(ClientFrame gui) {
+			super(gui);
+		}
+
+		//ACTIONLISTENER
+		@Override
+		public void actionPerformed(ActionEvent evt) {
+			super.getGui().btnEnviarActionPerformed(evt);
+		}
+
+		//KEYLISTENER
+		@Override
+		public void keyPressed(KeyEvent e) {
+			int key = e.getKeyCode();
+			
+			//ENTER KEY PRESSED
+			if (key == KeyEvent.VK_ENTER) {
+				Toolkit.getDefaultToolkit().beep();
+				super.getGui().btnEnviarActionPerformed(e);
+			}
+			
+		}
+
+		@Override
+		public void keyTyped(KeyEvent e) {}
+		
+		@Override
+		public void keyReleased(KeyEvent e) {}
+}

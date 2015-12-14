@@ -1,0 +1,9 @@
+package com.iscte.queque.client.dao.test;
+
+/** DAO */
+public class Client {
+	
+	// ATTRIBUTES
+	private String name;
+
+}

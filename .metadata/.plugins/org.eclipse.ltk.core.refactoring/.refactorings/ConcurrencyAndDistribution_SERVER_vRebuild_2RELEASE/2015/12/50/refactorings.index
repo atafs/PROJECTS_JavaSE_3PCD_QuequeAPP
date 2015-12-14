@@ -1,0 +1,24 @@
+1449883595326	Delete elements
+1449884073601	Rename package 'server'
+1449884090394	Rename type 'Server'
+1449884423157	Rename package 'main'
+1449884433620	Rename package 'service'
+1449884941034	Rename field 'serverSocket'
+1449884948803	Rename field 'socket'
+1449885836973	Delete element
+1449886044335	Rename field 'output'
+1449886053700	Rename field 'input'
+1449887494009	Rename package 'com.iscte.queque.client'
+1449887762141	Copy compilation unit
+1449888561029	Rename method 'connectStream'
+1449891428465	Rename package 'com.iscte.queque.thread.runnable'
+1449892740678	Rename type 'Accept'
+1449892767581	Delete element
+1449892796689	Rename type 'Service'
+1449896449124	Copy compilation unit
+1449896467742	Copy compilation unit
+1449896507811	Copy compilation units
+1449936640989	Delete element
+1449936656381	Delete elements
+1449936659970	Delete element
+1449936683564	Delete elements

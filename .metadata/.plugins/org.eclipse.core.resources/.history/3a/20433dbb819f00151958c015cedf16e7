@@ -1,0 +1,66 @@
+package com.iscte.queque.client.properties;
+
+import com.iscte.queque.client.io.read.Reader_v2;
+
+public class Properties {
+
+	//ATTRIBUTES
+	private String path = "";
+	private Reader_v2 reader;
+	
+	//PROPERTIES
+	private String myDataUser = "";
+	private String myDataUserPath = "";
+
+	//CONSTRUCTOR
+	public Properties() {
+		path = "./properties/config.properties";
+		
+		//SYSTEM PROPERTIES
+		reader = new Reader_v2();
+		myDataUser = reader.readFileReader(path, "myDataUser");
+		myDataUserPath = reader.readFileReader(path, "myDataUserPath");
+	}
+	
+	public Properties(String path) {
+		this.path = path;
+		
+		//SYSTEM PROPERTIES
+		reader = new Reader_v2();
+		myDataUser = reader.readFileReader(path, "myDataUser");
+		myDataUserPath = reader.readFileReader(path, "myDataUserPath");
+	}
+
+	//GETTERS AND SETTERS
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public Reader_v2 getReader() {
+		return reader;
+	}
+
+	public void setReader(Reader_v2 reader) {
+		this.reader = reader;
+	}
+
+	public String getMyDataUser() {
+		return myDataUser;
+	}
+
+	public void setMyDataUser(String myDataUser) {
+		this.myDataUser = myDataUser;
+	}
+
+	public String getMyDataUserPath() {
+		return myDataUserPath;
+	}
+
+	public void setMyDataUserPath(String myDataUserPath) {
+		this.myDataUserPath = myDataUserPath;
+	}
+}

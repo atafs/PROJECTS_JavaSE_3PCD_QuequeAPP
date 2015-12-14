@@ -1,0 +1,54 @@
+package com.iscte.queque.service;
+
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+
+import com.iscte.queque.log.LogMessage;
+
+public class ClientService {
+	
+	//ATTRIBUTES
+	public int port = 5555;
+	public String ip = "localhost";
+	public String ipLocal;
+	private Socket socket;
+	private ObjectOutputStream output;
+	
+	//LOG4J LOGGER
+	private static LogMessage logger = new LogMessage();
+
+	//CONSTRUCTOR
+	public ClientService() {
+		connect_socket();
+		connect_sendMessage("//...");
+	}
+	
+	//METHODS
+	/** Connect Server and Client Connection */
+	public void connect_socket() {
+		try {
+			//LOCAL IP
+			ipLocal = InetAddress.getLocalHost().getHostAddress();
+			
+			//CONNECTOR
+			Socket client = new Socket(ip, port);
+			
+			//STREAM
+			this.output = new ObjectOutputStream(this.socket.getOutputStream());
+
+		} catch (Exception e) {
+			logger.getLog().debug(e);
+		} finally {
+
+		}
+	}
+
+	/** Connect Send */
+	public void connect_sendMessage(String message) {
+		try {
+			this.output.writeObject(message);
+		} catch (Exception ex) {
+			logger.getLog().debug(ex);
+		}
+	}
+}

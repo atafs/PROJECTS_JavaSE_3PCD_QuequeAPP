@@ -1,0 +1,44 @@
+package com.iscte.queque._1distribution.socket._v1start;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Scanner;
+
+import com.iscte.queque.log.LogMessage;
+
+public class Start_SERVER_CLIENTE_01_client {
+	
+	//INSTANTIATE ###########################
+	public String ip_v1 = "127.0.0.1";
+	public String ip_v2 = "localhost";
+	public  int port = 5000;
+	private Socket client;
+	
+	//LOG4J LOGGER
+	private static LogMessage logger = new LogMessage();
+	//#######################################
+
+	
+	public static void main(String[] args) throws Exception  {
+		//INSTANTIATE
+		Start_SERVER_CLIENTE_01_client client = new Start_SERVER_CLIENTE_01_client();
+		client.connect_socket();
+
+	}
+	
+	/** CONNECT SOCKET */
+	public void connect_socket() {
+		
+		//SOCKET
+		this.client = new Socket(ip_v1, port);
+		Scanner s = new Scanner(client.getInputStream());
+		System.out.println("Mensagem: " + s.nextLine());
+		s.close();
+
+	}
+}
+
+//(IP, porta TCP)
+//inserimos uma stream atraves do scanner

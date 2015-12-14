@@ -1,0 +1,11 @@
+package com.iscte.queque.client.dao.test;
+
+import com.iscte.queque.client.serializable.ChatMessage;
+
+/** DAO */
+public class Client {
+	
+	// ATTRIBUTES
+	private ChatMessage name;
+
+}

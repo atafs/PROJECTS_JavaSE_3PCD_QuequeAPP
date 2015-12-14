@@ -1,0 +1,11 @@
+package com.iscte.queque.main;
+
+public class ServerMain {
+	
+	//MAIN
+	public static void main(String[] args) {
+		//INSTANTIATE
+		//...
+	}
+
+}

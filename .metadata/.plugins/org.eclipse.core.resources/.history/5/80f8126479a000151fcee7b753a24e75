@@ -1,0 +1,26 @@
+package com.iscte.queque.service;
+
+import java.net.Socket;
+
+import com.iscte.queque.log.LogMessage;
+
+public class ClientService {
+	
+	//ATTRIBUTES
+	
+	//LOG4J LOGGER
+	private static LogMessage logger = new LogMessage();
+	
+	//CONSTRUCTOR
+	public ClientService() {
+		
+	}
+	
+	//METHODS
+	/** Connect Server and Client Connection */
+	public void connectSocket() {
+		Socket client = new Socket("127.0.0.1", 5000);
+
+		
+	}
+}

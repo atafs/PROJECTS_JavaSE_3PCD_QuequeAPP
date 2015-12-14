@@ -1,0 +1,48 @@
+package com.iscte.queque.client.io.read;
+
+import java.io.FileReader;
+
+import java.util.Properties;
+
+public class NReader {
+	
+	//ATTRIBUTES 
+	private String inputFile;
+
+	//CONSTRUCTOR
+	public NReader(String inputFile) {
+		this.inputFile = inputFile;
+	}
+	
+	public NReader() {
+		inputFile = null;
+	}
+
+	//READ FROM FILE READER PROPERTIES
+	public String readFileReader(String path, String string) {
+		String toReturn = "";
+		try{
+			FileReader reader = new FileReader(path);
+			Properties properties = new Properties();
+			properties.load(reader);
+			toReturn = properties.getProperty(string);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return toReturn;
+	}
+	
+	//GETTERS
+	public String getInputFile() {
+		return inputFile;
+	}
+
+	public void setInputFile(String inputFile) {
+		this.inputFile = inputFile;
+	}
+
+	//PARAGRAPH
+	public void paragraph() {
+		System.out.println();
+	}
+}

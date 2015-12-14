@@ -1,0 +1,43 @@
+package service;
+
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+import com.iscte.queque.client.log.LogMessage;
+
+public class ServerService {
+	
+	//ATTRIBUTES
+	public int port = 5555;
+	public static String ip = "";
+	private ServerSocket serverSocket;
+	private Socket socket;
+	
+	//LOG4J LOGGER
+	private static LogMessage logger = new LogMessage();
+	
+	//CONSTRUCTOR
+	
+	//METHODS
+	
+	/** Connect Server */
+	public void connect() {
+		try {			
+			this.serverSocket = new ServerSocket(port);
+			System.out.println("SERVIDOR ON.");
+			logger.getLog().debug("SERVIDOR ON.");
+
+			for (;;) {
+				this.socket = this.serverSocket.accept();
+
+				//THREAD
+				new Thread(new Out(this.socket)).start();
+			}
+		} catch (Exception e) {
+			logger.getLog().debug(e);
+
+		}
+	}
+
+}

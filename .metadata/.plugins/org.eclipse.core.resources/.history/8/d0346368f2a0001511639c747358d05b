@@ -1,0 +1,58 @@
+package com.iscte.queque._1distribution.socket._v1start;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+import com.iscte.queque.log.LogMessage;
+
+public class ServerMain {
+	
+	//INSTANTIATE ###########################
+	public  int port = 5000;
+	private ServerSocket serverSocket;
+	private Socket server;
+	
+	//STREAM
+	private String message;
+	
+	//LOG4J LOGGER
+	private static LogMessage logger = new LogMessage();
+	//#######################################
+	
+	//MAIN
+	public static void main(String[] args) throws Exception {
+		//INSTANTIATE
+		ServerMain server = new ServerMain();
+		server.connect_socket();
+		
+	}
+	
+	/** CONNECT SOCKET */
+	public void connect_socket() {
+		
+		//SERVERSOCKET and SOCKET
+		try {
+			this.serverSocket = new ServerSocket(port);
+			while(true) {
+				this.server = serverSocket.accept();
+				try ( PrintWriter w = new PrintWriter(this.server.getOutputStream()) ) {
+					String message = "Aprenda Java e seja contratado!!!";
+					w.println(message);
+					logger.getLog().info("Mensagem: " + message);
+
+				}
+			}
+		} catch (IOException e) {
+			logger.getLog().debug(e);
+		}
+	}
+}
+
+//(porta resposta as requisicoes)
+//como o servidor sabe que um cliente chegou...
+//ao server, cria um Socket para comunicar
+//manipulacao de arquivos: escrever resposta ao utilizador
+//encaminha uma mensagem
+

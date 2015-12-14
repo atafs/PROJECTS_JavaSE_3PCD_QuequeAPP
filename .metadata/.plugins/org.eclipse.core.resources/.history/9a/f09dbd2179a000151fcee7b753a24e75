@@ -1,0 +1,14 @@
+package com.iscte.queque.service;
+
+import com.iscte.queque.log.LogMessage;
+
+public class ClientService {
+	
+	//ATTRIBUTES
+	
+	//LOG4J LOGGER
+	private static LogMessage logger = new LogMessage();
+	
+	
+
+}

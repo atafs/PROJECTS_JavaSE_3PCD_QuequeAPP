@@ -1,0 +1,12 @@
+package com.iscte.queque.thread;
+
+public class Accept implements Runnable {
+
+	@Override
+	public void run() {
+		new Thread(new Send()).start();
+		new Thread(new Receive()).start();
+
+	}
+
+}
