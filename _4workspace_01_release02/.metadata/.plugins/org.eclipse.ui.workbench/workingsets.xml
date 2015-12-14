@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workingSetManager>
+<workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1450059446385_1" label="develop" name="develop">
+<item elementID="=ConcurrencyAndDistribution_1DEV" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+</workingSet>
+<workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1450059456817_2" label="release" name="release">
+<item elementID="=ConcurrencyAndDistribution_2RELEASE_client" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=ConcurrencyAndDistribution_2RELEASE_server" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+</workingSet>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1450059430957_0" label="Window Working Set" name="Aggregate for window 1450059430957"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1450059459984_3" label="Multiple Working Sets" name="Aggregate:develop:release:">
+<workingSet IMemento.internal.id="develop"/>
+<workingSet IMemento.internal.id="release"/>
+</workingSet>
+</workingSetManager>
