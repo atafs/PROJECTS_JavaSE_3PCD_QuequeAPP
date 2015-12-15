@@ -6,7 +6,7 @@ public class VariableSyncMain {
 	private int count;
 	
 	//CONSTANTS
-	private final int MAX = 100;
+	private final int MAX = 20;
 	private final int SLEEP = 125;
 	
 	//THREADS

@@ -12,7 +12,7 @@ public class HashSyncMain {
 	
 	//CONSTANTS
 	private final int SLEEP = 100;
-	private final int ADD_TO_LIST = 110;
+	private final int ADD_TO_LIST = 20;
 	
 	//THREADS
 	private Thread t1;
