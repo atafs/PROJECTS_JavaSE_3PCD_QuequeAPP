@@ -1,4 +1,4 @@
-package com.iscte.queque._2concurrency.lock.synchronized_._vSync_2hash;
+package com.iscte.queque._2concurrency.coordenation.synchronized_._vSync_2hash;
 
 import java.util.ArrayList;
 import java.util.HashMap;

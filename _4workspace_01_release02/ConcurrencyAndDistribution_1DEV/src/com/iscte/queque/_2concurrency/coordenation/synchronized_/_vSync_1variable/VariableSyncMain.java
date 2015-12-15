@@ -1,4 +1,4 @@
-package com.iscte.queque._2concurrency.lock.synchronized_._vSync_1variable;
+package com.iscte.queque._2concurrency.coordenation.synchronized_._vSync_1variable;
 
 public class VariableSyncMain {
 	
