@@ -14,7 +14,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import com.iscte.queque._4serializable._v8_serializableMessage.message.Message;
-import com.iscte.queque.log.LogMessage;
+
 
 public class ServerMain {
 	
@@ -83,24 +83,21 @@ public class ServerMain {
 
 		//ATTRIBUTES
 		private ObjectInputStream reader;
-
-		//USER
-		private Message message;	
 		
 		//CONSTRUCTOR
 		public Thread_ClientListener_reader(Socket socket) throws IOException {
 			this.reader = new ObjectInputStream(socket.getInputStream());
-			this.message = new Message("", "");
+		
 		}
 		
 		//RUN
 		@Override
 		public void run() {		
 			//USE THE ObjectInputStream ######################
+			Message message = null;
 			try {				
 				//LOOP
 				while((message = (Message) this.reader.readObject()) != null) {
-					this.message = message;
 					//THREADS
 					ExecutorService executor = Executors.newFixedThreadPool(2);
 					
@@ -109,9 +106,13 @@ public class ServerMain {
 					String threadMessageSendName = "threadSend_" + message.getFromUser();
 					
 					//SAVE
-					executor.execute(new Thread_MessageSave(threadMessageSaveName, this.message));
+					executor.execute(new Thread_MessageSave(threadMessageSaveName, message));
 					//SEND
-					executor.execute(new Thread_MessageSend(threadMessageSendName, this.message));
+					executor.execute(new Thread_MessageSend(threadMessageSendName, message));
+					
+					//CLEAN
+					message = null;
+					
 					//SHUTDOWN
 					executor.shutdown();
 

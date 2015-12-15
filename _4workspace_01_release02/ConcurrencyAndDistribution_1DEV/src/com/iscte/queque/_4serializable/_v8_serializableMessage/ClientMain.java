@@ -21,7 +21,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.iscte.queque._4serializable._v8_serializableMessage.message.Message;
-import com.iscte.queque.log.LogMessage;
 
 public class ClientMain {
 	
@@ -33,7 +32,6 @@ public class ClientMain {
 	
 	//STREAM MESSAGE
 	private String messageStart;
-	private Message message;
 	
 	//STREAM READER/WRITER
 	private ObjectOutputStream writer;
@@ -56,7 +54,6 @@ public class ClientMain {
 		client.gui_initComponents("User");
 		
 		//MESSAGE
-		client.message = new Message(client.nome, "");
 		client.gui_lastInstructions();
 		client.gui_start();
 	}
@@ -142,13 +139,10 @@ public class ClientMain {
 	
 	/** GUI: action for action and key listener */
 	public void message_sendToServer() {
+		
 		//MESSAGE TO SEND FROM TEXTFIELD
-		message.setMessage(textoParaEnviar.getText());
-//		//ACTION
-//		writer.writeObject(messageToSend);
-//		writer.flush();//garantir que foi enviado
-//		textoParaEnviar.setText("");//limpar campo de texto
-//		textoParaEnviar.requestFocus();//colocar cursor dentro do campo
+		String s = textoParaEnviar.getText();
+		Message message = new Message(nome, s);
 		
 		final int MAX = 1;
 		for (int i = 0; i < MAX; i++) {
@@ -178,7 +172,14 @@ public class ClientMain {
 	private class ButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			message_sendToServer();
+			Thread t = new Thread() {
+			    public void run() {
+			    	//Thread t1 = Thread.currentThread();
+			    	this.setName(nome);
+					message_sendToServer();
+			    }
+			};
+			t.start();
 		}
 	}
 	
@@ -213,24 +214,20 @@ public class ClientMain {
 		
 		//ATTRIBUTES
 		private ObjectInputStream reader;
-		
-		//USER
-		private Message message;	
-		
+				
 		//CONSTRUCTOR
 		public Thread_ServerListener_reader(Socket socket) throws IOException {
 			this.reader = new ObjectInputStream(socket.getInputStream());
-			this.message = new Message("", "");
 		}
 		
 		//RUN
 		@Override
 		public void run() {
+			Message message = null;
 			try {
-				while((this.message = (Message) reader.readObject()) != null) {
+				while((message = (Message) reader.readObject()) != null) {
 					//adiciona no final de todo o texto o novo texto
-					this.message = message;
-					textoRecebido.append(this.message.getFromUser() + " => "+ this.message.getMessage() + "\n");
+					textoRecebido.append(message.getFromUser() + " => "+ message.getMessage() + "\n");
 				}
 			} catch(Exception x) {}
 		}		
