@@ -1,6 +1,6 @@
 package com.iscte.queque._4serializable._v10_wait_notifyAll.resource;
 
-import com.iscte.queque._4serializable._v10_wait_notifyAll.resource.interface_.SharedResource;
+import com.iscte.queque._4serializable._v10_wait_notifyAll.test.SharedResource;
 
 public class SharedNotSync implements SharedResource {
 

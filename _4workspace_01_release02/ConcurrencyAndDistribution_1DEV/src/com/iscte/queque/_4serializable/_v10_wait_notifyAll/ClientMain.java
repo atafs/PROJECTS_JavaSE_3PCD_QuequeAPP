@@ -144,7 +144,7 @@ public class ClientMain {
 		String s = textoParaEnviar.getText();
 		Message message = new Message(nome, s);
 		
-		final int MAX = 1;
+		final int MAX = 50;
 		for (int i = 0; i < MAX; i++) {
 			try {
 				writer.writeObject(message);

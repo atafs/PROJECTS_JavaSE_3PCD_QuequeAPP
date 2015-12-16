@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import com.iscte.queque._4serializable._v10_wait_notifyAll.interfaces.SharedResource;
 import com.iscte.queque._4serializable._v10_wait_notifyAll.message.Message;
-import com.iscte.queque._4serializable._v10_wait_notifyAll.resource.interface_.SharedResource;
-import com.iscte.queque._4serializable._v10_wait_notifyAll.thread.MessagePut;
-import com.iscte.queque._4serializable._v10_wait_notifyAll.thread.MessageSend;
+import com.iscte.queque._4serializable._v10_wait_notifyAll.thread.reader.MessagePut;
+import com.iscte.queque._4serializable._v10_wait_notifyAll.thread.reader.MessageSend;
 
 public class ServerService {
 	
@@ -33,7 +33,6 @@ public class ServerService {
 	//CONSTRUCTOR
 	public ServerService(SharedResource shared) {
 		this.shared = shared;
-	
 	}
 
 	/** CONNECT SOCKET */
@@ -95,7 +94,6 @@ public class ServerService {
 					//RUNNABLE
 					Runnable messageSend = new MessageSend(shared, message);
 					Runnable messagePut = new MessagePut(shared, message);
-
 					
 					//THREAD
 					Thread t1 = new Thread(messageSend);//produz
@@ -138,165 +136,98 @@ public class ServerService {
 		@Override
 		public void run() {	
 			//ADD NEW WRITERS
-			DBClientData.addNewWriters(writer);
+			shared.addNewWriters(writer);
 		}
 	}
 
-//	//INNER CLASS
-//	public class Thread_MessageSave implements Runnable {
-//
-//		//ATTRIBUTE
-//		private String nameThread;
-//		private Message message;
+	//INNER CLASS
+//	public static class DBClientData {
 //		
-//		//CONSTRUCTOR
-//		public Thread_MessageSave(String nameThread, Message message) {
-//			this.message = message;
-//			this.nameThread = nameThread;
+//		/* ATTRIBUTES */
+//		//LOCKS
+//		private static Lock lockMessages = new ReentrantLock();//create lock
+//		private static Lock lockWritersObjectOutputStream = new ReentrantLock();//create lock
+//	
+//		//LISTS
+//		private static ArrayList<Message> messages;
+//		private static HashMap<String,ArrayList<Message>> mapMessages;
+//		private static List<ObjectOutputStream> writersObjectOutputStream;
+//
+//		//CONTRUCTOR
+//		public DBClientData() {
+//			messages = new ArrayList<Message>();
+//			mapMessages = new HashMap<String,ArrayList<Message>>();
+//			writersObjectOutputStream = new ArrayList<ObjectOutputStream>();
 //		}
 //		
-//		//GETTER
-//		public Message getMessage() {
-//			return message;
-//		}
-//		
-//		@Override
-//		public void run() {	
-//			try{				
-//				//ADD OBJECT TO LIST
-//				DBClientData.addMessages(this);
-//
-//			} catch (Exception ex) {
+//		//rotina: subtracting an amount from the account
+//		public static void addMessages(MessagePut messagePut){
+//			lockMessages.lock();//acquire lock
+//			try{
+//				
+//				// ACTION: PUT elements to the map
+//				messages.add(messagePut.getMessage());
+//				// SAVE OBJECT
+//				DBClientData.mapMessages.put(messagePut.getMessage().getFromUser(), messages);
+//	
+//				//SLEEP
+//				threadSleep(250);
+//				
+//			} catch(Exception ex) {
 //				ex.printStackTrace();
+//			} finally {
+//				lockMessages.unlock();//release lock	
 //			}
 //		}
-//
-//
-//	}
-	
-//	//INNER CLASS
-//	public class Thread_MessageSend implements Runnable {
-//
-//		//ATTRIBUTE
-//		private String nameThread;
-//		private Message message;
 //		
-//		//CONSTRUCTOR
-//		public Thread_MessageSend(String nameThread, Message message) {
-//			this.message = message;
-//			this.nameThread = nameThread;
-//		}
-//			
-//		//RUN
-//		@Override
-//		public void run() {				
-//			//SEND OBJECT TO ALL USERS
-//			sendToAll(message);
+//		//rotina: subtracting an amount from the account
+//		public static void addNewWriters(ObjectOutputStream writer){
+//			lockWritersObjectOutputStream.lock();//acquire lock
+//			try{				
+//				//SAVE OBJECT
+//				DBClientData.writersObjectOutputStream.add(writer);
+//				
+//				//SLEEP
+//				threadSleep(250);
+//				
+//			} catch(Exception ex) {
+//				ex.printStackTrace();
+//			} finally {
+//				lockWritersObjectOutputStream.unlock();//release lock
 //
+//			}
 //		}
 //		
-//	/** WRITE TO ALL: send to all the message */
-//	private void sendToAll(Message message) {
-//		
-//		//TODO TEST ######################################
-//		//WRITERS
-//		long time = System.currentTimeMillis();
-//		DBClientData.sendAllWriters(message);
-//		
-//		//TIMER
-//		time = System.currentTimeMillis() - time;
-//		System.out.println("[Time = " + time + "]; [ms]");
-//		}
-//	}
+//		//GET
+//		public static void sendAllWriters(Message message){
+//			lockWritersObjectOutputStream.lock();//acquire lock
+//			try{				
+//				//GET ALL
+//				for (ObjectOutputStream objectOutputStream : writersObjectOutputStream) {
+//					objectOutputStream.writeObject(message);
+//					objectOutputStream.flush();
+//				}
+//				
+//				//SLEEP
+//				threadSleep(250);
+//				
+//			} catch(Exception ex) {
+//				ex.printStackTrace();
+//			} finally {
+//				lockWritersObjectOutputStream.unlock();//release lock
 //	
-	//INNER CLASS
-	public static class DBClientData {
-		
-		/* ATTRIBUTES */
-		//LOCKS
-		private static Lock lockMessages = new ReentrantLock();//create lock
-		private static Lock lockWritersObjectOutputStream = new ReentrantLock();//create lock
-	
-		//LISTS
-		private static ArrayList<Message> messages;
-		private static HashMap<String,ArrayList<Message>> mapMessages;
-		private static List<ObjectOutputStream> writersObjectOutputStream;
-
-		//CONTRUCTOR
-		public DBClientData() {
-			messages = new ArrayList<Message>();
-			mapMessages = new HashMap<String,ArrayList<Message>>();
-			writersObjectOutputStream = new ArrayList<ObjectOutputStream>();
-		}
-		
-		//rotina: subtracting an amount from the account
-		public static void addMessages(MessagePut messagePut){
-			lockMessages.lock();//acquire lock
-			try{
-				
-				// ACTION: PUT elements to the map
-				messages.add(messagePut.getMessage());
-				// SAVE OBJECT
-				DBClientData.mapMessages.put(messagePut.getMessage().getFromUser(), messages);
-	
-				//SLEEP
-				threadSleep(250);
-				
-			} catch(Exception ex) {
-				ex.printStackTrace();
-			} finally {
-				lockMessages.unlock();//release lock	
-			}
-		}
-		
-		//rotina: subtracting an amount from the account
-		public static void addNewWriters(ObjectOutputStream writer){
-			lockWritersObjectOutputStream.lock();//acquire lock
-			try{				
-				//SAVE OBJECT
-				DBClientData.writersObjectOutputStream.add(writer);
-				
-				//SLEEP
-				threadSleep(250);
-				
-			} catch(Exception ex) {
-				ex.printStackTrace();
-			} finally {
-				lockWritersObjectOutputStream.unlock();//release lock
-
-			}
-		}
-		
-		//GET
-		public static void sendAllWriters(Message message){
-			lockWritersObjectOutputStream.lock();//acquire lock
-			try{				
-				//GET ALL
-				for (ObjectOutputStream objectOutputStream : writersObjectOutputStream) {
-					objectOutputStream.writeObject(message);
-					objectOutputStream.flush();
-				}
-				
-				//SLEEP
-				threadSleep(250);
-				
-			} catch(Exception ex) {
-				ex.printStackTrace();
-			} finally {
-				lockWritersObjectOutputStream.unlock();//release lock
-	
-			}
-		}		
-	}
-	
-	//METHOD SLEEP
-	public static void threadSleep(int milis) {
-		//SLEEP
-		try {
-			Thread.sleep(milis);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
+//			}
+//		}
+//		
+//		//METHOD SLEEP
+//		public static void threadSleep(int milis) {
+//			//SLEEP
+//			try {
+//				Thread.sleep(milis);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	}
 }
 
