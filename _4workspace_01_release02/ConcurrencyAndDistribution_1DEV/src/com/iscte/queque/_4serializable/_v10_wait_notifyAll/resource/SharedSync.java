@@ -1,7 +1,9 @@
-package com.iscte.queque._2concurrency.shared_resource.v7wait_notifyAll;
+package com.iscte.queque._4serializable._v10_wait_notifyAll.resource;
+
+import com.iscte.queque._4serializable._v10_wait_notifyAll.resource.interface_.SharedResource;
 
 //CLASS MULTI-THREAD COM SYNCHRONIZED
-public class PonteSynchromized implements Ponte {
+public class SharedSync implements SharedResource {
 
 	// atributos
 	private int valor = -1;// a ser compartilhado
@@ -11,11 +13,10 @@ public class PonteSynchromized implements Ponte {
 
 	@Override
 	// executar um de cada vez o metodo set(i);
-	public synchronized void set(int valor) throws InterruptedException {
+	public synchronized void put(int valor) throws InterruptedException {
 
 		while (ocupada) {// enquanto ela estiver ocupada
-			System.out
-					.println("A PONTE ESTA CHEIA!! Produtor deve aguardar...");
+			System.out.println("A PONTE ESTA CHEIA!! Produtor deve aguardar...");
 			wait();// da classe Object, forma de espera
 		}
 		System.out.println("Produziu " + valor);// entrada em preto
@@ -29,11 +30,9 @@ public class PonteSynchromized implements Ponte {
 	@Override
 	public synchronized int get() throws InterruptedException {
 
-		while (!ocupada) {// enquanto estiver vazia, nao tenho de processar mais
-							// nada
+		while (!ocupada) {// enquanto estiver vazia, nao tenho de processar mais// nada
 			System.out.println("PONTE ESTA VAZIA!! Consumidora a aguardar...");
-			wait();// ate a ponte estar ocupada, e executar a leitura do que
-					// esta la dentro
+			wait();// ate a ponte estar ocupada, e executar a leitura do que// esta la dentro
 		}
 
 		System.err.println("Consumiu " + valor);// saida em vermelho

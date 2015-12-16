@@ -1,4 +1,4 @@
-package com.iscte.queque._2concurrency.shared_resource.v7wait_notifyAll;
+package com.iscte.queque._2concurrency.shared_resource.v9producer_consumer;
 
 import java.util.Random;
 

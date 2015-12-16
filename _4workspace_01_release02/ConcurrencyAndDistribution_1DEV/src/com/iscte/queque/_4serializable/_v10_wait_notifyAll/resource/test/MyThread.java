@@ -1,13 +1,14 @@
-package com.iscte.queque._2concurrency.shared_resource.v7wait_notifyAll;
+package com.iscte.queque._4serializable._v10_wait_notifyAll.resource.test;
+
 
 public class MyThread extends Thread{
 
 	@SuppressWarnings("unused")
 	private static final int NUM = 10000000;
 	@SuppressWarnings("unused")
-	private Consumidor c;
+	private MessageGet c;
 
-	public MyThread(Consumidor c) {
+	public MyThread(MessageGet c) {
 		super();
 		this.c = c;
 	}
