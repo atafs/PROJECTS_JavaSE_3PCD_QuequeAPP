@@ -23,13 +23,14 @@ public class ServerService {
 	private SharedResource shared;
 	//#######################################
 	
-	public SharedResource getShared() {
-		return shared;
-	}
-
 	//CONSTRUCTOR
 	public ServerService(SharedResource shared) {
 		this.shared = shared;
+	}
+	
+	//GETTER
+	public SharedResource getShared() {
+		return shared;
 	}
 
 	/** CONNECT SOCKET */
