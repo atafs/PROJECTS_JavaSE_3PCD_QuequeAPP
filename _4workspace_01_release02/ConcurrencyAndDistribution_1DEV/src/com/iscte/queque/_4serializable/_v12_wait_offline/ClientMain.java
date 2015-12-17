@@ -36,7 +36,7 @@ public class ClientMain {
 	private Socket client;
 	
 	//CONSTANTS
-	private final int TOTAL_MESSAGES_AUTOMATIC_TEST = 1;
+	private final int TOTAL_MESSAGES_AUTOMATIC_TEST = 15;
 	
 	//STREAM MESSAGE
 	private String messageStart;
@@ -247,20 +247,21 @@ public class ClientMain {
 	/** GUI: online_setEnable */
 	public void gui_online_setEnable() {
 		//VIEW enable ###########################
-		txtFieldToSend.setEnabled(true);
+		txtUserName.setEditable(false);
+		
 		btnSend.setEnabled(true);
 		btnSend.setBackground(Color.GREEN);
 		btnSend.setForeground(Color.WHITE);
 		
-		btnOffline.setBackground(Color.RED);
+		btnOffline.setBackground(Color.LIGHT_GRAY);
 		btnOffline.setForeground(Color.WHITE);
 		btnOffline.setEnabled(true);
 		
 		btnOnline.setBackground(Color.LIGHT_GRAY);
 		btnOnline.setForeground(Color.WHITE);
 		btnOnline.setEnabled(false);
-		txtUserName.setEditable(false);
 		
+		txtFieldToSend.setEnabled(true);		
 	}
 	
 	/** GUI: inner class listener */ 
