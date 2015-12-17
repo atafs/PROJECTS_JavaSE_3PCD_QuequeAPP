@@ -1,8 +1,8 @@
 package com.iscte.queque._4serializable._v10_wait_notifyAll.main;
 
 import com.iscte.queque._4serializable._v10_wait_notifyAll.interfaces.SharedResource;
-import com.iscte.queque._4serializable._v10_wait_notifyAll.resource.SharedSync;
 import com.iscte.queque._4serializable._v10_wait_notifyAll.service.ServerService;
+import com.iscte.queque._4serializable._v10_wait_notifyAll.shared_resource.SharedSync;
 
 public class ServerMain {
 

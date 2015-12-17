@@ -5,9 +5,9 @@ public class Start_CONSUMER_PRODUCER_synchronized_control64 {
 	
 	public static void main(String[] args) {
 		//SHARED RESOURCE
-//		SharedResource share = new SharedNotSync();
+		SharedResource share = new SharedNotSync();
 //		OR
-		SharedResource share = new SharedSync();
+//		SharedResource share = new SharedSync();
 
 		//RUNNABLE
 		Runnable messagePUT = new MessagePut(share);
