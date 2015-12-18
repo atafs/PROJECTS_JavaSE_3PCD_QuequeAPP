@@ -117,7 +117,8 @@ public class SharedSync implements SharedResource {
 //		threadSleep(SLEEP);
 		
 		//RELEASE FLAG AND NOTIFY ALL THREADS
-		notifyAll();		
+		notifyAll();	
+		
 	}
 	
 	//rotina: subtracting an amount from the account
