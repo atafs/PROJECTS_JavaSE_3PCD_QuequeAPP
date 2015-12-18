@@ -1,10 +1,12 @@
 package com.iscte.queque._4serializable._v12_wait_offline.service;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 import com.iscte.queque._4serializable._v12_wait_offline.interfaces.SharedResource;
+import com.iscte.queque._4serializable._v12_wait_offline.message.Message;
 import com.iscte.queque._4serializable._v12_wait_offline.thread._writer.ClientWriter_connect;
 import com.iscte.queque._4serializable._v12_wait_offline.thread.reader.ClientReader;
 
@@ -34,7 +36,7 @@ public class ServerService {
 	}
 
 	/** CONNECT SOCKET */
-	public void connect_socket() {
+	public void socket_connect() {
 		
 		//SERVERSOCKET and SOCKET
 		try {
@@ -67,18 +69,9 @@ public class ServerService {
 	}
 	
 	/** CONNECT SOCKET */
-	public void disconnect_writer() {
-		
-//		//DISCONNECT	
-//		Runnable writerServer = new Thread_ClientListener_writer(server);
-//	
-//		//WRITER  
-//		Thread t2 = new Thread(writerServer);
-//		t2.setName("writerServer" + counterServer);
-//		t2.start();
-
-		
-
+	public void offline_writer(Message message) {
+		//REMOVE NEW WRITERS
+		shared.writer_remove(message.getFromUser());
 	}
 	
 	/** Message: start of server */

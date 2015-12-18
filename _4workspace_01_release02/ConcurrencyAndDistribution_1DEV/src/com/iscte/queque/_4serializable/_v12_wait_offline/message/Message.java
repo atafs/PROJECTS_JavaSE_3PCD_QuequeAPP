@@ -1,5 +1,6 @@
 package com.iscte.queque._4serializable._v12_wait_offline.message;
 
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,13 @@ public class Message implements Serializable{
 	private ActionState onOfState;
 
 	//CONSTRUCTOR
+	public Message(String fromUser, String message, ActionState onOfState) {
+		this.fromUser = fromUser;
+		ToUser = new ArrayList<String>();
+		this.message = message;
+		this.onOfState = onOfState;
+	}
+	
 	public Message(String fromUser, String message) {
 		this.fromUser = fromUser;
 		ToUser = new ArrayList<String>();

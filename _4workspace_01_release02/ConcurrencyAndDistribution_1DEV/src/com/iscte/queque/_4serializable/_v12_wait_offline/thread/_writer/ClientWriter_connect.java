@@ -23,6 +23,7 @@ public class ClientWriter_connect implements Runnable {
 	@Override
 	public void run() {	
 		//ADD NEW WRITERS
-		serverService.getShared().addNewWriters(writer);
+		String fromUser = "server";
+		serverService.getShared().writer_add(fromUser, writer);
 	}
 }

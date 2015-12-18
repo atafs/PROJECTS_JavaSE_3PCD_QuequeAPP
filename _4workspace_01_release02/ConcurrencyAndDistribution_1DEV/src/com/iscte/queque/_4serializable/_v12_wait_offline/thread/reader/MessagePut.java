@@ -29,7 +29,7 @@ public class MessagePut implements Runnable {
 	public void run() {	
 		try{				
 			//ADD OBJECT TO LIST
-			shared.put(message);
+			shared.online_put(message);
 			
 			//SLEEP
 			threadSleep(250);

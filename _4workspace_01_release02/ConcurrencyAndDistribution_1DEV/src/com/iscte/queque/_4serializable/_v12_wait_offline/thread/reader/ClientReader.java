@@ -40,7 +40,32 @@ public class ClientReader implements Runnable {
 					t3.setName("clientWriter" + message.getFromUser());
 					
 					//START
-					t3.start();				
+					t3.start();	
+					
+					//TODO TEST
+					//RUNNABLE
+					Runnable messageTake = new MessageTake(serverService.getShared(), message);
+					Runnable messagePut = new MessagePut(serverService.getShared(), message);
+					
+					//THREAD
+					Thread t1 = new Thread(messageTake);//produz
+					t1.setName("messageTakeFrom_" + message.getFromUser());
+					
+					Thread t2 = new Thread(messagePut);//produz
+					t2.setName("messagePutFrom_" + message.getFromUser());
+					
+					//START
+					t1.start();
+					t2.start();
+					
+					//JOIN
+					try {
+						t1.join();
+						t2.join();
+						t3.join();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 
 				} else if (message.getOnOfState().equals(Message.ActionState.ONLINE)) {
 					//RUNNABLE

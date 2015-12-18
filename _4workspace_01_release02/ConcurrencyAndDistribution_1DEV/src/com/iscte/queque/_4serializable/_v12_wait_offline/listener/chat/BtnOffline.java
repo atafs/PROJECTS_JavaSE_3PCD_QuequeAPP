@@ -16,6 +16,6 @@ public class BtnOffline extends QuequeListener implements ActionListener{
 	//ACTIONLISTENER
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-		super.getGui().btnOfflineActionPerformed(evt);
+		super.getGui().btnOfflineActionPerformed(super.getGui(), evt);
 	}
 }

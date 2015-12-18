@@ -48,7 +48,7 @@ public class MessageTake implements Runnable {
 		
 		//SEND TO ALL USERS (consumer)
 		try {
-			shared.take();
+			shared.online_take();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

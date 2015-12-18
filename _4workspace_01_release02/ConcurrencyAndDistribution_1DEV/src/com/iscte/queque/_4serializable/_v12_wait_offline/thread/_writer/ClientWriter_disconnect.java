@@ -20,10 +20,9 @@ public class ClientWriter_disconnect implements Runnable {
 	//RUN
 	@Override
 	public void run() {	
-		//TODO
-		serverService.disconnect_writer();
-		//REMOVE NEW WRITERS
-		//serverService.getShared().addNewWriters(writer);
+		//REMOVE FROM LIST
+		serverService.offline_writer(message);
+
 	}
 
 	//GETTERS AND SETTERS

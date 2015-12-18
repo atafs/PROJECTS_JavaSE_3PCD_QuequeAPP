@@ -14,7 +14,7 @@ public class ServerMain {
 			
 			//SERVER
 			ServerService server = new ServerService(sharedResource);
-			server.connect_socket();
+			server.socket_connect();
 			
 		}
 }

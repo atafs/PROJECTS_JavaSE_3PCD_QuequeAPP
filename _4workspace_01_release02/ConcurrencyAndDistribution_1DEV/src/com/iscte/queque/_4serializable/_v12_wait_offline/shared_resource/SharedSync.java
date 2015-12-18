@@ -23,23 +23,22 @@ public class SharedSync implements SharedResource {
 
 	//LISTS
 	private HashMap<String, ArrayList<Message>> mapMessages;
-	private List<ObjectOutputStream> writersObjectOutputStream;
+	private HashMap<String, ObjectOutputStream> writersObjectOutputStream;
 	
 	//FLAG
 	private boolean ocupada = false;
-	private int counterMessages;
 	//###############################################
 
 	//CONTRUCTOR
 	public SharedSync() {
 		mapMessages = new HashMap<String,ArrayList<Message>>();
-		writersObjectOutputStream = new ArrayList<ObjectOutputStream>();
+		writersObjectOutputStream = new HashMap<String,ObjectOutputStream>();
 	}
 
 	//sendAllWriters
 	@Override
-	public synchronized void take(){
-		while (counterMessages < 0) {
+	public synchronized void online_take(){
+		while (!ocupada) {
 			System.err.println("The SharedResoure: TAKE [!(ocupada = " + ocupada + ")] - WAITING FOR A RESOURCE TO BE PUT!! Please WAIT...");
 
 			//WAIT
@@ -51,34 +50,44 @@ public class SharedSync implements SharedResource {
 		}
 		
 		// ACTION: GET and REMOVE elements to the map
-		Message m = getMessage();
+		Message m = online_getMessage();
 		// DELETE OBJECT
 		mapMessages.remove(m.getFromUser());
-	
-		counterMessages--;
-		System.err.println("MESSAGES => " + counterMessages + "; RESOURCE TAKE => " + m.getFromUser() + " - " + m.getMessage());
+		System.err.println("RESOURCE TAKE => " + m.getFromUser() + " - " + m.getMessage());
 
 		
 		//SEND
-		for (ObjectOutputStream objectOutputStream : writersObjectOutputStream) {
-			try {
-				objectOutputStream.writeObject(m);
-				objectOutputStream.flush();
+	    for (Entry<String, ObjectOutputStream> objectOutputStreams : writersObjectOutputStream.entrySet()) {
+	        	try {
+	        		objectOutputStreams.getValue().writeObject(m);
+	        		objectOutputStreams.getValue().flush();
 
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+	        
+	    }
+//	    
+//		for (ObjectOutputStream objectOutputStream : writersObjectOutputStream) {
+//			try {
+//				objectOutputStream.writeObject(m);
+//				objectOutputStream.flush();
+//
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		
-//		//SLEEP
-//		threadSleep(SLEEP);
+		//SLEEP
+		threadSleep(SLEEP);
 				
 		//RELEASE FLAG AND NOTIFY ALL THREADS
+		ocupada = false;
 		notifyAll();
 	}
 	
 	/** PRINT: GET ALL DATA FROM mapMessages */
-	public Message getMessage(){
+	public Message online_getMessage(){
 	    Message m = null;
 		for (Entry<String, ArrayList<Message>> messages : mapMessages.entrySet()) {
 			for(Message message : messages.getValue()){
@@ -90,18 +99,18 @@ public class SharedSync implements SharedResource {
 
 	//addMessages
 	@Override
-	public synchronized void put(Message message) throws InterruptedException {
-//		//WHILE BUSY: threads in wait mode
-//		while (ocupada) {
-//			System.out.println("The SharedResoure: PUT [ocupada = " + ocupada + "] - THERE IS A RESOURCE TO BE TAKEN!! Please WAIT...");
-//			
-//			//WAIT
-//			try {
-//				wait();
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-//		}
+	public synchronized void online_put(Message message) throws InterruptedException {
+		//WHILE BUSY: threads in wait mode
+		while (ocupada) {
+			System.out.println("The SharedResoure: PUT [ocupada = " + ocupada + "] - THERE IS A RESOURCE TO BE TAKEN!! Please WAIT...");
+			
+			//WAIT
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		//OTHERWISE (put and print):
 		// ACTION: PUT elements to the map
@@ -110,23 +119,22 @@ public class SharedSync implements SharedResource {
 		messages.add(message);
 		mapMessages.put(message.getFromUser(), messages);
 //		mapMessages.put(message.getFromUser(), messages);
-		counterMessages++;
-		System.out.println("MESSAGES => " + counterMessages + "; RESOURCE PUT => " + message.getFromUser() + " - " + message.getMessage());
+		System.out.println("RESOURCE PUT => " + message.getFromUser() + " - " + message.getMessage());
 		
-//		//SLEEP
-//		threadSleep(SLEEP);
+		//SLEEP
+		threadSleep(SLEEP);
 		
 		//RELEASE FLAG AND NOTIFY ALL THREADS
-		notifyAll();	
-		
+		ocupada = true;
+		notifyAll();		
 	}
 	
-	//rotina: subtracting an amount from the account
-	public void addNewWriters(ObjectOutputStream writer){
+	//rotina: 
+	public void writer_add(String fromUser, ObjectOutputStream writer){
 		lockWritersObjectOutputStream.lock();//acquire lock
 		try{				
 			//SAVE OBJECT
-			writersObjectOutputStream.add(writer);
+			writersObjectOutputStream.put(fromUser, writer);
 			
 			//SLEEP
 			threadSleep(250);
@@ -139,8 +147,26 @@ public class SharedSync implements SharedResource {
 		}
 	}
 	
+	//rotina:
+		public void writer_remove(String fromUser){
+			lockWritersObjectOutputStream.lock();//acquire lock
+			try{				
+				//SAVE OBJECT
+				writersObjectOutputStream.remove(fromUser);
+				
+				//SLEEP
+				threadSleep(250);
+				
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				lockWritersObjectOutputStream.unlock();//release lock
+
+			}
+		}
+	
 	/** PRINT: GET ALL DATA FROM mapMessages */
-	public void printMapMessages(){
+	public void online_printMapMessages(){
 	    for (Entry<String, ArrayList<Message>> messages : mapMessages.entrySet()) {
 	        System.out.print(messages.getKey());
 	        for(Message message : messages.getValue()){
@@ -155,7 +181,7 @@ public class SharedSync implements SharedResource {
 	}
 	
 	/** PRINT: GET ONE mapMessages FROM A PARAM */
-	public void printMapMessages_one(Message message){
+	public void online_printMapMessages_one(Message message){
 	    for (Entry<String, ArrayList<Message>> messages : mapMessages.entrySet()) {
 	        if (messages.getKey().equals(message.getFromUser())) {
 		    	System.out.print(messages.getKey());		
