@@ -99,8 +99,8 @@ public class ClientReader implements Runnable {
 						e.printStackTrace();
 					}
 					
-//					//START
-//					t0.start();
+					//START
+					t0.start();
 				}			
 			}
 		} catch(Exception e) {

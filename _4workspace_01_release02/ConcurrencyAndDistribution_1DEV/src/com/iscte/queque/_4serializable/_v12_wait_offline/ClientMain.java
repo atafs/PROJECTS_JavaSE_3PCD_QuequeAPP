@@ -36,7 +36,7 @@ public class ClientMain {
 	private Socket client;
 	
 	//CONSTANTS
-	private final int TOTAL_MESSAGES_AUTOMATIC_TEST = 4;
+	private final int TOTAL_MESSAGES_AUTOMATIC_TEST = 5;
 	
 	//STATE OF ACTION
 	private Message.ActionState onoffLineState;
@@ -198,7 +198,7 @@ public class ClientMain {
 		
 		//MESSAGE TO SEND FROM TEXTFIELD
 		String s = txtFieldToSend.getText();
-		Message message = new Message(nome, s);
+		Message message = new Message(nome, s, onoffLineState);
 		
 		//SEND TO SERVER
 		for (int i = 0; i < TOTAL_MESSAGES_AUTOMATIC_TEST; i++) {
@@ -401,7 +401,4 @@ public class ClientMain {
 	public void btnLimparActionPerformed(KeyEvent e) {
 //		aux_enviarListener();
 	}
-	
-	
-	
 }
