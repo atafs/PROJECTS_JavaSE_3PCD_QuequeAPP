@@ -22,6 +22,13 @@ public class Message implements Serializable{
 	private ActionState onOfState;
 
 	//CONSTRUCTOR
+	public Message(String fromUser, String message, ActionState onOfState) {
+		this.fromUser = fromUser;
+		ToUser = new ArrayList<String>();
+		this.message = message;
+		this.onOfState = onOfState;
+	}
+	
 	public Message(String fromUser, String message) {
 		this.fromUser = fromUser;
 		ToUser = new ArrayList<String>();

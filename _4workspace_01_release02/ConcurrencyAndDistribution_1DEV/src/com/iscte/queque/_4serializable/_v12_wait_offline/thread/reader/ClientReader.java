@@ -32,15 +32,31 @@ public class ClientReader implements Runnable {
 			while((message = (Message) this.reader.readObject()) != null) {
 				/* OFFLINE */
 				if (message.getOnOfState().equals(Message.ActionState.OFFLINE)) {
+//					//RUNNABLE
+//					Runnable clientWriter = new ClientWriter_disconnect(serverService, message);
+//
+//					//THREAD
+//					Thread t3 = new Thread(clientWriter);//produz
+//					t3.setName("clientWriter" + message.getFromUser());
+//					
+//					//START
+//					t3.start();	
+					
+					//TODO TEST
 					//RUNNABLE
-					Runnable clientWriter = new ClientWriter_disconnect(serverService, message);
-
+					Runnable messageTake = new MessageTake(serverService.getShared(), message);
+					Runnable messagePut = new MessagePut(serverService.getShared(), message);
+					
 					//THREAD
-					Thread t3 = new Thread(clientWriter);//produz
-					t3.setName("clientWriter" + message.getFromUser());
+					Thread t1 = new Thread(messageTake);//produz
+					t1.setName("messageTakeFrom_" + message.getFromUser());
+					
+					Thread t2 = new Thread(messagePut);//produz
+					t2.setName("messagePutFrom_" + message.getFromUser());
 					
 					//START
-					t3.start();				
+					t1.start();
+					t2.start();
 
 				} else if (message.getOnOfState().equals(Message.ActionState.ONLINE)) {
 					//RUNNABLE
