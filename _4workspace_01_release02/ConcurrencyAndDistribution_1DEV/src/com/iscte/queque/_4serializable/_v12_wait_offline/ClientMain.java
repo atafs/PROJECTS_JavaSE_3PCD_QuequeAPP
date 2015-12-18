@@ -36,7 +36,7 @@ public class ClientMain {
 	private Socket client;
 	
 	//CONSTANTS
-	private final int TOTAL_MESSAGES_AUTOMATIC_TEST = 15;
+	private final int TOTAL_MESSAGES_AUTOMATIC_TEST = 30;
 	
 	//STREAM MESSAGE
 	private String messageStart;
