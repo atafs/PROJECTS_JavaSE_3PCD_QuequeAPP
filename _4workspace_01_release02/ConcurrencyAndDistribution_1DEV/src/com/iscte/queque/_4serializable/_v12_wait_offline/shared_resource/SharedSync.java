@@ -39,8 +39,8 @@ public class SharedSync implements SharedResource {
 	@Override
 	public synchronized void take(){
 		while (!ocupada) {
-			System.out.println("SHARED RESOURCE IS EMPTY!! Please wait...");
-			
+			System.err.println("The SharedResoure: TAKE [!(ocupada = " + ocupada + ")] - WAITING FOR A RESOURCE TO BE PUT!! Please WAIT...");
+
 			//WAIT
 			try {
 				wait();
@@ -92,7 +92,7 @@ public class SharedSync implements SharedResource {
 	public synchronized void put(Message message) throws InterruptedException {
 		//WHILE BUSY: threads in wait mode
 		while (ocupada) {
-			System.out.println("The SharedResoure is FULL!! please wait...");
+			System.out.println("The SharedResoure: PUT [ocupada = " + ocupada + "] - THERE IS A RESOURCE TO BE TAKEN!! Please WAIT...");
 			
 			//WAIT
 			try {
