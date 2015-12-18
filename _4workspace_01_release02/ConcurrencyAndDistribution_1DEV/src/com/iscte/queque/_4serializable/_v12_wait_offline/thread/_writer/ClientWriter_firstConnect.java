@@ -6,14 +6,14 @@ import java.net.Socket;
 
 import com.iscte.queque._4serializable._v12_wait_offline.service.ServerService;
 
-public class ClientWriter_connect implements Runnable {
+public class ClientWriter_firstConnect implements Runnable {
 
 	//ATTRIBUTES
 	private ObjectOutputStream writer;
 	private ServerService serverService;
 			
 	//CONSTRUCTOR
-	public ClientWriter_connect(Socket socket, ServerService serverService) throws IOException {
+	public ClientWriter_firstConnect(Socket socket, ServerService serverService) throws IOException {
 		this.writer = new ObjectOutputStream(socket.getOutputStream());
 		this.serverService = serverService;
 
@@ -23,6 +23,6 @@ public class ClientWriter_connect implements Runnable {
 	@Override
 	public void run() {	
 		//ADD NEW WRITERS
-		serverService.getShared().addNewWriters(writer);
+		serverService.getShared().writer_addNewWriters(writer);
 	}
 }

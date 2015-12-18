@@ -4,7 +4,7 @@ import com.iscte.queque._4serializable._v12_wait_offline.interfaces.SharedResour
 import com.iscte.queque._4serializable._v12_wait_offline.message.Message;
 
 
-public class MessageTake implements Runnable {
+public class MessageOnlineTake implements Runnable {
 	
 	//ATTRIBUTE #########################
 	private SharedResource shared;
@@ -13,7 +13,7 @@ public class MessageTake implements Runnable {
 	//###################################
 	
 	//CONSTRUCTOR
-	public MessageTake(SharedResource shared, Message message) {
+	public MessageOnlineTake(SharedResource shared, Message message) {
 		this.message = message;
 		this.shared = shared;
 	}
@@ -48,7 +48,7 @@ public class MessageTake implements Runnable {
 		
 		//SEND TO ALL USERS (consumer)
 		try {
-			shared.take();
+			shared.online_take();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

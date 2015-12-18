@@ -4,14 +4,14 @@ import com.iscte.queque._4serializable._v12_wait_offline.interfaces.SharedResour
 import com.iscte.queque._4serializable._v12_wait_offline.message.Message;
 
 
-public class MessagePut implements Runnable {
+public class MessageOfflineTake implements Runnable {
 
 	//ATTRIBUTE #########################
 	private SharedResource shared;
 	private Message message;
 	
 	//CONSTRUCTOR
-	public MessagePut(SharedResource shared, Message message) {
+	public MessageOfflineTake(SharedResource shared, Message message) {
 		this.message = message;
 		this.shared = shared;
 	}
@@ -27,9 +27,12 @@ public class MessagePut implements Runnable {
 
 	@Override
 	public void run() {	
-		try{				
-			//ADD OBJECT TO LIST
-			shared.put(message);
+		try{	
+			//SEARCH IN LIST OFFLINE IF USER EXISTS
+			//TAKE_ALL MESSAGES
+			
+			//TODO TO DELETE 
+			shared.online_put(message);
 			
 			//SLEEP
 			threadSleep(250);
