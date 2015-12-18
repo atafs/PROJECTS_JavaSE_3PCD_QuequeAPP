@@ -43,6 +43,7 @@ public class ClientMain {
 	
 	//STREAM READER/WRITER
 	private ObjectOutputStream writer;
+	private static String writerKey;
 	
 	//GUI
 	private JFrame frame;
@@ -323,6 +324,9 @@ public class ClientMain {
 			Message message = null;
 			try {
 				while((message = (Message) reader.readObject()) != null) {
+					//SAVE
+					ClientMain.writerKey = message.getWriterKey();				
+					
 					//adiciona no final de todo o texto o novo texto
 					txtAreaReceived.append(message.getFromUser() + " => "+ message.getMessage() + "\n");
 				}

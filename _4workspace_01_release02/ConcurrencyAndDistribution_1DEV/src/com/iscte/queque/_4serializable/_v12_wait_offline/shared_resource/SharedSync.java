@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.Map.Entry;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -23,16 +26,22 @@ public class SharedSync implements SharedResource {
 
 	//LISTS
 	private HashMap<String, ArrayList<Message>> mapMessages;
-	private List<ObjectOutputStream> writersObjectOutputStream;
-	
+//	private List<ObjectOutputStream> writersObjectOutputStream;
+	private HashMap<String, ObjectOutputStream> writersObjectOutputStream;
+
 	//FLAG
 	private boolean ocupada = false;
+	
+	//COUNTER
+	private static int counterWriters;
 	//###############################################
 
 	//CONTRUCTOR
 	public SharedSync() {
 		mapMessages = new HashMap<String,ArrayList<Message>>();
-		writersObjectOutputStream = new ArrayList<ObjectOutputStream>();
+//		writersObjectOutputStream = new ArrayList<ObjectOutputStream>();
+		writersObjectOutputStream = new HashMap<String, ObjectOutputStream>();
+
 	}
 
 	//sendAllWriters
@@ -58,14 +67,21 @@ public class SharedSync implements SharedResource {
 
 		
 		//SEND
-		for (ObjectOutputStream objectOutputStream : writersObjectOutputStream) {
+		Set<?> set = writersObjectOutputStream.entrySet();
+		Iterator<?> i = set.iterator();
+		while (i.hasNext()) {
+			@SuppressWarnings("unchecked")
+			Map.Entry<String, ObjectOutputStream> writer = (Map.Entry<String, ObjectOutputStream>) i.next();
 			try {
-				objectOutputStream.writeObject(m);
-				objectOutputStream.flush();
-
+				// SAVE WRITEKEY IN MESSAGE
+				m.setWriterKey(writer.getKey());
+				// WRITE
+				writer.getValue().writeObject(m);
+				writer.getValue().flush();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+
 		}
 		
 		//SLEEP
@@ -126,7 +142,8 @@ public class SharedSync implements SharedResource {
 		lockWritersObjectOutputStream.lock();//acquire lock
 		try{				
 			//SAVE OBJECT
-			writersObjectOutputStream.add(writer);
+			counterWriters++;
+			writersObjectOutputStream.put(writer.getClass().getSimpleName() + counterWriters, writer);
 			
 			//SLEEP
 			threadSleep(250);

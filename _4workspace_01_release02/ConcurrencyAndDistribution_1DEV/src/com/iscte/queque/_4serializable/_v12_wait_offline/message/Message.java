@@ -16,6 +16,7 @@ public class Message implements Serializable{
 
 	//MESSAGES
 	private String message;
+	private String writerKey;
 	
 	//ACTIONSTATE
 	private ActionState onOfState;
@@ -59,6 +60,14 @@ public class Message implements Serializable{
 
 	public void setOnOfState(ActionState onOfState) {
 		this.onOfState = onOfState;
+	}
+
+	public String getWriterKey() {
+		return writerKey;
+	}
+
+	public void setWriterKey(String writerKey) {
+		this.writerKey = writerKey;
 	}
 
 	//INNER CLASS: ENUM

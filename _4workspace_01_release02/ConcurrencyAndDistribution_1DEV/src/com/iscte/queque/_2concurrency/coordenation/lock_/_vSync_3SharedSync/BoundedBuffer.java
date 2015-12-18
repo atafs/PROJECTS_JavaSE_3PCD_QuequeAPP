@@ -46,7 +46,7 @@ public class BoundedBuffer {
 	
 	public static void main(String[] args) {
 		BoundedBuffer b = new BoundedBuffer();
-		System.err.println("FOR SHARED RESOURCE... going to endd app...");
+		System.err.println("FOR SHARED RESOURCE... going to end app...");
 	}
 
 }

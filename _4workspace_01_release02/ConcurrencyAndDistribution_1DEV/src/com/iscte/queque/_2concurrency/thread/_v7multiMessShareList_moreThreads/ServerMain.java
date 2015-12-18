@@ -90,8 +90,6 @@ public class ServerMain {
 		//CONSTRUCTOR
 		public Thread_ClientListener_reader(Socket socket) throws IOException {
 			this.reader = new ObjectInputStream(socket.getInputStream());
-
-			
 		}
 		
 		//RUN
