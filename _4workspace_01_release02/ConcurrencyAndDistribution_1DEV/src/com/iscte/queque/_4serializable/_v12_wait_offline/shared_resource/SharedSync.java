@@ -27,6 +27,7 @@ public class SharedSync implements SharedResource {
 	
 	//FLAG
 	private boolean ocupada = false;
+	private int counterMessages;
 	//###############################################
 
 	//CONTRUCTOR
@@ -38,7 +39,7 @@ public class SharedSync implements SharedResource {
 	//sendAllWriters
 	@Override
 	public synchronized void take(){
-		while (!ocupada) {
+		while (counterMessages < 0) {
 			System.err.println("The SharedResoure: TAKE [!(ocupada = " + ocupada + ")] - WAITING FOR A RESOURCE TO BE PUT!! Please WAIT...");
 
 			//WAIT
@@ -54,7 +55,8 @@ public class SharedSync implements SharedResource {
 		// DELETE OBJECT
 		mapMessages.remove(m.getFromUser());
 	
-		System.err.println("RESOURCE TAKE => " + m.getFromUser() + " - " + m.getMessage());
+		counterMessages--;
+		System.err.println("MESSAGES => " + counterMessages + "; RESOURCE TAKE => " + m.getFromUser() + " - " + m.getMessage());
 
 		
 		//SEND
@@ -68,11 +70,10 @@ public class SharedSync implements SharedResource {
 			}
 		}
 		
-		//SLEEP
-		threadSleep(SLEEP);
+//		//SLEEP
+//		threadSleep(SLEEP);
 				
 		//RELEASE FLAG AND NOTIFY ALL THREADS
-		ocupada = false;
 		notifyAll();
 	}
 	
@@ -90,17 +91,17 @@ public class SharedSync implements SharedResource {
 	//addMessages
 	@Override
 	public synchronized void put(Message message) throws InterruptedException {
-		//WHILE BUSY: threads in wait mode
-		while (ocupada) {
-			System.out.println("The SharedResoure: PUT [ocupada = " + ocupada + "] - THERE IS A RESOURCE TO BE TAKEN!! Please WAIT...");
-			
-			//WAIT
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
+//		//WHILE BUSY: threads in wait mode
+//		while (ocupada) {
+//			System.out.println("The SharedResoure: PUT [ocupada = " + ocupada + "] - THERE IS A RESOURCE TO BE TAKEN!! Please WAIT...");
+//			
+//			//WAIT
+//			try {
+//				wait();
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		
 		//OTHERWISE (put and print):
 		// ACTION: PUT elements to the map
@@ -109,13 +110,13 @@ public class SharedSync implements SharedResource {
 		messages.add(message);
 		mapMessages.put(message.getFromUser(), messages);
 //		mapMessages.put(message.getFromUser(), messages);
-		System.out.println("RESOURCE PUT => " + message.getFromUser() + " - " + message.getMessage());
+		counterMessages++;
+		System.out.println("MESSAGES => " + counterMessages + "; RESOURCE PUT => " + message.getFromUser() + " - " + message.getMessage());
 		
-		//SLEEP
-		threadSleep(SLEEP);
+//		//SLEEP
+//		threadSleep(SLEEP);
 		
 		//RELEASE FLAG AND NOTIFY ALL THREADS
-		ocupada = true;
 		notifyAll();		
 	}
 	
