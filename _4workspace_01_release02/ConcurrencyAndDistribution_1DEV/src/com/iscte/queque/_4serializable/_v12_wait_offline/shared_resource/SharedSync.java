@@ -116,7 +116,9 @@ public class SharedSync implements SharedResource {
 		
 		//RELEASE FLAG AND NOTIFY ALL THREADS
 		ocupada = true;
-		notifyAll();		
+		notifyAll();	
+		
+		
 	}
 	
 	//rotina: subtracting an amount from the account
