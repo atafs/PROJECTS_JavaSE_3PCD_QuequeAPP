@@ -38,11 +38,18 @@ public class ClientMain {
 	//CONSTANTS
 	private final int TOTAL_MESSAGES_AUTOMATIC_TEST = 30;
 	
+	//STATE OF ACTION
+	private Message.ActionState onoffLineState;
+		
 	//STREAM MESSAGE
 	private String messageStart;
 	
 	//STREAM READER/WRITER
 	private ObjectOutputStream writer;
+	private static String writerKey;
+	
+	//FLAG
+	private boolean isRunning = false;
 	
 	//GUI
 	private JFrame frame;
@@ -74,7 +81,7 @@ public class ClientMain {
 	}
 	
 	/** CONNECT SOCKET */
-	public void connect_socket() {
+	public void socket_firstConnect() {
 		
 		//SOCKET
 		try {
@@ -191,7 +198,7 @@ public class ClientMain {
 		
 		//MESSAGE TO SEND FROM TEXTFIELD
 		String s = txtFieldToSend.getText();
-		Message message = new Message(nome, s);
+		Message message = new Message(nome, s, onoffLineState);
 		
 		//SEND TO SERVER
 		for (int i = 0; i < TOTAL_MESSAGES_AUTOMATIC_TEST; i++) {
@@ -217,12 +224,7 @@ public class ClientMain {
 	}
 	
 	/** GUI: message_sendToServer_online */
-	public void message_sendToServer_online() {
-		
-		//MESSAGE TO SEND FROM TEXTFIELD
-		String s = this.nome + " IS NOW ONLINE!!!";
-		Message message = new Message(nome, s);
-		
+	public void message_sendToServer_onoffLine(Message message) {
 		//SEND TO SERVER
 		try {
 			writer.writeObject(message);
@@ -253,13 +255,33 @@ public class ClientMain {
 		btnSend.setBackground(Color.GREEN);
 		btnSend.setForeground(Color.WHITE);
 		
-		btnOffline.setBackground(Color.LIGHT_GRAY);
-		btnOffline.setForeground(Color.WHITE);
+		btnOffline.setBackground(Color.WHITE);
+		btnOffline.setForeground(Color.RED);
 		btnOffline.setEnabled(true);
 		
-		btnOnline.setBackground(Color.LIGHT_GRAY);
+		btnOnline.setBackground(Color.WHITE);
 		btnOnline.setForeground(Color.WHITE);
 		btnOnline.setEnabled(false);
+		
+		txtFieldToSend.setEnabled(true);	
+	}
+	
+	/** GUI: online_setEnable */
+	public void gui_offline_setEnable() {
+		//VIEW enable ###########################
+		txtUserName.setEditable(false);
+		
+		btnSend.setEnabled(true);
+		btnSend.setBackground(Color.RED);
+		btnSend.setForeground(Color.WHITE);
+		
+		btnOffline.setBackground(Color.WHITE);
+		btnOffline.setForeground(Color.WHITE);
+		btnOffline.setEnabled(false);
+		
+		btnOnline.setBackground(Color.WHITE);
+		btnOnline.setForeground(Color.GREEN);
+		btnOnline.setEnabled(true);
 		
 		txtFieldToSend.setEnabled(true);		
 	}
@@ -323,6 +345,9 @@ public class ClientMain {
 			Message message = null;
 			try {
 				while((message = (Message) reader.readObject()) != null) {
+					//SAVE
+					ClientMain.writerKey = message.getWriterKey();				
+					
 					//adiciona no final de todo o texto o novo texto
 					txtAreaReceived.append(message.getFromUser() + " => "+ message.getMessage() + "\n");
 				}
@@ -331,36 +356,36 @@ public class ClientMain {
 	}
 	
 	public void btnOfflineActionPerformed(ActionEvent evt) {
-////		this.message.setAction(ChatMessage.Action.DISCONNECT);
-//		this.service.send(this.message);
-//		disconnected();
+		//SET STATE ACTION
+		onoffLineState = Message.ActionState.OFFLINE;
+		//NOTIFICATION: online
+		String s = this.nome + " IS NOW OFFLINE!!!";
+		//MESSAGE TO SEND FROM TEXTFIELD
+		Message message = new Message(nome, s, onoffLineState);
+		
+		//SEND MESSAGE
+		message_sendToServer_onoffLine(message);
+		
+		//VIEW SET ENABLE
+		gui_offline_setEnable();
 	}
 	
 	public void btnOnlineActionPerformed(ClientMain client, ActionEvent evt) {
-//		//USER NAME
-//		String name = "";
-//		//1-IF textField has a value
-//		if (!this.txtName.getText().isEmpty()) {
-//			name = this.txtName.getText();
-//		}
-//		else {
-//			//2-IF textField has NO value, but client class has it
-//			if (!(myDataClient.getName().equals(""))) {
-//				name = myDataClient.getName();
-//				this.txtName.setText(name);
-//			} 
-//			//3-DEFAULT
-//			else {
-//				name = "defaultNameForUser";
-//				this.txtName.setText(name);
-//			}
-//		}
-
 		//CONNECT (writer)
-		client.connect_socket();
+		if (!isRunning) {
+			client.socket_firstConnect();
+			isRunning = true;
+		}
+		
+		//SET STATE ACTION
+		onoffLineState = Message.ActionState.ONLINE;
+		//NOTIFICATION: online
+		String s = this.nome + " IS NOW ONLINE!!!";
+		//MESSAGE TO SEND FROM TEXTFIELD
+		Message message = new Message(nome, s, onoffLineState);
 		
 		//NOTIFICATION: online
-		message_sendToServer_online();
+		message_sendToServer_onoffLine(message);
 		
 		//VIEW SET ENABLE
 		gui_online_setEnable();
@@ -376,7 +401,4 @@ public class ClientMain {
 	public void btnLimparActionPerformed(KeyEvent e) {
 //		aux_enviarListener();
 	}
-	
-	
-	
 }

@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import com.iscte.queque._4serializable._v12_wait_offline.interfaces.SharedResource;
-import com.iscte.queque._4serializable._v12_wait_offline.thread._writer.ClientWriter_connect;
+import com.iscte.queque._4serializable._v12_wait_offline.thread._writer.ClientWriter_firstConnect;
 import com.iscte.queque._4serializable._v12_wait_offline.thread.reader.ClientReader;
 
 public class ServerService {
@@ -34,7 +34,7 @@ public class ServerService {
 	}
 
 	/** CONNECT SOCKET */
-	public void connect_socket() {
+	public void socket_firstConnect() {
 		
 		//SERVERSOCKET and SOCKET
 		try {
@@ -46,7 +46,7 @@ public class ServerService {
 				
 				//RUNNABLE
 				Runnable readerServer = new ClientReader(server, this);
-				Runnable writerServer = new ClientWriter_connect(server, this);
+				Runnable writerServer = new ClientWriter_firstConnect(server, this);
 
 				//READER
 				counterServer++;
@@ -67,7 +67,7 @@ public class ServerService {
 	}
 	
 	/** CONNECT SOCKET */
-	public void disconnect_writer() {
+	public void socket_onoffLine() {
 		
 //		//DISCONNECT	
 //		Runnable writerServer = new Thread_ClientListener_writer(server);

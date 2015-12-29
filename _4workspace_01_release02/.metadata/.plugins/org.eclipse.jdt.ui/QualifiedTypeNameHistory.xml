@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.iscte.queque._4serializable._v12_wait_offline.thread.reader.MessageCheck_offline"/>
+<fullyQualifiedTypeName name="com.iscte.queque._4serializable._v12_wait_offline.enums.Offline_Put_Take"/>
+</qualifiedTypeNameHistroy>
